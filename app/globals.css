@@ -1,40 +1,78 @@
 @import "tailwindcss";
-
-@theme {
-  --font-serif: var(--font-serif), Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  
-  --color-gallery-bg: #FAF9F6;
-  --color-gallery-card: #FFFFFF;
-  --color-gallery-text: #18181B;
-  --color-gallery-muted: #71717A;
-  --color-gallery-border: #E4E4E7;
-  --color-gallery-accent: #27272A;
-}
+@config "../tailwind.config.ts";
 
 :root {
-  --background: #FAF9F6;
-  --foreground: #18181B;
+  /* Core Color Palette Design Tokens */
+  --color-bg-primary: #FAF9F6;       /* Warm alabaster gallery background */
+  --color-bg-secondary: #F4F3EF;     /* Warm card / section fill background */
+  --color-bg-elevated: #FFFFFF;      /* Pure white for cards/modals/overlays */
+  
+  --color-text-primary: #121212;     /* Deep charcoal / off-black main text */
+  --color-text-secondary: #52525B;   /* Medium zinc for subheadings & metadata */
+  --color-text-muted: #71717A;       /* Light zinc for captions & dates */
+  
+  --color-accent-primary: #27272A;   /* Primary dark zinc action/accent color */
+  --color-accent-hover: #09090B;     /* High contrast hover state */
+  --color-accent-warm: #9A7B56;      /* Warm bronze/ochre artistic accent token */
+  
+  --color-border-subtle: #E4E4E7;    /* Subtle division line color */
+  --color-border-medium: #D4D4D8;    /* Strong division line color */
+  
+  /* Layout Spacing Tokens */
+  --sidebar-width: 25%;
+  --content-width: 75%;
+  --header-height-mobile: 4rem;
+  
+  --space-section-gap: 6rem;         /* 96px for ample breathing room between sections */
+  --space-content-padding: 3rem;     /* 48px standard internal page padding */
+  --space-grid-gap: 2rem;            /* 32px default grid gap */
+}
+
+@theme {
+  /* Fonts */
+  --font-sans: var(--font-sans), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-serif), "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-display: var(--font-display), "Cormorant Garamond", Georgia, serif;
+
+  /* Colors */
+  --color-gallery-bg: var(--color-bg-primary);
+  --color-gallery-card: var(--color-bg-elevated);
+  --color-gallery-secondary: var(--color-bg-secondary);
+  --color-gallery-text: var(--color-text-primary);
+  --color-gallery-sub: var(--color-text-secondary);
+  --color-gallery-muted: var(--color-text-muted);
+  --color-gallery-border: var(--color-border-subtle);
+  --color-gallery-border-strong: var(--color-border-medium);
+  --color-gallery-accent: var(--color-accent-primary);
+  --color-gallery-warm: var(--color-accent-warm);
+
+  /* Spacing */
+  --spacing-sidebar-w: var(--sidebar-width);
+  --spacing-content-w: var(--content-width);
+  --spacing-header-h: var(--header-height-mobile);
+  --spacing-section-gap: var(--space-section-gap);
+  --spacing-content-pad: var(--space-content-padding);
+  --spacing-grid-gap: var(--space-grid-gap);
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #FAF9F6;
-  color: #18181B;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbars */
+/* Custom Scrollbar Styling */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -49,3 +87,4 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #a1a1aa;
 }
+
