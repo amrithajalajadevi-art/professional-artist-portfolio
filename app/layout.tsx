@@ -29,19 +29,68 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Amritha Jalaja Devi | Visual Artist & Sculptor",
+  metadataBase: new URL("https://amrithajalajadevi.com"),
+  title: {
+    default: "Amritha Jalaja Devi | Visual Artist & Sculptor",
+    template: "%s | Amritha Jalaja Devi",
+  },
   description:
-    "Official portfolio of Amritha Jalaja Devi, contemporary visual artist and sculptor featuring paintings, commissions, exhibitions, press features, and selected works.",
+    "Official portfolio of Amritha Jalaja Devi, contemporary visual artist and sculptor featuring paintings, UK commissions, exhibitions, press features, and selected works.",
   keywords: [
     "Amritha Jalaja Devi",
     "Visual Artist",
     "Painter",
     "Sculptor",
+    "UK Commissions",
     "Art Portfolio",
     "Contemporary Art",
     "Exhibitions",
+    "Fine Art",
   ],
-  authors: [{ name: "Amritha Jalaja Devi" }],
+  authors: [{ name: "Amritha Jalaja Devi", url: "https://amrithajalajadevi.com" }],
+  creator: "Amritha Jalaja Devi",
+  publisher: "Amritha Jalaja Devi",
+  formatDetection: {
+    email: true,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    url: "https://amrithajalajadevi.com",
+    siteName: "Amritha Jalaja Devi Visual Art",
+    title: "Amritha Jalaja Devi | Visual Artist & Sculptor",
+    description:
+      "Official portfolio of Amritha Jalaja Devi featuring contemporary paintings, sculptures, UK commissions, and gallery exhibitions.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Amritha Jalaja Devi Selected Artworks",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Amritha Jalaja Devi | Visual Artist & Sculptor",
+    description:
+      "Official portfolio of Amritha Jalaja Devi featuring contemporary paintings, sculptures, UK commissions, and gallery exhibitions.",
+    images: ["/og-image.jpg"],
+    creator: "@amrithajalaja",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
