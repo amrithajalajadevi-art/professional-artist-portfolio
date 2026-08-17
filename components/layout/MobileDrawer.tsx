@@ -33,7 +33,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="fixed inset-0 bg-zinc-950/30 backdrop-blur-sm"
+            className="fixed inset-0 bg-zinc-950/40 backdrop-blur-xs"
           />
 
           {/* Drawer Content */}
@@ -41,8 +41,8 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             initial={{ y: "-100%", opacity: 0 }}
             animate={{ y: "0%", opacity: 1 }}
             exit={{ y: "-100%", opacity: 0 }}
-            transition={{ type: "spring", damping: 28, stiffness: 280 }}
-            className="relative z-10 w-full bg-[#FAF9F6] border-b border-zinc-200 shadow-xl max-h-[90vh] overflow-y-auto px-6 py-8"
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            className="relative z-10 w-full bg-gallery-bg border-b border-gallery-border shadow-2xl max-h-[85vh] overflow-y-auto px-6 py-8"
           >
             <div className="flex flex-col space-y-6">
               <NavLinks onItemClick={onClose} />

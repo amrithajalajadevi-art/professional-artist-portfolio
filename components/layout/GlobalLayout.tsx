@@ -13,7 +13,7 @@ export function GlobalLayout({ children }: GlobalLayoutProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-zinc-900 selection:bg-zinc-900 selection:text-white flex flex-col lg:flex-row relative">
+    <div className="min-h-screen bg-gallery-bg text-gallery-text selection:bg-zinc-900 selection:text-white flex flex-col lg:flex-row relative font-sans">
       {/* Fixed Left Sidebar (25% Width on Desktop) */}
       <Sidebar />
 
@@ -28,7 +28,7 @@ export function GlobalLayout({ children }: GlobalLayoutProps) {
       />
 
       {/* Scrollable Right Content Area (75% Width on Desktop, 100% on Mobile/Tablet) */}
-      <main className="w-full lg:w-[75%] lg:ml-[25%] min-h-screen bg-white flex flex-col transition-all">
+      <main className="w-full lg:w-[75%] lg:ml-[25%] min-h-screen bg-gallery-card flex flex-col transition-all">
         {children}
       </main>
     </div>

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, ChevronRight, Download } from "lucide-react";
+import { ChevronDown, ChevronRight, Download, Sparkles, BookOpen } from "lucide-react";
 
 export interface NavItem {
   label: string;
@@ -11,21 +11,39 @@ export interface NavItem {
   subItems?: { label: string; href: string }[];
 }
 
-export const navItems: NavItem[] = [
+export const mainNavItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Artist Profile", href: "/about" },
+  { label: "About", href: "/about" },
   {
-    label: "Gallery",
-    href: "/portfolio",
+    label: "Work",
+    href: "/work",
     subItems: [
-      { label: "Paintings (2024–2026)", href: "/portfolio?category=paintings" },
-      { label: "UK Commissions", href: "/portfolio?category=commissions" },
-      { label: "Biennale Series", href: "/portfolio?category=biennale" },
+      { label: "Paintings & Sculptures", href: "/work?category=paintings" },
+      { label: "UK Commissions", href: "/work?category=commissions" },
+      { label: "Biennale Series", href: "/work?category=biennale" },
     ],
   },
-  { label: "Exhibitions & Collaborations", href: "/exhibitions" },
+  { label: "Exhibitions & Projects", href: "/exhibitions" },
+  { label: "Public Art", href: "/public-art" },
   { label: "Press", href: "/press" },
+  { label: "Recognition", href: "/recognition" },
+  { label: "CV", href: "/cv" },
   { label: "Contact", href: "/contact" },
+];
+
+export const secondaryActions = [
+  { 
+    label: "Commissions", 
+    href: "/commissions",
+    icon: Sparkles,
+    variant: "primary" as const
+  },
+  { 
+    label: "Art Classes & Workshops", 
+    href: "/workshops",
+    icon: BookOpen,
+    variant: "secondary" as const
+  },
 ];
 
 export function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -118,7 +136,7 @@ interface NavLinksProps {
 
 export function NavLinks({ onItemClick }: NavLinksProps) {
   const pathname = usePathname();
-  const [galleryOpen, setGalleryOpen] = useState(true);
+  const [workOpen, setWorkOpen] = useState(true);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -126,49 +144,52 @@ export function NavLinks({ onItemClick }: NavLinksProps) {
   };
 
   return (
-    <div className="flex flex-col h-full justify-between space-y-8">
+    <div className="flex flex-col h-full justify-between space-y-6">
       {/* Primary Navigation Links */}
-      <nav aria-label="Main Navigation" className="space-y-1">
-        {navItems.map((item) => {
+      <nav aria-label="Main Navigation" className="space-y-0.5">
+        {mainNavItems.map((item) => {
           const active = isActive(item.href);
           const hasSubItems = item.subItems && item.subItems.length > 0;
 
           if (hasSubItems) {
             return (
-              <div key={item.label} className="py-1">
+              <div key={item.label} className="py-0.5">
                 <div className="flex items-center justify-between group">
                   <Link
                     href={item.href}
                     onClick={onItemClick}
-                    className={`text-sm font-medium tracking-wide uppercase transition-colors duration-200 py-1.5 ${
-                      active ? "text-zinc-950 font-semibold" : "text-zinc-600 hover:text-zinc-950"
+                    className={`text-[13px] font-medium tracking-wider uppercase transition-all duration-200 py-1 flex items-center gap-2 ${
+                      active
+                        ? "text-zinc-950 font-bold translate-x-1"
+                        : "text-zinc-600 hover:text-zinc-950 hover:translate-x-0.5"
                     }`}
                   >
+                    {active && <span className="w-1.5 h-1.5 rounded-full bg-zinc-900" />}
                     {item.label}
                   </Link>
                   <button
                     type="button"
-                    onClick={() => setGalleryOpen(!galleryOpen)}
-                    className="p-1 text-zinc-500 hover:text-zinc-950 transition-colors focus:outline-none"
+                    onClick={() => setWorkOpen(!workOpen)}
+                    className="p-1 text-zinc-400 hover:text-zinc-950 transition-colors focus:outline-none"
                     aria-label={`Toggle ${item.label} sub-items`}
                   >
-                    {galleryOpen ? (
-                      <ChevronDown className="w-4 h-4" />
+                    {workOpen ? (
+                      <ChevronDown className="w-3.5 h-3.5" />
                     ) : (
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-3.5 h-3.5" />
                     )}
                   </button>
                 </div>
 
                 {/* Submenu Accordion */}
-                {galleryOpen && item.subItems && (
-                  <ul className="pl-3 mt-1 space-y-1.5 border-l border-zinc-200 ml-1">
+                {workOpen && item.subItems && (
+                  <ul className="pl-3.5 mt-1 space-y-1 border-l border-zinc-200/80 ml-1">
                     {item.subItems.map((sub) => (
                       <li key={sub.label}>
                         <Link
                           href={sub.href}
                           onClick={onItemClick}
-                          className="text-xs font-normal text-zinc-600 hover:text-zinc-950 transition-colors block py-1 tracking-wider"
+                          className="text-[11px] font-normal text-zinc-500 hover:text-zinc-950 transition-colors block py-0.5 tracking-wide"
                         >
                           {sub.label}
                         </Link>
@@ -181,14 +202,17 @@ export function NavLinks({ onItemClick }: NavLinksProps) {
           }
 
           return (
-            <div key={item.label} className="py-1">
+            <div key={item.label} className="py-0.5">
               <Link
                 href={item.href}
                 onClick={onItemClick}
-                className={`text-sm font-medium tracking-wide uppercase transition-colors duration-200 block py-1.5 ${
-                  active ? "text-zinc-950 font-semibold" : "text-zinc-600 hover:text-zinc-950"
+                className={`text-[13px] font-medium tracking-wider uppercase transition-all duration-200 flex items-center gap-2 py-1 ${
+                  active
+                    ? "text-zinc-950 font-bold translate-x-1"
+                    : "text-zinc-600 hover:text-zinc-950 hover:translate-x-0.5"
                 }`}
               >
+                {active && <span className="w-1.5 h-1.5 rounded-full bg-zinc-900" />}
                 {item.label}
               </Link>
             </div>
@@ -196,26 +220,42 @@ export function NavLinks({ onItemClick }: NavLinksProps) {
         })}
       </nav>
 
-      {/* Download CV Action & Social Links */}
-      <div className="space-y-6 pt-6 border-t border-zinc-200/70">
-        {/* Download CV Button */}
-        <a
-          href="/cv-dummy.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={onItemClick}
-          className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 text-xs font-medium uppercase tracking-widest text-zinc-900 border border-zinc-300 rounded-none hover:bg-zinc-900 hover:text-white transition-all duration-300 group"
-        >
-          <Download className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
-          <span>Download CV</span>
-        </a>
-
-        {/* Social Links */}
-        <div className="space-y-3">
-          <p className="text-[10px] uppercase tracking-widest text-zinc-400 font-semibold">
-            Connect
+      {/* Secondary Links/Buttons & Footer Actions */}
+      <div className="space-y-5 pt-4 border-t border-zinc-200/80">
+        {/* Styled Secondary Buttons (Commissions & Art Classes) */}
+        <div className="space-y-2">
+          <p className="text-[10px] uppercase tracking-widest text-zinc-400 font-semibold px-0.5">
+            Engage & Services
           </p>
-          <div className="flex items-center gap-4 text-zinc-600">
+
+          <Link
+            href="/commissions"
+            onClick={onItemClick}
+            className="flex items-center justify-between w-full px-3.5 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-zinc-900 bg-zinc-900/5 hover:bg-zinc-900 hover:text-white border border-zinc-900/20 rounded-sm transition-all duration-300 group shadow-2xs"
+          >
+            <span className="flex items-center gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-amber-700 group-hover:text-amber-300 transition-colors" />
+              Commissions
+            </span>
+            <ChevronRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white transition-transform group-hover:translate-x-0.5" />
+          </Link>
+
+          <Link
+            href="/workshops"
+            onClick={onItemClick}
+            className="flex items-center justify-between w-full px-3.5 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-zinc-800 bg-white hover:bg-zinc-900 hover:text-white border border-zinc-300 rounded-sm transition-all duration-300 group shadow-2xs"
+          >
+            <span className="flex items-center gap-2">
+              <BookOpen className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-300 transition-colors" />
+              Art Classes & Workshops
+            </span>
+            <ChevronRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-white transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+
+        {/* Social Icons & Copyright */}
+        <div className="space-y-3 pt-1">
+          <div className="flex items-center gap-3.5 text-zinc-500">
             {socialLinks.map((social) => {
               const IconComponent = social.icon;
               return (
@@ -225,19 +265,18 @@ export function NavLinks({ onItemClick }: NavLinksProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="p-1.5 hover:text-zinc-950 transition-colors duration-200 rounded-sm hover:bg-zinc-100"
+                  className="p-1.5 hover:text-zinc-950 transition-colors duration-200 rounded-sm hover:bg-zinc-200/60"
                 >
                   <IconComponent className="w-4 h-4" />
                 </a>
               );
             })}
           </div>
-        </div>
 
-        {/* Copyright Footer */}
-        <p className="text-[11px] text-zinc-400 tracking-wider">
-          © {new Date().getFullYear()} Amritha Jalaja Devi.<br />All rights reserved.
-        </p>
+          <p className="text-[10px] text-zinc-400 tracking-wider leading-relaxed">
+            © {new Date().getFullYear()} Amritha Jalaja Devi.<br />All rights reserved. UK Global Talent Visa Portfolio.
+          </p>
+        </div>
       </div>
     </div>
   );
