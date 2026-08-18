@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 
 export default function PublicArtPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white text-zinc-950">
+    <div className="flex flex-col min-h-screen bg-white text-black">
       <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-8">
         <FadeIn direction="up">
           <div className="space-y-4">
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-[#6A0F36] tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
               PUBLIC ART
             </h1>
           </div>

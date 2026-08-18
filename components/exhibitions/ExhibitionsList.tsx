@@ -13,11 +13,11 @@ export function ExhibitionsList({ exhibitions }: ExhibitionsListProps) {
       {/* Header Eyebrow & Title */}
       <FadeIn direction="up">
         <div className="space-y-6">
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-[#6A0F36] tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
             EXHIBITIONS
           </h1>
 
-          <h2 className="font-serif text-xl sm:text-2xl font-bold uppercase text-[#6A0F36] tracking-tight pt-4">
+          <h2 className="font-serif text-xl sm:text-2xl font-bold uppercase text-black tracking-tight pt-4">
             UPCOMING & ONGOING EXHIBITIONS
           </h2>
         </div>

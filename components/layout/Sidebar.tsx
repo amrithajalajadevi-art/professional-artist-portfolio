@@ -14,7 +14,7 @@ export function Sidebar() {
         {/* Artist Logo / Brand Header */}
         <div>
           <Link href="/" className="group block focus:outline-none">
-            <h1 className="font-serif text-2xl xl:text-3xl font-normal tracking-tight text-zinc-950 group-hover:text-[#6A0F36] transition-colors leading-tight uppercase">
+            <h1 className="font-serif text-2xl xl:text-3xl font-normal tracking-tight text-black group-hover:text-zinc-600 transition-colors leading-tight uppercase">
               AMRITHA<br />
               JALAJA DEVI
             </h1>

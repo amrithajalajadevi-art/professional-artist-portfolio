@@ -10,7 +10,7 @@ interface EducationSectionProps {
 export function EducationSection({ education, affiliations }: EducationSectionProps) {
   return (
     <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-10">
-      <h2 className="font-serif text-2xl sm:text-4xl font-bold uppercase text-[#6A0F36] tracking-tight">
+      <h2 className="font-serif text-2xl sm:text-4xl font-bold uppercase text-black tracking-tight">
         ACADEMIC QUALIFICATIONS & AFFILIATIONS
       </h2>
 
@@ -18,7 +18,7 @@ export function EducationSection({ education, affiliations }: EducationSectionPr
         {/* Education Timeline */}
         <div className="space-y-6">
           <FadeIn direction="up">
-            <h3 className="font-serif text-xl font-bold uppercase text-[#6A0F36]">
+            <h3 className="font-serif text-xl font-bold uppercase text-black">
               Education
             </h3>
           </FadeIn>
@@ -27,15 +27,15 @@ export function EducationSection({ education, affiliations }: EducationSectionPr
             <div className="space-y-4 font-sans text-xs sm:text-sm">
               {education.map((item, idx) => (
                 <div key={idx} className="space-y-1 pb-3 border-b border-zinc-100 last:border-b-0">
-                  <span className="text-zinc-400 font-mono text-xs block">{item.year}</span>
-                  <h4 className="font-serif text-base font-normal text-zinc-950">
+                  <span className="text-gray-500 font-sans text-xs block">{item.year}</span>
+                  <h4 className="font-serif text-base font-normal text-black">
                     {item.degree}
                   </h4>
-                  <p className="text-zinc-600">
+                  <p className="text-gray-500">
                     {item.institution} — {item.location}
                   </p>
                   {item.honors && (
-                    <p className="text-[#6A0F36] font-medium text-xs pt-0.5">
+                    <p className="text-black font-medium text-xs pt-0.5">
                       {item.honors}
                     </p>
                   )}
@@ -48,7 +48,7 @@ export function EducationSection({ education, affiliations }: EducationSectionPr
         {/* Professional Affiliations */}
         <div className="space-y-6">
           <FadeIn direction="up">
-            <h3 className="font-serif text-xl font-bold uppercase text-[#6A0F36]">
+            <h3 className="font-serif text-xl font-bold uppercase text-black">
               Professional Appointments
             </h3>
           </FadeIn>
@@ -57,15 +57,15 @@ export function EducationSection({ education, affiliations }: EducationSectionPr
             <div className="space-y-4 font-sans text-xs sm:text-sm">
               {affiliations.map((item, idx) => (
                 <div key={idx} className="space-y-1 pb-3 border-b border-zinc-100 last:border-b-0">
-                  <span className="text-zinc-400 font-mono text-xs block">{item.years}</span>
-                  <h4 className="font-serif text-base font-normal text-zinc-950">
+                  <span className="text-gray-500 font-sans text-xs block">{item.years}</span>
+                  <h4 className="font-serif text-base font-normal text-black">
                     {item.role}
                   </h4>
-                  <p className="text-zinc-600">
+                  <p className="text-gray-500">
                     {item.organization}
                   </p>
                   {item.details && (
-                    <p className="text-xs text-zinc-500 pt-0.5">
+                    <p className="text-xs text-gray-500 pt-0.5">
                       {item.details}
                     </p>
                   )}

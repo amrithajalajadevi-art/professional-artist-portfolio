@@ -28,12 +28,12 @@ export function HeroSection({ data }: HeroSectionProps) {
 
       {/* 2. Minimalist Caption below image */}
       <FadeIn direction="up" delay={0.2}>
-        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pt-2 font-sans text-xs text-zinc-500">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pt-2 font-sans text-xs text-gray-500">
           <div>
-            <h2 className="font-serif text-lg text-zinc-950 font-normal italic">
-              {data.featuredArtwork.title}, <span className="not-italic font-sans text-xs text-zinc-500">{data.featuredArtwork.year}</span>
+            <h2 className="font-serif text-lg text-black font-normal italic">
+              {data.featuredArtwork.title}, <span className="not-italic font-sans text-xs text-gray-500">{data.featuredArtwork.year}</span>
             </h2>
-            <p className="text-xs text-zinc-500">
+            <p className="text-xs text-gray-500">
               {data.featuredArtwork.medium} {data.featuredArtwork.dimensions ? `— ${data.featuredArtwork.dimensions}` : ""}
             </p>
           </div>
@@ -41,7 +41,7 @@ export function HeroSection({ data }: HeroSectionProps) {
           <div className="flex items-center gap-6">
             <Link
               href="/work"
-              className="text-xs uppercase tracking-widest font-medium text-[#6A0F36] hover:underline underline-offset-4"
+              className="text-xs uppercase tracking-widest font-medium text-black hover:underline underline-offset-4"
             >
               View Full Gallery →
             </Link>

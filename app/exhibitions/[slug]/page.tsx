@@ -46,14 +46,14 @@ export default async function SingleExhibitionPage({ params }: DynamicExhibition
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white text-zinc-950">
+    <div className="flex flex-col min-h-screen bg-white text-black">
       <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-8">
         {/* Back Link Header */}
         <FadeIn direction="down">
           <div>
             <Link
               href="/exhibitions"
-              className="text-xs uppercase tracking-widest font-sans font-medium text-[#6A0F36] hover:underline underline-offset-4"
+              className="text-xs uppercase tracking-widest font-sans font-medium text-black hover:underline underline-offset-4"
             >
               ← Back to Exhibitions
             </Link>
@@ -63,11 +63,11 @@ export default async function SingleExhibitionPage({ params }: DynamicExhibition
         {/* Title & Metadata */}
         <FadeIn direction="up">
           <div className="space-y-3 max-w-4xl">
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-[#6A0F36] tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
               {exhibition.title}
             </h1>
-            <p className="text-sm text-zinc-600 font-sans">
-              <span className="font-semibold text-zinc-950">{exhibition.date}</span> — {exhibition.venue} ({exhibition.city}, {exhibition.country}) | Role: {exhibition.role}
+            <p className="text-sm text-gray-500 font-sans">
+              <span className="font-semibold text-black">{exhibition.date}</span> — {exhibition.venue} ({exhibition.city}, {exhibition.country}) | Role: {exhibition.role}
             </p>
           </div>
         </FadeIn>
@@ -87,7 +87,7 @@ export default async function SingleExhibitionPage({ params }: DynamicExhibition
         </FadeIn>
 
         {/* Description */}
-        <div className="max-w-3xl space-y-6 pt-4 font-sans text-sm sm:text-base text-zinc-600 leading-relaxed">
+        <div className="max-w-3xl space-y-6 pt-4 font-sans text-sm sm:text-base text-gray-500 leading-relaxed">
           <p className="whitespace-pre-line">
             {exhibition.description}
           </p>
@@ -98,7 +98,7 @@ export default async function SingleExhibitionPage({ params }: DynamicExhibition
                 href={exhibition.externalLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs uppercase tracking-widest font-medium text-[#6A0F36] hover:underline underline-offset-4"
+                className="text-xs uppercase tracking-widest font-medium text-black hover:underline underline-offset-4"
               >
                 Official Venue Page ↗
               </a>

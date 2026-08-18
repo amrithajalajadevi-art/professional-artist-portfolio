@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { FadeInStagger } from "@/components/ui/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PressItem } from "@/types";
@@ -18,7 +17,7 @@ export function PressSection({ features }: PressSectionProps) {
       />
 
       <FadeInStagger staggerDelay={0.1}>
-        <div className="space-y-3 font-sans text-xs sm:text-sm text-zinc-600">
+        <div className="space-y-3 font-sans text-xs sm:text-sm text-gray-500">
           {features.map((press, idx) => (
             <div
               key={idx}
@@ -28,12 +27,12 @@ export function PressSection({ features }: PressSectionProps) {
                 href={press.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-zinc-950 hover:text-[#6A0F36] transition-colors"
+                className="font-medium text-black hover:text-zinc-600 transition-colors"
               >
                 &quot;{press.title}&quot; — <span className="font-bold">{press.publication}</span>
               </a>
 
-              <span className="text-xs text-zinc-400 font-sans flex-shrink-0">
+              <span className="text-xs text-gray-500 font-sans flex-shrink-0">
                 {press.date}
               </span>
             </div>

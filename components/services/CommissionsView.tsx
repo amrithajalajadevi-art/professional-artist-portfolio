@@ -6,15 +6,15 @@ import { commissionStepsData } from "@/constants/servicesData";
 
 export function CommissionsView() {
   return (
-    <div className="flex flex-col min-h-screen bg-white text-zinc-950">
+    <div className="flex flex-col min-h-screen bg-white text-black">
       <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-10">
         {/* Header Title */}
         <FadeIn direction="up">
           <div className="space-y-4">
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-[#6A0F36] tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
               COMMISSIONS
             </h1>
-            <p className="text-sm text-zinc-600 font-sans max-w-2xl leading-relaxed">
+            <p className="text-sm text-gray-500 font-sans max-w-2xl leading-relaxed">
               Creating custom, site-specific bronze sculptures, architectural terracotta friezes, and private gallery monuments tailored for residential, corporate, and civic environments.
             </p>
           </div>
@@ -38,7 +38,7 @@ export function CommissionsView() {
         {/* Step-by-Step Commission Process */}
         <div className="space-y-8 pt-4">
           <FadeIn direction="up">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold uppercase text-[#6A0F36] tracking-tight">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold uppercase text-black tracking-tight">
               THE COMMISSION PROCESS
             </h2>
           </FadeIn>
@@ -50,15 +50,15 @@ export function CommissionsView() {
                   key={step.stepNumber}
                   className="bg-white space-y-3 font-sans"
                 >
-                  <span className="font-mono text-xl font-bold text-[#6A0F36]">
+                  <span className="font-sans text-xl font-bold text-black">
                     {step.stepNumber}
                   </span>
 
-                  <h3 className="font-serif text-lg text-zinc-950 font-normal">
+                  <h3 className="font-serif text-lg text-black font-normal">
                     {step.title}
                   </h3>
 
-                  <p className="text-xs text-zinc-600 leading-relaxed">
+                  <p className="text-xs text-gray-500 leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -72,7 +72,7 @@ export function CommissionsView() {
           <div className="pt-6 border-t border-zinc-100">
             <Link
               href="/contact"
-              className="text-xs uppercase tracking-widest font-sans font-medium text-[#6A0F36] hover:underline underline-offset-4"
+              className="text-xs uppercase tracking-widest font-sans font-medium text-black hover:underline underline-offset-4"
             >
               Inquire About a Commission →
             </Link>

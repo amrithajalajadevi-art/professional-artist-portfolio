@@ -24,11 +24,11 @@ export function CategoryFilter({
             type="button"
             onClick={() => onSelectCategory(cat.id)}
             className={`
-              text-xs uppercase tracking-widest font-medium transition-colors cursor-pointer
+              text-xs uppercase tracking-widest transition-colors cursor-pointer
               ${
                 isActive
-                  ? "text-[#6A0F36] font-semibold"
-                  : "text-zinc-500 hover:text-zinc-950"
+                  ? "text-black font-bold border-b border-black pb-0.5"
+                  : "text-gray-500 hover:text-black font-normal"
               }
             `}
           >

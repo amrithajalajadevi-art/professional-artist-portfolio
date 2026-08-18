@@ -3,53 +3,65 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { CustomImage } from "@/components/ui/CustomImage";
 import { ContactInfo } from "@/components/contact/ContactInfo";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { ContactInfoData } from "@/types";
+import { ContactInfoData, ArtworkMeta } from "@/types";
 
 interface ContactLayoutProps {
   contactInfo: ContactInfoData;
-  studioImage: {
-    src: string;
-    alt: string;
-    caption: string;
-  };
+  studioImage: ArtworkMeta;
 }
 
 export function ContactLayout({ contactInfo, studioImage }: ContactLayoutProps) {
   return (
-    <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-10">
-      {/* Header Title */}
+    <article className="p-8 sm:p-12 xl:p-16 bg-white space-y-10">
+      {/* Header */}
       <FadeIn direction="up">
-        <div className="space-y-6 text-center">
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-[#6A0F36] tracking-tight">
+        <div className="space-y-4">
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
             CONTACT
           </h1>
-
-          <ContactInfo info={contactInfo} />
         </div>
       </FadeIn>
 
-      {/* 2-Column Layout: Studio Image Left, Contact Form Right */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start max-w-5xl mx-auto pt-6">
-        {/* Studio Image */}
-        <FadeIn direction="up" delay={0.2}>
-          <div className="relative w-full aspect-square overflow-hidden bg-white">
-            <CustomImage
-              src={studioImage.src}
-              alt={studioImage.alt}
-              fill
-              priority
-              objectFit="cover"
-              aspectRatio="auto"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-        </FadeIn>
+      {/* 2-Column Fine Art Contact Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        {/* Left Column: Studio Photo */}
+        <div className="lg:col-span-6">
+          <FadeIn direction="up" delay={0.2}>
+            <div className="space-y-3">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-white">
+                <CustomImage
+                  src={studioImage.image}
+                  alt={studioImage.title}
+                  fill
+                  priority
+                  objectFit="cover"
+                  aspectRatio="auto"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+              <p className="text-xs text-gray-500 font-sans italic">
+                {studioImage.title} — {studioImage.location}
+              </p>
+            </div>
+          </FadeIn>
+        </div>
 
-        {/* Contact Form */}
-        <FadeIn direction="up" delay={0.3}>
-          <ContactForm />
-        </FadeIn>
+        {/* Right Column: Contact Details & Form */}
+        <div className="lg:col-span-6 space-y-8">
+          <FadeIn direction="up" delay={0.3}>
+            <ContactInfo contactInfo={contactInfo} />
+          </FadeIn>
+
+          <FadeIn direction="up" delay={0.4}>
+            <div className="pt-4 border-t border-zinc-100 space-y-4">
+              <h3 className="font-serif text-xl text-black font-bold uppercase tracking-tight">
+                Send an Enquiry
+              </h3>
+              <ContactForm />
+            </div>
+          </FadeIn>
+        </div>
       </div>
-    </section>
+    </article>
   );
 }

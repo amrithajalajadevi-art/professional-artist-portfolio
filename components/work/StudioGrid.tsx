@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { FadeInStagger } from "@/components/ui/FadeIn";
-import { CustomImage } from "@/components/ui/CustomImage";
 import { StudioWorkItem } from "@/types";
 
 interface StudioGridProps {
@@ -10,38 +10,49 @@ interface StudioGridProps {
 }
 
 export function StudioGrid({ items }: StudioGridProps) {
+  if (!items || items.length === 0) return null;
+
   return (
     <div className="space-y-8 font-sans">
       <div className="space-y-2 border-b border-zinc-100 pb-4">
-        <h2 className="font-serif text-2xl sm:text-3xl text-[#6A0F36] font-bold uppercase tracking-tight">
+        <h2 className="font-serif text-2xl sm:text-3xl text-black font-bold uppercase tracking-tight">
           STUDIO SETUP & IN-PROGRESS WORKS
         </h2>
-        <p className="text-xs text-zinc-500">
+        <p className="text-xs text-gray-500">
           Behind-the-scenes mold fabrication, lost-wax bronze casting, plaster studies, and clay maquettes from Amritha Jalaja Devi's London studio.
         </p>
       </div>
 
       <FadeInStagger staggerDelay={0.1}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* CSS Masonry Grid for Studio Setup & Works */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-8">
           {items.map((item) => (
-            <div key={item.id} className="space-y-3 bg-white group">
-              <div className="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                <CustomImage
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  hoverScale
-                  objectFit="cover"
-                  aspectRatio="auto"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+            <div
+              key={item.id}
+              className="break-inside-avoid mb-8 space-y-2 bg-white group"
+            >
+              <div className="relative w-full overflow-hidden bg-gray-50">
+                {item.image ? (
+                  <Image
+                    src={item.image}
+                    alt={item.title || "Studio Setup Photo"}
+                    width={1200}
+                    height={1200}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="w-full h-auto object-contain block bg-gray-50 transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                ) : (
+                  <div className="w-full h-64 bg-gray-50 flex items-center justify-center text-xs text-gray-400 font-sans">
+                    {item.title || "Studio Setup"}
+                  </div>
+                )}
               </div>
 
-              <div className="space-y-0.5 text-xs text-zinc-500 font-sans">
-                <h3 className="font-serif text-base text-zinc-950 font-normal group-hover:text-[#6A0F36] transition-colors">
+              <div className="space-y-0.5 text-xs text-gray-500 font-sans pt-1">
+                <h3 className="font-serif text-base text-black font-normal group-hover:text-zinc-600 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-zinc-400">
+                <p className="text-gray-500 font-sans">
                   {item.caption}
                 </p>
               </div>

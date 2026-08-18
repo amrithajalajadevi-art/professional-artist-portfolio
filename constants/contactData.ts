@@ -1,4 +1,4 @@
-import { ContactInfoData } from "@/types";
+import { ContactInfoData, ArtworkMeta } from "@/types";
 
 export const contactInfoData: ContactInfoData = {
   email: "contact@amrithajalajadevi.art",
@@ -9,8 +9,10 @@ export const contactInfoData: ContactInfoData = {
   twitter: "https://x.com",
 };
 
-export const studioImageData = {
-  src: "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
-  alt: "Amritha Jalaja Devi working on a monumental bronze sculpture in her London studio",
-  caption: "Amritha Jalaja Devi in her Greenwich Peninsula Studio, London — Bronze Patination & Mold Assembly",
+export const studioImageData: ArtworkMeta = {
+  title: "Amritha Jalaja Devi in her Studio — Bronze Patination & Mold Assembly",
+  year: "2026",
+  medium: "Bronze Patination & Mold Assembly",
+  location: "Greenwich Peninsula Studio, London",
+  image: "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
 };

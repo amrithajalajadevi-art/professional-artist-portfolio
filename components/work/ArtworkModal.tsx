@@ -49,14 +49,14 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 z-30 p-2 text-zinc-600 hover:text-[#6A0F36] transition-colors cursor-pointer"
+            className="absolute top-4 right-4 z-30 p-2 text-zinc-600 hover:text-black transition-colors cursor-pointer"
             aria-label="Close artwork preview"
           >
             <X className="w-6 h-6" />
           </button>
 
           {/* Left: Artwork Image View */}
-          <div className="relative w-full h-[50vh] md:h-auto md:w-3/5 min-h-[320px] md:min-h-[500px] bg-black flex-shrink-0">
+          <div className="relative w-full h-[50vh] md:h-auto md:w-3/5 min-h-[320px] md:min-h-[500px] bg-white flex-shrink-0">
             <CustomImage
               src={artwork.image}
               alt={artwork.title}
@@ -71,23 +71,23 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
           {/* Right: Artwork Metadata */}
           <div className="w-full md:w-2/5 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-white font-sans">
             <div className="space-y-4">
-              <h2 className="font-serif text-2xl sm:text-3xl text-[#6A0F36] font-bold uppercase tracking-tight">
+              <h2 className="font-serif text-2xl sm:text-3xl text-black font-bold uppercase tracking-tight">
                 {artwork.title}
               </h2>
 
-              <div className="space-y-1 text-xs text-zinc-600">
-                <p><span className="font-medium text-zinc-900">Year:</span> {artwork.year}</p>
-                <p><span className="font-medium text-zinc-900">Medium:</span> {artwork.medium}</p>
+              <div className="space-y-1 text-xs text-gray-500">
+                <p><span className="font-medium text-black">Year:</span> {artwork.year}</p>
+                <p><span className="font-medium text-black">Medium:</span> {artwork.medium}</p>
                 {artwork.dimensions && (
-                  <p><span className="font-medium text-zinc-900">Dimensions:</span> {artwork.dimensions}</p>
+                  <p><span className="font-medium text-black">Dimensions:</span> {artwork.dimensions}</p>
                 )}
                 {artwork.location && (
-                  <p><span className="font-medium text-zinc-900">Collection:</span> {artwork.location}</p>
+                  <p><span className="font-medium text-black">Collection:</span> {artwork.location}</p>
                 )}
               </div>
 
               {artwork.description && (
-                <p className="text-xs text-zinc-600 leading-relaxed pt-2">
+                <p className="text-xs text-gray-500 leading-relaxed pt-2">
                   {artwork.description}
                 </p>
               )}
@@ -97,7 +97,7 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
             <div className="pt-4">
               <a
                 href={`mailto:contact@amrithajalajadevi.art?subject=Inquiry%20regarding%20${encodeURIComponent(artwork.title)}`}
-                className="inline-block text-xs uppercase tracking-widest font-medium text-[#6A0F36] hover:underline underline-offset-4"
+                className="inline-block text-xs uppercase tracking-widest font-medium text-black hover:underline underline-offset-4"
               >
                 Inquire About This Artwork →
               </a>

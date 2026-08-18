@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CustomImage } from "@/components/ui/CustomImage";
+import Image from "next/image";
 import { Artwork } from "@/types";
 
 interface ArtworkCardProps {
@@ -10,49 +10,43 @@ interface ArtworkCardProps {
 }
 
 export function ArtworkCard({ artwork, onSelect }: ArtworkCardProps) {
-  const getAspectClass = () => {
-    switch (artwork.aspectRatio) {
-      case "portrait":
-        return "aspect-[3/4]";
-      case "landscape":
-        return "aspect-[4/3]";
-      case "square":
-        return "aspect-square";
-      default:
-        return "aspect-[4/3]";
-    }
-  };
+  if (!artwork) return null;
 
   return (
     <div
       onClick={() => onSelect(artwork)}
-      className="group relative bg-white cursor-pointer flex flex-col space-y-3"
+      className="break-inside-avoid mb-8 group relative bg-white cursor-pointer flex flex-col space-y-2"
     >
-      {/* Artwork Image Container - Pure Fine Art Focus with Contain */}
-      <div className={`relative w-full ${getAspectClass()} overflow-hidden bg-white`}>
-        <CustomImage
-          src={artwork.image}
-          alt={artwork.title}
-          fill
-          hoverScale
-          objectFit="contain"
-          aspectRatio="auto"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
+      {/* Image Wrapper Container with bg-gray-50 placeholder */}
+      <div className="relative w-full overflow-hidden bg-gray-50">
+        {artwork.image ? (
+          <Image
+            src={artwork.image}
+            alt={artwork.title || "Artwork Image"}
+            width={1200}
+            height={1200}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="w-full h-auto object-contain block bg-gray-50 transition-transform duration-500 group-hover:scale-[1.02]"
+          />
+        ) : (
+          <div className="w-full h-64 bg-gray-50 flex items-center justify-center text-xs text-gray-400 font-sans">
+            {artwork.title || "Artwork Image"}
+          </div>
+        )}
       </div>
 
       {/* Clean Minimalist Caption Below Image */}
-      <div className="space-y-0.5 font-sans">
+      <div className="space-y-0.5 font-sans pt-1">
         <div className="flex items-baseline justify-between gap-2">
-          <h3 className="font-serif text-base text-zinc-950 font-normal group-hover:text-[#6A0F36] transition-colors truncate">
+          <h3 className="font-serif text-base text-black font-normal group-hover:text-zinc-600 transition-colors truncate">
             {artwork.title}
           </h3>
-          <span className="text-xs text-zinc-400 font-sans flex-shrink-0">
+          <span className="text-xs text-gray-500 font-sans flex-shrink-0">
             {artwork.year}
           </span>
         </div>
 
-        <p className="text-xs text-zinc-500 truncate">
+        <p className="text-xs text-gray-500 truncate font-sans">
           {artwork.medium}
         </p>
       </div>

@@ -19,7 +19,7 @@ export function SectionHeading({
   return (
     <div className={`flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-6 ${className}`}>
       <FadeIn direction="up">
-        <h2 className="font-serif text-2xl sm:text-4xl font-bold uppercase text-[#6A0F36] tracking-tight">
+        <h2 className="font-serif text-2xl sm:text-4xl font-bold uppercase text-black tracking-tight">
           {title}
         </h2>
       </FadeIn>
@@ -28,7 +28,7 @@ export function SectionHeading({
         <FadeIn direction="up" delay={0.1}>
           <Link
             href={linkHref}
-            className="text-xs uppercase tracking-widest font-sans font-medium text-[#6A0F36] hover:underline underline-offset-4 transition-colors"
+            className="text-xs uppercase tracking-widest font-sans font-medium text-black hover:underline underline-offset-4 transition-colors"
           >
             {linkText} →
           </Link>

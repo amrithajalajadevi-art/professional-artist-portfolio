@@ -13,7 +13,7 @@ export function PressGrid({ articles }: PressGridProps) {
       {/* Header Eyebrow & Title */}
       <FadeIn direction="up">
         <div className="space-y-6 text-center">
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-[#6A0F36] tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
             SELECTED MEDIA FEATURES
           </h1>
         </div>

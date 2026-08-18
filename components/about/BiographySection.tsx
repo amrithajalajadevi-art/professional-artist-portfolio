@@ -12,7 +12,7 @@ export function BiographySection({ data }: BiographySectionProps) {
     <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-10">
       <FadeIn direction="up">
         <div className="space-y-4">
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-[#6A0F36] tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
             ARTIST PROFILE
           </h1>
         </div>
@@ -34,7 +34,7 @@ export function BiographySection({ data }: BiographySectionProps) {
                   sizes="(max-width: 1024px) 100vw, 40vw"
                 />
               </div>
-              <p className="text-xs text-zinc-500 font-sans italic">
+              <p className="text-xs text-gray-500 font-sans italic">
                 {data.portraitCaption}
               </p>
             </div>
@@ -44,7 +44,7 @@ export function BiographySection({ data }: BiographySectionProps) {
         {/* Right Side: Biography Paragraphs */}
         <div className="lg:col-span-7 space-y-6">
           <FadeInStagger staggerDelay={0.15}>
-            <div className="space-y-4 text-sm sm:text-base text-zinc-600 font-sans leading-relaxed">
+            <div className="space-y-4 text-sm sm:text-base text-gray-500 font-sans leading-relaxed">
               {data.paragraphs.map((paragraph, idx) => (
                 <p key={idx}>{paragraph}</p>
               ))}

@@ -26,29 +26,29 @@ export function ExhibitionCard({ exhibition }: ExhibitionCardProps) {
 
         {/* Structured Details Container */}
         <div className="md:col-span-8 space-y-2 font-sans text-sm">
-          <p className="text-zinc-900 leading-relaxed font-normal">
-            <span className="font-semibold text-zinc-950">{exhibition.date}</span> — &quot;
+          <p className="text-black leading-relaxed font-normal">
+            <span className="font-semibold text-black">{exhibition.date}</span> — &quot;
             <Link
               href={`/exhibitions/${exhibition.slug}`}
-              className="font-semibold text-zinc-950 hover:text-[#6A0F36] transition-colors"
+              className="font-semibold text-black hover:text-zinc-600 transition-colors"
             >
               {exhibition.title}
             </Link>
             ,&quot; {exhibition.venue} ({exhibition.city}, {exhibition.country})
           </p>
 
-          <p className="text-xs text-zinc-500 italic">
+          <p className="text-xs text-gray-500 italic">
             Role: {exhibition.role}
           </p>
 
-          <p className="text-xs text-zinc-600 leading-relaxed pt-1">
+          <p className="text-xs text-gray-500 leading-relaxed pt-1">
             {exhibition.description}
           </p>
 
           <div className="pt-2 flex items-center gap-4 text-xs">
             <Link
               href={`/exhibitions/${exhibition.slug}`}
-              className="text-[#6A0F36] hover:underline underline-offset-4 font-medium"
+              className="text-black hover:underline underline-offset-4 font-medium"
             >
               View Exhibition Details →
             </Link>
@@ -58,7 +58,7 @@ export function ExhibitionCard({ exhibition }: ExhibitionCardProps) {
                 href={exhibition.externalLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-zinc-500 hover:text-zinc-950"
+                className="text-gray-500 hover:text-black"
               >
                 Official Venue Page ↗
               </a>

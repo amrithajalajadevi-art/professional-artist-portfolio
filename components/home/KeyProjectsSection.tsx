@@ -33,6 +33,7 @@ export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
                   alt={project.title}
                   fill
                   hoverScale
+                  objectFit="cover"
                   aspectRatio="auto"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
@@ -41,7 +42,7 @@ export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
               {/* Minimal Caption: Title, Year, Medium only */}
               <div className="space-y-1 font-sans text-sm text-gray-500">
                 <div className="flex items-baseline justify-between gap-2">
-                  <h3 className="font-serif text-lg text-zinc-950 font-normal group-hover:text-[#6A0F36] transition-colors">
+                  <h3 className="font-serif text-lg text-black font-normal group-hover:text-zinc-600 transition-colors">
                     <Link href={`/work?project=${project.id}`}>
                       {project.title}
                     </Link>

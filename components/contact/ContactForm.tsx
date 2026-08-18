@@ -7,130 +7,97 @@ export function ContactForm() {
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
-    subject: "Commission Inquiry",
+    subject: "",
     message: "",
   });
-
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!formData.name.trim()) {
-      setStatus("error");
-      setErrorMessage("Please enter your full name.");
-      return;
-    }
-
-    if (!formData.email.trim() || !formData.email.includes("@")) {
-      setStatus("error");
-      setErrorMessage("Please enter a valid email address.");
-      return;
-    }
-
-    if (!formData.message.trim()) {
-      setStatus("error");
-      setErrorMessage("Please enter your inquiry message.");
-      return;
-    }
-
-    setStatus("submitting");
-
+    setIsSubmitting(true);
     setTimeout(() => {
-      setStatus("success");
-      setFormData({
-        name: "",
-        email: "",
-        subject: "Commission Inquiry",
-        message: "",
-      });
-    }, 600);
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    }, 1000);
   };
 
   return (
-    <div className="bg-white space-y-4">
-      {status === "success" ? (
-        <div className="p-6 border border-[#6A0F36] text-zinc-900 space-y-2 text-xs font-sans">
-          <p className="font-semibold text-[#6A0F36]">Thank you for your inquiry.</p>
-          <p>Your message has been sent directly to the studio. We will get back to you shortly.</p>
-          <button
-            type="button"
-            onClick={() => setStatus("idle")}
-            className="pt-2 text-xs font-medium text-[#6A0F36] underline underline-offset-4 cursor-pointer"
-          >
-            Send Another Message
-          </button>
+    <form onSubmit={handleSubmit} className="space-y-4 font-sans text-xs sm:text-sm">
+      {isSuccess && (
+        <div className="p-3 bg-zinc-100 border border-zinc-200 text-black text-xs">
+          Thank you for your message. Studio management will respond shortly.
         </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-0 border border-zinc-200 font-sans text-xs">
-          {status === "error" && (
-            <div className="p-3 bg-rose-50 text-rose-800 text-xs border-b border-zinc-200">
-              {errorMessage}
-            </div>
-          )}
-
-          {/* Name Input */}
-          <div className="border-b border-zinc-200">
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Name"
-              className="w-full p-4 bg-white text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:bg-white rounded-none"
-              required
-            />
-          </div>
-
-          {/* Email Input */}
-          <div className="border-b border-zinc-200">
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email"
-              className="w-full p-4 bg-white text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:bg-white rounded-none"
-              required
-            />
-          </div>
-
-          {/* Message Input */}
-          <div>
-            <textarea
-              id="message"
-              name="message"
-              rows={8}
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Message"
-              className="w-full p-4 bg-white text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:bg-white resize-y rounded-none"
-              required
-            />
-          </div>
-
-          {/* Submit Action Button */}
-          <div className="p-3 bg-white text-right border-t border-zinc-200">
-            <button
-              type="submit"
-              disabled={status === "submitting"}
-              className="px-6 py-2.5 bg-[#6A0F36] hover:bg-[#4A0B26] text-white font-medium uppercase tracking-widest text-xs transition-colors rounded-none cursor-pointer disabled:opacity-50"
-            >
-              {status === "submitting" ? "Sending..." : "Submit"}
-            </button>
-          </div>
-        </form>
       )}
-    </div>
+
+      <div className="space-y-1">
+        <label htmlFor="name" className="block text-xs uppercase tracking-wider text-black font-semibold">
+          Name *
+        </label>
+        <input
+          id="name"
+          type="text"
+          required
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          className="w-full px-3 py-2 bg-white border border-zinc-200 focus:border-black focus:outline-none rounded-none text-black text-xs font-sans"
+          placeholder="Your full name"
+        />
+      </div>
+
+      <div className="space-y-1">
+        <label htmlFor="email" className="block text-xs uppercase tracking-wider text-black font-semibold">
+          Email *
+        </label>
+        <input
+          id="email"
+          type="email"
+          required
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          className="w-full px-3 py-2 bg-white border border-zinc-200 focus:border-black focus:outline-none rounded-none text-black text-xs font-sans"
+          placeholder="your.email@domain.com"
+        />
+      </div>
+
+      <div className="space-y-1">
+        <label htmlFor="subject" className="block text-xs uppercase tracking-wider text-black font-semibold">
+          Subject *
+        </label>
+        <input
+          id="subject"
+          type="text"
+          required
+          value={formData.subject}
+          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+          className="w-full px-3 py-2 bg-white border border-zinc-200 focus:border-black focus:outline-none rounded-none text-black text-xs font-sans"
+          placeholder="Commissions, Gallery Acquisition, Press, etc."
+        />
+      </div>
+
+      <div className="space-y-1">
+        <label htmlFor="message" className="block text-xs uppercase tracking-wider text-black font-semibold">
+          Message *
+        </label>
+        <textarea
+          id="message"
+          rows={5}
+          required
+          value={formData.message}
+          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          className="w-full px-3 py-2 bg-white border border-zinc-200 focus:border-black focus:outline-none rounded-none text-black text-xs font-sans"
+          placeholder="Detail your inquiry..."
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full py-3 bg-black text-white text-xs uppercase tracking-widest font-semibold hover:bg-zinc-800 transition-colors rounded-none cursor-pointer"
+      >
+        {isSubmitting ? "Sending..." : "Send Message"}
+      </button>
+    </form>
   );
 }

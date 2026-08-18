@@ -22,6 +22,7 @@ export const mainNavItems: NavItem[] = [
       { label: "Paintings & Sculptures", href: "/work?category=series", category: "series" },
       { label: "UK Commissions", href: "/work?category=commissions", category: "commissions" },
       { label: "Biennale Series", href: "/work?category=series", category: "series" },
+      { label: "Studio Setup & In-Progress", href: "/work?category=studio", category: "studio" },
     ],
   },
   { label: "Exhibitions & Projects", href: "/exhibitions" },
@@ -107,10 +108,10 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                   <Link
                     href={item.href}
                     onClick={onItemClick}
-                    className={`text-[13px] font-normal tracking-wide transition-colors ${
+                    className={`text-[13px] tracking-wide transition-colors ${
                       active
-                        ? "text-[#6A0F36] font-medium"
-                        : "text-zinc-600 hover:text-[#6A0F36]"
+                        ? "text-black font-semibold"
+                        : "text-zinc-500 hover:text-black"
                     }`}
                   >
                     {item.label}
@@ -119,12 +120,12 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                   <button
                     type="button"
                     onClick={() => setWorkOpen(!workOpen)}
-                    className="p-1 text-zinc-400 hover:text-zinc-950 transition-colors focus:outline-none cursor-pointer"
+                    className="p-1 text-zinc-400 hover:text-black transition-colors focus:outline-none cursor-pointer"
                     aria-label={`Toggle ${item.label} sub-items`}
                   >
                     <ChevronDown
                       className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                        workOpen ? "rotate-180 text-zinc-950" : "rotate-0 text-zinc-400"
+                        workOpen ? "rotate-180 text-black" : "rotate-0 text-zinc-400"
                       }`}
                     />
                   </button>
@@ -152,8 +153,8 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                               onClick={onItemClick}
                               className={`text-[12px] font-normal transition-colors block py-0.5 tracking-wide ${
                                 isSubActive
-                                  ? "text-[#6A0F36] font-medium"
-                                  : "text-zinc-500 hover:text-[#6A0F36]"
+                                  ? "text-black font-medium"
+                                  : "text-zinc-400 hover:text-black"
                               }`}
                             >
                               {sub.label}
@@ -173,10 +174,10 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
               <Link
                 href={item.href}
                 onClick={onItemClick}
-                className={`text-[13px] font-normal tracking-wide transition-colors block py-1 ${
+                className={`text-[13px] tracking-wide transition-colors block py-1 ${
                   active
-                    ? "text-[#6A0F36] font-medium"
-                    : "text-zinc-600 hover:text-[#6A0F36]"
+                    ? "text-black font-semibold"
+                    : "text-zinc-500 hover:text-black"
                 }`}
               >
                 {item.label}
@@ -188,15 +189,14 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
 
       {/* Secondary Links & Footer Links */}
       <div className="space-y-6 pt-4">
-        {/* Simple Secondary Links */}
         <div className="space-y-2">
           <Link
             href="/commissions"
             onClick={onItemClick}
-            className={`block text-[12px] font-normal tracking-wide transition-colors ${
+            className={`block text-[12px] tracking-wide transition-colors ${
               isActive("/commissions")
-                ? "text-[#6A0F36] font-medium"
-                : "text-zinc-600 hover:text-[#6A0F36]"
+                ? "text-black font-semibold"
+                : "text-zinc-500 hover:text-black"
             }`}
           >
             Commissions
@@ -205,10 +205,10 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
           <Link
             href="/workshops"
             onClick={onItemClick}
-            className={`block text-[12px] font-normal tracking-wide transition-colors ${
+            className={`block text-[12px] tracking-wide transition-colors ${
               isActive("/workshops")
-                ? "text-[#6A0F36] font-medium"
-                : "text-zinc-600 hover:text-[#6A0F36]"
+                ? "text-black font-semibold"
+                : "text-zinc-500 hover:text-black"
             }`}
           >
             Art Classes & Workshops
@@ -217,7 +217,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
 
         {/* Social Icons & Copyright */}
         <div className="space-y-3 pt-2">
-          <div className="flex items-center gap-3 text-zinc-500">
+          <div className="flex items-center gap-3 text-zinc-400">
             {socialLinks.map((social) => {
               const IconComponent = social.icon;
               return (
@@ -227,7 +227,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="hover:text-zinc-950 transition-colors duration-200"
+                  className="hover:text-black transition-colors duration-200"
                 >
                   <IconComponent className="w-3.5 h-3.5" />
                 </a>
@@ -254,7 +254,7 @@ export function NavLinks(props: NavLinksProps) {
               <div key={item.label} className="py-0.5">
                 <Link
                   href={item.href}
-                  className="text-[13px] font-normal tracking-wide text-zinc-600"
+                  className="text-[13px] font-normal tracking-wide text-zinc-500"
                 >
                   {item.label}
                 </Link>
