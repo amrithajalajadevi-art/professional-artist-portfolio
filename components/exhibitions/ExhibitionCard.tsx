@@ -11,15 +11,16 @@ interface ExhibitionCardProps {
 export function ExhibitionCard({ exhibition }: ExhibitionCardProps) {
   return (
     <div className="group bg-white border border-zinc-200/80 hover:border-zinc-400 transition-all duration-300 shadow-2xs hover:shadow-lg overflow-hidden flex flex-col md:flex-row">
-      {/* Cover Image Container */}
-      <div className="w-full md:w-5/12 relative aspect-[4/3] md:aspect-auto min-h-[220px] bg-zinc-100 flex-shrink-0">
+      {/* Cover Image Container with Responsive Aspect Ratio */}
+      <div className="relative w-full aspect-[16/10] sm:aspect-[4/3] md:w-5/12 md:aspect-auto min-h-[220px] sm:min-h-[260px] overflow-hidden bg-zinc-100 flex-shrink-0">
         <CustomImage
           src={exhibition.coverImage}
           alt={exhibition.title}
           fill
           hoverScale
           aspectRatio="auto"
-          sizes="(max-width: 768px) 100vw, 40vw"
+          objectFit="cover"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
         />
 
         {/* Status Badge Tag */}

@@ -27,14 +27,14 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-10">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-10">
         {/* Backdrop Overlay */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-zinc-950/80 backdrop-blur-md"
+          className="fixed inset-0 bg-zinc-950/85 backdrop-blur-md"
         />
 
         {/* Modal Container */}
@@ -49,27 +49,27 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 z-30 p-2 bg-zinc-950/70 hover:bg-zinc-950 text-white rounded-full transition-colors"
+            className="absolute top-3 right-3 z-30 p-2 bg-zinc-950/80 hover:bg-zinc-950 text-white rounded-full transition-colors shadow-md cursor-pointer"
             aria-label="Close artwork preview"
           >
             <X className="w-5 h-5" />
           </button>
 
-          {/* Left: Large Artwork Image View */}
-          <div className="w-full md:w-3/5 bg-zinc-950 relative min-h-[300px] md:min-h-[450px] flex items-center justify-center">
+          {/* Left: Artwork Image View - Relative Parent Container with explicit height & priority fill */}
+          <div className="relative w-full h-[45vh] sm:h-[55vh] md:h-auto md:w-3/5 min-h-[300px] md:min-h-[480px] bg-zinc-950 flex-shrink-0 border-b md:border-b-0 md:border-r border-zinc-800 overflow-hidden">
             <CustomImage
               src={artwork.image}
               alt={artwork.title}
-              fill
+              fill={true}
+              priority={true}
               objectFit="contain"
               aspectRatio="auto"
-              priority
               sizes="(max-width: 768px) 100vw, 60vw"
             />
           </div>
 
           {/* Right: Artwork Metadata & Curator Details */}
-          <div className="w-full md:w-2/5 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-white">
+          <div className="w-full md:w-2/5 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-white overflow-y-auto">
             <div className="space-y-6">
               <div>
                 <span className="inline-block px-2.5 py-1 text-[9px] uppercase tracking-widest font-semibold bg-zinc-100 text-zinc-800 border border-zinc-200 mb-2">
