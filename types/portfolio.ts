@@ -142,3 +142,20 @@ export interface ExhibitionProject {
   curator?: string;
   highlights?: string[];
 }
+
+export interface PublicArtProject {
+  id: string;
+  title: string;
+  medium: string;
+  location: string;
+  city: string;
+  country: string;
+  year: string;
+  commissioningBody: string;
+  description: string;
+  coverImage: string;
+  galleryImages?: string[];
+  dimensions?: string;
+  impactMetric?: string;
+  externalLink?: string;
+}
