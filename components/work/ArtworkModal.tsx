@@ -34,7 +34,7 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-[#4A2E35]/80"
+          className="fixed inset-0 bg-[#000]/85 backdrop-blur-xs"
         />
 
         {/* Modal Container */}
