@@ -171,3 +171,17 @@ export interface PressArticle {
   category?: "Feature" | "Review" | "Interview" | "Exhibition Coverage";
   author?: string;
 }
+
+export type RecognitionStatus = "Won" | "Nominated" | "Shortlisted" | "Selected" | "Offered";
+
+export interface RecognitionItem {
+  id: string;
+  awardTitle: string;
+  awardingBody: string;
+  year: string;
+  status: RecognitionStatus;
+  link?: string;
+  description?: string;
+  location?: string;
+  category?: string;
+}
