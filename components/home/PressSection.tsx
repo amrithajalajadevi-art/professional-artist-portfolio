@@ -10,46 +10,32 @@ interface PressSectionProps {
 
 export function PressSection({ features }: PressSectionProps) {
   return (
-    <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-8">
+    <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-8 mb-12">
       <SectionHeading
-        title="Critical Reviews & Features"
+        title="PRESS & MEDIA"
         linkHref="/press"
-        linkText="View All Press Features"
+        linkText="View All Features"
       />
 
-      {/* 2-Column Press Grid */}
-      <FadeInStagger staggerDelay={0.15}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <FadeInStagger staggerDelay={0.1}>
+        <div className="space-y-3 font-sans text-xs sm:text-sm text-zinc-600">
           {features.map((press, idx) => (
             <div
               key={idx}
-              className="bg-white space-y-4 flex flex-col justify-between"
+              className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 py-2 border-b border-zinc-100 last:border-b-0"
             >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-xs text-zinc-500 font-sans">
-                  <span className="font-semibold text-zinc-900 tracking-wider uppercase">
-                    {press.publication}
-                  </span>
-                  <span className="text-zinc-400">{press.date}</span>
-                </div>
+              <a
+                href={press.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-zinc-950 hover:text-[#6A0F36] transition-colors"
+              >
+                &quot;{press.title}&quot; — <span className="font-bold">{press.publication}</span>
+              </a>
 
-                <h3 className="font-serif text-lg text-zinc-950 font-normal leading-snug">
-                  {press.title}
-                </h3>
-
-                <p className="text-xs sm:text-sm text-zinc-600 font-sans leading-relaxed italic">
-                  {press.excerpt}
-                </p>
-              </div>
-
-              <div className="pt-2">
-                <Link
-                  href={press.url}
-                  className="text-xs font-sans text-[#6A0F36] hover:underline underline-offset-4"
-                >
-                  {press.linkText} →
-                </Link>
-              </div>
+              <span className="text-xs text-zinc-400 font-sans flex-shrink-0">
+                {press.date}
+              </span>
             </div>
           ))}
         </div>

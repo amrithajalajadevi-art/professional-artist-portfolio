@@ -1,16 +1,19 @@
 import React from "react";
 import { homePageData } from "@/constants/homeData";
 import { HeroSection } from "@/components/home/HeroSection";
-import { HighlightBanner } from "@/components/home/HighlightBanner";
 import { KeyProjectsSection } from "@/components/home/KeyProjectsSection";
 import { PressSection } from "@/components/home/PressSection";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-white text-zinc-950">
+    <div className="flex flex-col min-h-screen bg-white text-zinc-950 space-y-16">
+      {/* 1. High-Impact Hero Artwork View */}
       <HeroSection data={homePageData.hero} />
-      <HighlightBanner data={homePageData.highlightBanner} />
+
+      {/* 2. Minimalist Large Image Portfolio Grid */}
       <KeyProjectsSection projects={homePageData.keyProjects} />
+
+      {/* 3. Clean Press & Media List */}
       <PressSection features={homePageData.pressFeatures} />
     </div>
   );
