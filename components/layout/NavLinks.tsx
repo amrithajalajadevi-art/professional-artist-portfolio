@@ -1,14 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ChevronDown, ChevronRight, Download, Sparkles, BookOpen } from "lucide-react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { ChevronDown, ChevronRight, Sparkles, BookOpen } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export interface NavItem {
   label: string;
   href: string;
-  subItems?: { label: string; href: string }[];
+  subItems?: { label: string; href: string; category?: string }[];
 }
 
 export const mainNavItems: NavItem[] = [
@@ -18,9 +19,9 @@ export const mainNavItems: NavItem[] = [
     label: "Work",
     href: "/work",
     subItems: [
-      { label: "Paintings & Sculptures", href: "/work?category=paintings" },
-      { label: "UK Commissions", href: "/work?category=commissions" },
-      { label: "Biennale Series", href: "/work?category=biennale" },
+      { label: "Paintings & Sculptures", href: "/work?category=series", category: "series" },
+      { label: "UK Commissions", href: "/work?category=commissions", category: "commissions" },
+      { label: "Biennale Series", href: "/work?category=series", category: "series" },
     ],
   },
   { label: "Exhibitions & Projects", href: "/exhibitions" },
@@ -29,21 +30,6 @@ export const mainNavItems: NavItem[] = [
   { label: "Recognition", href: "/recognition" },
   { label: "CV", href: "/cv" },
   { label: "Contact", href: "/contact" },
-];
-
-export const secondaryActions = [
-  { 
-    label: "Commissions", 
-    href: "/commissions",
-    icon: Sparkles,
-    variant: "primary" as const
-  },
-  { 
-    label: "Art Classes & Workshops", 
-    href: "/workshops",
-    icon: BookOpen,
-    variant: "secondary" as const
-  },
 ];
 
 export function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -134,8 +120,9 @@ interface NavLinksProps {
   onItemClick?: () => void;
 }
 
-export function NavLinks({ onItemClick }: NavLinksProps) {
+function NavLinksContent({ onItemClick }: NavLinksProps) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [workOpen, setWorkOpen] = useState(true);
 
   const isActive = (href: string) => {
@@ -143,10 +130,12 @@ export function NavLinks({ onItemClick }: NavLinksProps) {
     return pathname.startsWith(href);
   };
 
+  const currentCategory = searchParams ? searchParams.get("category") : null;
+
   return (
-    <div className="flex flex-col h-full justify-between space-y-6">
+    <div className="flex flex-col h-full justify-between space-y-6 font-sans">
       {/* Primary Navigation Links */}
-      <nav aria-label="Main Navigation" className="space-y-0.5">
+      <nav aria-label="Main Navigation" className="space-y-1">
         {mainNavItems.map((item) => {
           const active = isActive(item.href);
           const hasSubItems = item.subItems && item.subItems.length > 0;
@@ -154,49 +143,70 @@ export function NavLinks({ onItemClick }: NavLinksProps) {
           if (hasSubItems) {
             return (
               <div key={item.label} className="py-0.5">
-                <div className="flex items-center justify-between group">
+                {/* Parent WORK Header with Accordion Toggle */}
+                <div className="flex items-center justify-between group py-1">
                   <Link
                     href={item.href}
                     onClick={onItemClick}
-                    className={`text-[13px] font-medium tracking-wider uppercase transition-all duration-200 py-1 flex items-center gap-2 ${
+                    className={`text-[13px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 ${
                       active
-                        ? "text-zinc-950 font-bold translate-x-1"
-                        : "text-zinc-600 hover:text-zinc-950 hover:translate-x-0.5"
+                        ? "text-zinc-950 font-bold"
+                        : "text-zinc-600 hover:text-zinc-950"
                     }`}
                   >
-                    {active && <span className="w-1.5 h-1.5 rounded-full bg-zinc-900" />}
+                    <span className={`w-1.5 h-1.5 rounded-full transition-all ${active ? 'bg-zinc-950' : 'bg-transparent'}`} />
                     {item.label}
                   </Link>
+
                   <button
                     type="button"
                     onClick={() => setWorkOpen(!workOpen)}
-                    className="p-1 text-zinc-400 hover:text-zinc-950 transition-colors focus:outline-none"
+                    className="p-1 text-zinc-400 hover:text-zinc-950 transition-colors focus:outline-none cursor-pointer"
                     aria-label={`Toggle ${item.label} sub-items`}
                   >
-                    {workOpen ? (
-                      <ChevronDown className="w-3.5 h-3.5" />
-                    ) : (
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    )}
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                        workOpen ? "rotate-180 text-zinc-950" : "rotate-0 text-zinc-400"
+                      }`}
+                    />
                   </button>
                 </div>
 
-                {/* Submenu Accordion */}
-                {workOpen && item.subItems && (
-                  <ul className="pl-3.5 mt-1 space-y-1 border-l border-zinc-200/80 ml-1">
-                    {item.subItems.map((sub) => (
-                      <li key={sub.label}>
-                        <Link
-                          href={sub.href}
-                          onClick={onItemClick}
-                          className="text-[11px] font-normal text-zinc-500 hover:text-zinc-950 transition-colors block py-0.5 tracking-wide"
-                        >
-                          {sub.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                {/* Submenu Accordion with Framer Motion Height Transition */}
+                <AnimatePresence initial={false}>
+                  {workOpen && item.subItems && (
+                    <motion.ul
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1.0] }}
+                      className="pl-5 space-y-1 overflow-hidden"
+                    >
+                      {item.subItems.map((sub) => {
+                        const isSubActive =
+                          active &&
+                          (currentCategory === sub.category ||
+                            (!currentCategory && sub.category === "series"));
+
+                        return (
+                          <li key={sub.label}>
+                            <Link
+                              href={sub.href}
+                              onClick={onItemClick}
+                              className={`text-[12px] font-normal transition-colors block py-1 tracking-wide ${
+                                isSubActive
+                                  ? "text-zinc-950 font-medium translate-x-0.5"
+                                  : "text-zinc-500 hover:text-zinc-950"
+                              }`}
+                            >
+                              {sub.label}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
               </div>
             );
           }
@@ -206,13 +216,13 @@ export function NavLinks({ onItemClick }: NavLinksProps) {
               <Link
                 href={item.href}
                 onClick={onItemClick}
-                className={`text-[13px] font-medium tracking-wider uppercase transition-all duration-200 flex items-center gap-2 py-1 ${
+                className={`text-[13px] font-semibold tracking-wider uppercase transition-all duration-200 flex items-center gap-2 py-1 ${
                   active
-                    ? "text-zinc-950 font-bold translate-x-1"
-                    : "text-zinc-600 hover:text-zinc-950 hover:translate-x-0.5"
+                    ? "text-zinc-950 font-bold"
+                    : "text-zinc-600 hover:text-zinc-950"
                 }`}
               >
-                {active && <span className="w-1.5 h-1.5 rounded-full bg-zinc-900" />}
+                <span className={`w-1.5 h-1.5 rounded-full transition-all ${active ? 'bg-zinc-950' : 'bg-transparent'}`} />
                 {item.label}
               </Link>
             </div>
@@ -279,5 +289,30 @@ export function NavLinks({ onItemClick }: NavLinksProps) {
         </div>
       </div>
     </div>
+  );
+}
+
+export function NavLinks(props: NavLinksProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-col h-full justify-between space-y-6 font-sans">
+          <nav aria-label="Main Navigation" className="space-y-1">
+            {mainNavItems.map((item) => (
+              <div key={item.label} className="py-0.5">
+                <Link
+                  href={item.href}
+                  className="text-[13px] font-semibold tracking-wider uppercase text-zinc-600"
+                >
+                  {item.label}
+                </Link>
+              </div>
+            ))}
+          </nav>
+        </div>
+      }
+    >
+      <NavLinksContent {...props} />
+    </Suspense>
   );
 }

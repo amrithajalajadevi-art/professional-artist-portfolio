@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 import { CategoryFilter } from "@/components/work/CategoryFilter";
 import { ArtworkCard } from "@/components/work/ArtworkCard";
 import { ArtworkModal } from "@/components/work/ArtworkModal";
+import { normalizeCategorySlug } from "@/constants/workData";
 import { Artwork, CategoryFilterOption, CategorySlug } from "@/types";
 
 interface WorkGalleryProps {
@@ -13,15 +15,35 @@ interface WorkGalleryProps {
   initialCategory?: CategorySlug;
 }
 
-export function WorkGallery({
+function WorkGalleryContent({
   artworks,
   categories,
   initialCategory = "all",
 }: WorkGalleryProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   const [activeCategory, setActiveCategory] = useState<CategorySlug>(initialCategory);
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
 
-  // Filter artworks based on selected category tab
+  // Synchronize activeCategory whenever searchParams change in the URL
+  useEffect(() => {
+    const categoryParam = searchParams ? searchParams.get("category") : null;
+    const normalized = normalizeCategorySlug(categoryParam || undefined);
+    setActiveCategory(normalized);
+  }, [searchParams]);
+
+  // When selecting a category tab, update state and URL search params
+  const handleSelectCategory = (slug: CategorySlug) => {
+    setActiveCategory(slug);
+    if (slug === "all") {
+      router.push("/work", { scroll: false });
+    } else {
+      router.push(`/work?category=${slug}`, { scroll: false });
+    }
+  };
+
+  // Filter artworks based on activeCategory
   const filteredArtworks = useMemo(() => {
     if (activeCategory === "all") return artworks;
     return artworks.filter((item) => item.category === activeCategory);
@@ -53,7 +75,7 @@ export function WorkGallery({
             <CategoryFilter
               categories={categories}
               activeCategory={activeCategory}
-              onSelectCategory={(slug) => setActiveCategory(slug)}
+              onSelectCategory={handleSelectCategory}
             />
           </div>
         </div>
@@ -77,7 +99,7 @@ export function WorkGallery({
           <p className="text-sm font-medium">No artworks found in this category.</p>
           <button
             type="button"
-            onClick={() => setActiveCategory("all")}
+            onClick={() => handleSelectCategory("all")}
             className="text-xs text-zinc-950 font-semibold uppercase tracking-widest underline underline-offset-4 cursor-pointer"
           >
             View All Curated Works
@@ -91,5 +113,26 @@ export function WorkGallery({
         onClose={() => setSelectedArtwork(null)}
       />
     </section>
+  );
+}
+
+export function WorkGallery(props: WorkGalleryProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="p-6 sm:p-10 xl:p-16 space-y-8 animate-pulse bg-white">
+          <div className="h-4 w-48 bg-zinc-200" />
+          <div className="h-10 w-3/4 bg-zinc-200" />
+          <div className="h-12 w-full bg-zinc-100" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
+            {[1, 2, 3, 4].map((n) => (
+              <div key={n} className="aspect-[4/3] bg-zinc-200" />
+            ))}
+          </div>
+        </div>
+      }
+    >
+      <WorkGalleryContent {...props} />
+    </Suspense>
   );
 }

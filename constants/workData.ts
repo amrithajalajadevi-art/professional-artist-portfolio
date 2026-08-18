@@ -1,4 +1,4 @@
-import { Artwork, CategoryFilterOption } from "@/types";
+import { Artwork, CategoryFilterOption, CategorySlug } from "@/types";
 
 export const categoryOptions: CategoryFilterOption[] = [
   { id: "all", label: "All Curated Works", count: 8 },
@@ -7,6 +7,16 @@ export const categoryOptions: CategoryFilterOption[] = [
   { id: "commissions", label: "Commissioned Works", count: 3 },
   { id: "public-art", label: "Public Art & Monuments", count: 2 },
 ];
+
+export function normalizeCategorySlug(param?: string): CategorySlug {
+  if (!param) return "all";
+  const slug = param.toLowerCase().trim();
+  if (slug === "commissions" || slug === "uk-commissions") return "commissions";
+  if (slug === "series" || slug === "paintings" || slug === "biennale" || slug === "paintings-sculptures") return "series";
+  if (slug === "recent" || slug === "recent-works") return "recent";
+  if (slug === "public-art" || slug === "public") return "public-art";
+  return "all";
+}
 
 export const artworksData: Artwork[] = [
   {

@@ -1,8 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
-import { artworksData, categoryOptions } from "@/constants/workData";
+import { artworksData, categoryOptions, normalizeCategorySlug } from "@/constants/workData";
 import { WorkGallery } from "@/components/work/WorkGallery";
-import { CategorySlug } from "@/types";
 
 export const metadata: Metadata = {
   title: "Selected Works & Sculptural Gallery",
@@ -16,10 +15,7 @@ interface WorkPageProps {
 
 export default async function WorkPage({ searchParams }: WorkPageProps) {
   const params = await searchParams;
-  const categoryParam = (params?.category || "all") as CategorySlug;
-
-  const validCategories: CategorySlug[] = ["all", "series", "recent", "commissions", "public-art"];
-  const initialCategory = validCategories.includes(categoryParam) ? categoryParam : "all";
+  const initialCategory = normalizeCategorySlug(params?.category);
 
   return (
     <div className="flex flex-col min-h-screen bg-gallery-bg text-gallery-text">
