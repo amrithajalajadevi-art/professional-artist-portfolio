@@ -41,7 +41,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             animate={{ y: "0%", opacity: 1 }}
             exit={{ y: "-100%", opacity: 0 }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="relative z-10 w-full bg-white max-h-[85vh] overflow-y-auto px-8 py-10"
+            className="relative z-10 w-full bg-white max-h-[85vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-8 py-10"
           >
             <div className="flex flex-col space-y-6">
               <NavLinks onItemClick={onClose} />

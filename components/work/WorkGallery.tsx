@@ -6,7 +6,8 @@ import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 import { CategoryFilter } from "@/components/work/CategoryFilter";
 import { ArtworkCard } from "@/components/work/ArtworkCard";
 import { ArtworkModal } from "@/components/work/ArtworkModal";
-import { normalizeCategorySlug } from "@/constants/workData";
+import { StudioGrid } from "@/components/work/StudioGrid";
+import { normalizeCategorySlug, studioWorksData } from "@/constants/workData";
 import { Artwork, CategoryFilterOption, CategorySlug } from "@/types";
 
 interface WorkGalleryProps {
@@ -47,15 +48,15 @@ function WorkGalleryContent({
   }, [artworks, activeCategory]);
 
   return (
-    <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-8">
-      {/* Header & Filter Bar */}
+    <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-12">
+      {/* Header & Category Sub-Navigation */}
       <FadeIn direction="up">
         <div className="space-y-6">
           <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-[#6A0F36] tracking-tight">
             WORK
           </h1>
 
-          {/* Category Filter Tabs */}
+          {/* Minimalist Sub-Navigation Tabs */}
           <div>
             <CategoryFilter
               categories={categories}
@@ -66,29 +67,47 @@ function WorkGalleryContent({
         </div>
       </FadeIn>
 
-      {/* Artworks Grid */}
-      {filteredArtworks.length > 0 ? (
-        <FadeInStagger key={activeCategory} staggerDelay={0.1}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {filteredArtworks.map((artwork) => (
-              <ArtworkCard
-                key={artwork.id}
-                artwork={artwork}
-                onSelect={(item) => setSelectedArtwork(item)}
-              />
-            ))}
-          </div>
-        </FadeInStagger>
+      {/* Main Content Area */}
+      {activeCategory === "studio" ? (
+        <FadeIn direction="up">
+          <StudioGrid items={studioWorksData} />
+        </FadeIn>
       ) : (
-        <div className="py-16 text-center text-zinc-500 font-sans space-y-2">
-          <p className="text-sm">No artworks found in this category.</p>
-          <button
-            type="button"
-            onClick={() => handleSelectCategory("all")}
-            className="text-xs text-[#6A0F36] font-medium uppercase tracking-widest underline underline-offset-4 cursor-pointer"
-          >
-            View All Curated Works
-          </button>
+        <div className="space-y-16">
+          {/* Curated Artworks Grid */}
+          {filteredArtworks.length > 0 ? (
+            <FadeInStagger key={activeCategory} staggerDelay={0.1}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                {filteredArtworks.map((artwork) => (
+                  <ArtworkCard
+                    key={artwork.id}
+                    artwork={artwork}
+                    onSelect={(item) => setSelectedArtwork(item)}
+                  />
+                ))}
+              </div>
+            </FadeInStagger>
+          ) : (
+            <div className="py-16 text-center text-zinc-500 font-sans space-y-2">
+              <p className="text-sm">No artworks found in this category.</p>
+              <button
+                type="button"
+                onClick={() => handleSelectCategory("all")}
+                className="text-xs text-[#6A0F36] font-medium uppercase tracking-widest underline underline-offset-4 cursor-pointer"
+              >
+                View All Curated Works
+              </button>
+            </div>
+          )}
+
+          {/* Distinct Studio & In-Progress Section when viewing All */}
+          {activeCategory === "all" && (
+            <FadeIn direction="up">
+              <div className="pt-12 border-t border-zinc-100">
+                <StudioGrid items={studioWorksData} />
+              </div>
+            </FadeIn>
+          )}
         </div>
       )}
 

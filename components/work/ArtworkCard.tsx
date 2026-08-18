@@ -28,13 +28,14 @@ export function ArtworkCard({ artwork, onSelect }: ArtworkCardProps) {
       onClick={() => onSelect(artwork)}
       className="group relative bg-white cursor-pointer flex flex-col space-y-3"
     >
-      {/* Artwork Image Container - Pure Fine Art Focus */}
+      {/* Artwork Image Container - Pure Fine Art Focus with Contain */}
       <div className={`relative w-full ${getAspectClass()} overflow-hidden bg-white`}>
         <CustomImage
           src={artwork.image}
           alt={artwork.title}
           fill
           hoverScale
+          objectFit="contain"
           aspectRatio="auto"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />

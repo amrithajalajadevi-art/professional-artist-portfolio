@@ -100,7 +100,7 @@ export interface AboutData {
   affiliations: AffiliationItem[];
 }
 
-export type CategorySlug = "all" | "series" | "recent" | "commissions" | "public-art";
+export type CategorySlug = "all" | "series" | "recent" | "commissions" | "public-art" | "studio";
 
 export interface CategoryFilterOption {
   id: CategorySlug;
@@ -121,6 +121,15 @@ export interface Artwork {
   aspectRatio?: "square" | "portrait" | "landscape";
   description?: string;
   featured?: boolean;
+}
+
+export interface StudioWorkItem {
+  id: string;
+  title: string;
+  caption: string;
+  year: string;
+  image: string;
+  aspectRatio?: "square" | "portrait" | "landscape";
 }
 
 export interface ExhibitionProject {
