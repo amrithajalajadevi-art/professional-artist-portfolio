@@ -9,12 +9,12 @@ interface CVLayoutProps {
 
 export function CVLayout({ cvData }: CVLayoutProps) {
   return (
-    <article className="p-8 sm:p-12 xl:p-16 bg-white space-y-10">
+    <article className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
       {/* Header & Download PDF Button Bar */}
       <FadeIn direction="up">
         <div className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4">
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-[#4A2E35] tracking-tight">
               CURRICULUM VITAE
             </h1>
 
@@ -23,13 +23,13 @@ export function CVLayout({ cvData }: CVLayoutProps) {
               download="Amritha_Jalaja_Devi_CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs uppercase tracking-widest font-sans font-medium text-black hover:underline underline-offset-4"
+              className="text-xs uppercase tracking-[0.15em] font-sans font-medium text-[#4A2E35] hover:underline underline-offset-4"
             >
               Download PDF CV →
             </a>
           </div>
 
-          <p className="text-sm text-gray-500 font-sans">
+          <p className="text-sm text-[#8A7976] font-sans">
             Amritha Jalaja Devi — Contemporary Visual Artist & Sculptor (London, UK)
           </p>
         </div>

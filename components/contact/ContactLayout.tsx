@@ -12,11 +12,11 @@ interface ContactLayoutProps {
 
 export function ContactLayout({ contactInfo, studioImage }: ContactLayoutProps) {
   return (
-    <article className="p-8 sm:p-12 xl:p-16 bg-white space-y-10">
+    <article className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
       {/* Header */}
       <FadeIn direction="up">
         <div className="space-y-4">
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-[#4A2E35] tracking-tight">
             CONTACT
           </h1>
         </div>
@@ -28,7 +28,7 @@ export function ContactLayout({ contactInfo, studioImage }: ContactLayoutProps) 
         <div className="lg:col-span-6">
           <FadeIn direction="up" delay={0.2}>
             <div className="space-y-3">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-white">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#F7F4F0]">
                 <CustomImage
                   src={studioImage.image}
                   alt={studioImage.title}
@@ -39,7 +39,7 @@ export function ContactLayout({ contactInfo, studioImage }: ContactLayoutProps) 
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
-              <p className="text-xs text-gray-500 font-sans italic">
+              <p className="text-xs text-[#8A7976] font-sans italic">
                 {studioImage.title} — {studioImage.location}
               </p>
             </div>
@@ -53,8 +53,8 @@ export function ContactLayout({ contactInfo, studioImage }: ContactLayoutProps) 
           </FadeIn>
 
           <FadeIn direction="up" delay={0.4}>
-            <div className="pt-4 border-t border-zinc-100 space-y-4">
-              <h3 className="font-serif text-xl text-black font-bold uppercase tracking-tight">
+            <div className="pt-4 border-t border-[#E8E2DA] space-y-4">
+              <h3 className="font-serif text-xl text-[#4A2E35] font-normal uppercase tracking-tight">
                 Send an Enquiry
               </h3>
               <ContactForm />

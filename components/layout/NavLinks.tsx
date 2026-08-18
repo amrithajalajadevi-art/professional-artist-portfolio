@@ -110,8 +110,8 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                     onClick={onItemClick}
                     className={`text-[13px] tracking-wide transition-colors ${
                       active
-                        ? "text-neutral-900 font-semibold"
-                        : "text-neutral-500 hover:text-neutral-900"
+                        ? "text-[#4A2E35] font-semibold"
+                        : "text-[#8A7976] hover:text-[#4A2E35]"
                     }`}
                   >
                     {item.label}
@@ -120,12 +120,12 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                   <button
                     type="button"
                     onClick={() => setWorkOpen(!workOpen)}
-                    className="p-1 text-neutral-400 hover:text-neutral-900 transition-colors focus:outline-none cursor-pointer"
+                    className="p-1 text-[#8A7976] hover:text-[#4A2E35] transition-colors focus:outline-none cursor-pointer"
                     aria-label={`Toggle ${item.label} sub-items`}
                   >
                     <ChevronDown
                       className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                        workOpen ? "rotate-180 text-neutral-900" : "rotate-0 text-neutral-400"
+                        workOpen ? "rotate-180 text-[#4A2E35]" : "rotate-0 text-[#8A7976]"
                       }`}
                     />
                   </button>
@@ -153,8 +153,8 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                               onClick={onItemClick}
                               className={`text-[12px] font-normal transition-colors block py-0.5 tracking-wide ${
                                 isSubActive
-                                  ? "text-neutral-900 font-medium"
-                                  : "text-neutral-400 hover:text-neutral-900"
+                                  ? "text-[#4A2E35] font-medium"
+                                  : "text-[#8A7976] hover:text-[#4A2E35]"
                               }`}
                             >
                               {sub.label}
@@ -176,8 +176,8 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                 onClick={onItemClick}
                 className={`text-[13px] tracking-wide transition-colors block py-1 ${
                   active
-                    ? "text-neutral-900 font-semibold"
-                    : "text-neutral-500 hover:text-neutral-900"
+                    ? "text-[#4A2E35] font-semibold"
+                    : "text-[#8A7976] hover:text-[#4A2E35]"
                 }`}
               >
                 {item.label}
@@ -195,8 +195,8 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
             onClick={onItemClick}
             className={`block text-[12px] tracking-wide transition-colors ${
               isActive("/commissions")
-                ? "text-neutral-900 font-semibold"
-                : "text-neutral-500 hover:text-neutral-900"
+                ? "text-[#4A2E35] font-semibold"
+                : "text-[#8A7976] hover:text-[#4A2E35]"
             }`}
           >
             Commissions
@@ -207,8 +207,8 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
             onClick={onItemClick}
             className={`block text-[12px] tracking-wide transition-colors ${
               isActive("/workshops")
-                ? "text-neutral-900 font-semibold"
-                : "text-neutral-500 hover:text-neutral-900"
+                ? "text-[#4A2E35] font-semibold"
+                : "text-[#8A7976] hover:text-[#4A2E35]"
             }`}
           >
             Art Classes & Workshops
@@ -217,7 +217,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
 
         {/* Social Icons & Copyright */}
         <div className="space-y-3 pt-2">
-          <div className="flex items-center gap-3 text-neutral-400">
+          <div className="flex items-center gap-3 text-[#8A7976]">
             {socialLinks.map((social) => {
               const IconComponent = social.icon;
               return (
@@ -227,7 +227,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="hover:text-neutral-900 transition-colors duration-200"
+                  className="hover:text-[#4A2E35] transition-colors duration-200"
                 >
                   <IconComponent className="w-3.5 h-3.5" />
                 </a>
@@ -235,7 +235,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
             })}
           </div>
 
-          <p className="text-[10px] text-neutral-400 tracking-wider leading-relaxed">
+          <p className="text-[10px] text-[#8A7976] tracking-wider leading-relaxed">
             © {new Date().getFullYear()} Amritha Jalaja Devi
           </p>
         </div>
@@ -254,7 +254,7 @@ export function NavLinks(props: NavLinksProps) {
               <div key={item.label} className="py-0.5">
                 <Link
                   href={item.href}
-                  className="text-[13px] font-normal tracking-wide text-neutral-500"
+                  className="text-[13px] font-normal tracking-wide text-[#8A7976]"
                 >
                   {item.label}
                 </Link>

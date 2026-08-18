@@ -9,10 +9,10 @@ interface BiographySectionProps {
 
 export function BiographySection({ data }: BiographySectionProps) {
   return (
-    <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-10">
+    <section className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
       <FadeIn direction="up">
         <div className="space-y-4">
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-[#4A2E35] tracking-tight">
             ARTIST PROFILE
           </h1>
         </div>
@@ -23,7 +23,7 @@ export function BiographySection({ data }: BiographySectionProps) {
         <div className="lg:col-span-5">
           <FadeIn direction="up" delay={0.2}>
             <div className="space-y-3">
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-white">
+              <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F7F4F0]">
                 <CustomImage
                   src={data.portraitImage}
                   alt={data.portraitAlt}
@@ -34,7 +34,7 @@ export function BiographySection({ data }: BiographySectionProps) {
                   sizes="(max-width: 1024px) 100vw, 40vw"
                 />
               </div>
-              <p className="text-xs text-gray-500 font-sans italic">
+              <p className="text-xs text-[#8A7976] font-sans italic">
                 {data.portraitCaption}
               </p>
             </div>
@@ -44,7 +44,7 @@ export function BiographySection({ data }: BiographySectionProps) {
         {/* Right Side: Biography Paragraphs */}
         <div className="lg:col-span-7 space-y-6">
           <FadeInStagger staggerDelay={0.15}>
-            <div className="space-y-4 text-sm sm:text-base text-gray-500 font-sans leading-relaxed">
+            <div className="space-y-4 text-sm sm:text-base text-[#8A7976] font-sans leading-relaxed">
               {data.paragraphs.map((paragraph, idx) => (
                 <p key={idx}>{paragraph}</p>
               ))}

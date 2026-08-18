@@ -6,15 +6,15 @@ import { commissionStepsData } from "@/constants/servicesData";
 
 export function CommissionsView() {
   return (
-    <div className="flex flex-col min-h-screen bg-white text-black">
-      <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-10">
+    <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35]">
+      <section className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
         {/* Header Title */}
         <FadeIn direction="up">
           <div className="space-y-4">
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-black tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-[#4A2E35] tracking-tight">
               COMMISSIONS
             </h1>
-            <p className="text-sm text-gray-500 font-sans max-w-2xl leading-relaxed">
+            <p className="text-sm text-[#8A7976] font-sans max-w-2xl leading-relaxed">
               Creating custom, site-specific bronze sculptures, architectural terracotta friezes, and private gallery monuments tailored for residential, corporate, and civic environments.
             </p>
           </div>
@@ -22,7 +22,7 @@ export function CommissionsView() {
 
         {/* Hero Spotlight Image Banner */}
         <FadeIn direction="up" delay={0.2}>
-          <div className="relative w-full aspect-[16/9] overflow-hidden bg-white">
+          <div className="relative w-full aspect-[16/9] overflow-hidden bg-[#F7F4F0]">
             <CustomImage
               src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop"
               alt="Bespoke bronze commission in a contemporary architectural interior"
@@ -38,7 +38,7 @@ export function CommissionsView() {
         {/* Step-by-Step Commission Process */}
         <div className="space-y-8 pt-4">
           <FadeIn direction="up">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold uppercase text-black tracking-tight">
+            <h2 className="font-serif text-2xl sm:text-3xl font-normal uppercase text-[#4A2E35] tracking-tight">
               THE COMMISSION PROCESS
             </h2>
           </FadeIn>
@@ -48,17 +48,17 @@ export function CommissionsView() {
               {commissionStepsData.map((step) => (
                 <div
                   key={step.stepNumber}
-                  className="bg-white space-y-3 font-sans"
+                  className="bg-[#F7F4F0] space-y-3 font-sans"
                 >
-                  <span className="font-sans text-xl font-bold text-black">
+                  <span className="font-sans text-xl font-bold text-[#4A2E35]">
                     {step.stepNumber}
                   </span>
 
-                  <h3 className="font-serif text-lg text-black font-normal">
+                  <h3 className="font-serif text-lg text-[#4A2E35] font-normal">
                     {step.title}
                   </h3>
 
-                  <p className="text-xs text-gray-500 leading-relaxed">
+                  <p className="text-xs text-[#8A7976] leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -69,10 +69,10 @@ export function CommissionsView() {
 
         {/* CTA */}
         <FadeIn direction="up">
-          <div className="pt-6 border-t border-zinc-100">
+          <div className="pt-6 border-t border-[#E8E2DA]">
             <Link
               href="/contact"
-              className="text-xs uppercase tracking-widest font-sans font-medium text-black hover:underline underline-offset-4"
+              className="text-xs uppercase tracking-[0.15em] font-sans font-medium text-[#4A2E35] hover:underline underline-offset-4"
             >
               Inquire About a Commission →
             </Link>

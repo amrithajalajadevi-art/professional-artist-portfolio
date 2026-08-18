@@ -14,10 +14,10 @@ export function PressCard({ article }: PressCardProps) {
       href={article.externalLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block space-y-3 bg-white text-center font-sans text-xs"
+      className="group block space-y-3 bg-[#F7F4F0] text-center font-sans text-xs"
     >
-      {/* Thumbnail/Cover Image View - Aspect Square with bg-gray-50 */}
-      <div className="relative w-full aspect-square overflow-hidden bg-gray-50">
+      {/* Thumbnail/Cover Image View - Aspect Square with bg-[#EFEAE4] */}
+      <div className="relative w-full aspect-square overflow-hidden bg-[#EFEAE4]">
         {article.coverImage ? (
           <CustomImage
             src={article.coverImage}
@@ -29,7 +29,7 @@ export function PressCard({ article }: PressCardProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
         ) : (
-          <div className="w-full h-full bg-gray-50 flex items-center justify-center text-xs text-gray-400 font-sans p-4">
+          <div className="w-full h-full bg-[#EFEAE4] flex items-center justify-center text-xs text-[#8A7976] font-sans p-4">
             {article.publicationName || "Press Article"}
           </div>
         )}
@@ -37,12 +37,12 @@ export function PressCard({ article }: PressCardProps) {
 
       {/* Text Info underneath image */}
       <div className="space-y-1 px-1">
-        <p className="text-black leading-snug">
+        <p className="text-[#4A2E35] leading-snug">
           &quot;{article.articleTitle},&quot;
         </p>
 
-        <p className="text-black font-bold">
-          {article.publicationName}, <span className="font-normal text-gray-500">{article.date}</span>
+        <p className="text-[#4A2E35] font-bold">
+          {article.publicationName}, <span className="font-normal text-[#8A7976]">{article.date}</span>
         </p>
       </div>
     </a>

@@ -6,7 +6,7 @@ import { PressSection } from "@/components/home/PressSection";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-white text-zinc-950 space-y-16">
+    <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35] space-y-16">
       {/* 1. High-Impact Hero Artwork View */}
       <HeroSection data={homePageData.hero} />
 

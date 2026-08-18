@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white text-zinc-950">
+    <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35]">
       <BiographySection data={aboutData.biography} />
       <ArtistStatement data={aboutData.statement} />
       <EducationSection

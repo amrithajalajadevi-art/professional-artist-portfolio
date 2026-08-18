@@ -14,11 +14,11 @@ export function StudioGrid({ items }: StudioGridProps) {
 
   return (
     <div className="space-y-8 font-sans">
-      <div className="space-y-2 border-b border-neutral-200 pb-4">
-        <h2 className="font-serif text-2xl sm:text-3xl text-neutral-900 font-normal uppercase tracking-tight">
+      <div className="space-y-2 border-b border-[#E8E2DA] pb-4">
+        <h2 className="font-serif text-2xl sm:text-3xl text-[#4A2E35] font-normal uppercase tracking-tight">
           STUDIO SETUP & IN-PROGRESS WORKS
         </h2>
-        <p className="text-xs text-neutral-500 font-sans tracking-wide">
+        <p className="text-xs text-[#8A7976] font-sans tracking-wide">
           Behind-the-scenes mold fabrication, lost-wax bronze casting, plaster studies, and clay maquettes from Amritha Jalaja Devi's London studio.
         </p>
       </div>
@@ -29,9 +29,9 @@ export function StudioGrid({ items }: StudioGridProps) {
           {items.map((item) => (
             <div
               key={item.id}
-              className="break-inside-avoid mb-8 space-y-2 bg-white group"
+              className="break-inside-avoid mb-8 space-y-2 bg-[#F7F4F0] group"
             >
-              <div className="relative w-full overflow-hidden bg-gray-50">
+              <div className="relative w-full overflow-hidden bg-[#EFEAE4]">
                 {item.image ? (
                   <Image
                     src={item.image}
@@ -39,20 +39,20 @@ export function StudioGrid({ items }: StudioGridProps) {
                     width={1200}
                     height={1200}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="w-full h-auto object-contain block bg-gray-50 transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="w-full h-auto object-contain block bg-[#EFEAE4] transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 ) : (
-                  <div className="w-full h-64 bg-gray-50 flex items-center justify-center text-xs text-neutral-400 font-sans">
+                  <div className="w-full h-64 bg-[#EFEAE4] flex items-center justify-center text-xs text-[#8A7976] font-sans">
                     {item.title || "Studio Setup"}
                   </div>
                 )}
               </div>
 
-              <div className="space-y-0.5 text-xs text-neutral-500 font-sans pt-1">
-                <h3 className="font-serif text-base text-neutral-900 font-normal group-hover:text-neutral-600 transition-colors">
+              <div className="space-y-0.5 text-xs text-[#8A7976] font-sans pt-1">
+                <h3 className="font-serif text-base text-[#4A2E35] font-normal group-hover:text-[#8A7976] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-neutral-500 font-sans">
+                <p className="text-[#8A7976] font-sans">
                   {item.caption}
                 </p>
               </div>

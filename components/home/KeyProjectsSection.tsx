@@ -11,7 +11,7 @@ interface KeyProjectsSectionProps {
 
 export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
   return (
-    <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-12 mb-12">
+    <section className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-12 mb-12">
       <SectionHeading
         title="SELECTED PROJECTS"
         linkHref="/work"
@@ -24,10 +24,10 @@ export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
           {projects.map((project) => (
             <div
               key={project.id}
-              className="group space-y-4 bg-white"
+              className="group space-y-4 bg-[#F7F4F0]"
             >
               {/* Large Image Container */}
-              <div className="relative w-full aspect-[4/3] overflow-hidden bg-white">
+              <div className="relative w-full aspect-[4/3] overflow-hidden bg-[#F7F4F0]">
                 <CustomImage
                   src={project.image}
                   alt={project.title}
@@ -40,17 +40,17 @@ export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
               </div>
 
               {/* Minimal Caption: Title, Year, Medium only */}
-              <div className="space-y-1 font-sans text-sm text-gray-500">
+              <div className="space-y-1 font-sans text-sm text-[#8A7976]">
                 <div className="flex items-baseline justify-between gap-2">
-                  <h3 className="font-serif text-lg text-black font-normal group-hover:text-zinc-600 transition-colors">
+                  <h3 className="font-serif text-lg text-[#4A2E35] font-normal group-hover:text-[#8A7976] transition-colors">
                     <Link href={`/work?project=${project.id}`}>
                       {project.title}
                     </Link>
                   </h3>
-                  <span className="text-xs text-gray-500 font-sans">{project.year}</span>
+                  <span className="text-xs text-[#8A7976] font-sans">{project.year}</span>
                 </div>
 
-                <p className="text-xs text-gray-500 font-sans">
+                <p className="text-xs text-[#8A7976] font-sans">
                   {project.medium}
                 </p>
               </div>

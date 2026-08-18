@@ -7,18 +7,18 @@ import { NavLinks } from "./NavLinks";
 export function Sidebar() {
   return (
     <aside 
-      className="hidden lg:flex lg:w-1/4 fixed left-0 top-0 h-screen bg-white flex-col justify-between p-8 xl:p-12 z-30 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      className="hidden lg:flex lg:w-1/4 fixed left-0 top-0 h-screen bg-[#F7F4F0] flex-col justify-between p-8 xl:p-12 z-30 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       aria-label="Sidebar Navigation"
     >
       <div className="flex flex-col h-full justify-between space-y-8">
         {/* Artist Logo / Brand Header */}
         <div>
           <Link href="/" className="group block focus:outline-none">
-            <h1 className="font-serif text-2xl xl:text-3xl font-normal tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors leading-tight uppercase">
+            <h1 className="font-serif text-2xl xl:text-3xl font-normal tracking-tight text-[#4A2E35] group-hover:text-[#8A7976] transition-colors leading-tight uppercase">
               AMRITHA<br />
               JALAJA DEVI
             </h1>
-            <p className="text-[11px] uppercase tracking-[0.15em] text-neutral-500 font-sans mt-2 font-light">
+            <p className="text-[11px] uppercase tracking-[0.15em] text-[#8A7976] font-sans mt-2 font-light">
               Visual Artist & Sculptor
             </p>
           </Link>

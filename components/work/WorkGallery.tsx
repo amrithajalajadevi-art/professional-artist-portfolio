@@ -48,11 +48,11 @@ function WorkGalleryContent({
   }, [artworks, activeCategory]);
 
   return (
-    <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-12">
+    <section className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-12">
       {/* Header & Category Sub-Navigation */}
       <FadeIn direction="up">
         <div className="space-y-6">
-          <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-neutral-900 tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-[#4A2E35] tracking-tight">
             WORK
           </h1>
 
@@ -88,12 +88,12 @@ function WorkGalleryContent({
               </div>
             </FadeInStagger>
           ) : (
-            <div className="py-16 text-center text-neutral-500 font-sans space-y-2">
+            <div className="py-16 text-center text-[#8A7976] font-sans space-y-2">
               <p className="text-xs font-sans tracking-wide">No artworks found in this category.</p>
               <button
                 type="button"
                 onClick={() => handleSelectCategory("all")}
-                className="text-xs text-neutral-900 font-medium uppercase tracking-[0.15em] underline underline-offset-4 cursor-pointer"
+                className="text-xs text-[#4A2E35] font-medium uppercase tracking-[0.15em] underline underline-offset-4 cursor-pointer"
               >
                 View All Curated Works
               </button>
@@ -103,7 +103,7 @@ function WorkGalleryContent({
           {/* Distinct Studio & In-Progress Section when viewing All */}
           {activeCategory === "all" && (
             <FadeIn direction="up">
-              <div className="pt-12 border-t border-neutral-200">
+              <div className="pt-12 border-t border-[#E8E2DA]">
                 <StudioGrid items={studioWorksData} />
               </div>
             </FadeIn>
@@ -124,11 +124,11 @@ export function WorkGallery(props: WorkGalleryProps) {
   return (
     <Suspense
       fallback={
-        <div className="p-8 sm:p-12 xl:p-16 space-y-8 animate-pulse bg-white">
-          <div className="h-10 w-48 bg-neutral-100" />
+        <div className="p-8 sm:p-12 xl:p-16 space-y-8 animate-pulse bg-[#F7F4F0]">
+          <div className="h-10 w-48 bg-[#EFEAE4]" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
             {[1, 2, 3, 4].map((n) => (
-              <div key={n} className="aspect-[4/3] bg-neutral-100" />
+              <div key={n} className="aspect-[4/3] bg-[#EFEAE4]" />
             ))}
           </div>
         </div>

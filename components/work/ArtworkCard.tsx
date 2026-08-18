@@ -15,10 +15,10 @@ export function ArtworkCard({ artwork, onSelect }: ArtworkCardProps) {
   return (
     <div
       onClick={() => onSelect(artwork)}
-      className="break-inside-avoid mb-8 group relative bg-white cursor-pointer flex flex-col space-y-2"
+      className="break-inside-avoid mb-8 group relative bg-[#F7F4F0] cursor-pointer flex flex-col space-y-2"
     >
-      {/* Image Wrapper Container with bg-gray-50 placeholder */}
-      <div className="relative w-full overflow-hidden bg-gray-50">
+      {/* Image Wrapper Container with bg-[#EFEAE4] placeholder */}
+      <div className="relative w-full overflow-hidden bg-[#EFEAE4]">
         {artwork.image ? (
           <Image
             src={artwork.image}
@@ -26,10 +26,10 @@ export function ArtworkCard({ artwork, onSelect }: ArtworkCardProps) {
             width={1200}
             height={1200}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="w-full h-auto object-contain block bg-gray-50 transition-transform duration-500 group-hover:scale-[1.02]"
+            className="w-full h-auto object-contain block bg-[#EFEAE4] transition-transform duration-500 group-hover:scale-[1.02]"
           />
         ) : (
-          <div className="w-full h-64 bg-gray-50 flex items-center justify-center text-xs text-neutral-400 font-sans">
+          <div className="w-full h-64 bg-[#EFEAE4] flex items-center justify-center text-xs text-[#8A7976] font-sans">
             {artwork.title || "Artwork Image"}
           </div>
         )}
@@ -38,15 +38,15 @@ export function ArtworkCard({ artwork, onSelect }: ArtworkCardProps) {
       {/* Clean Minimalist Caption Below Image */}
       <div className="space-y-0.5 font-sans pt-1">
         <div className="flex items-baseline justify-between gap-2">
-          <h3 className="font-serif text-base text-neutral-900 font-normal group-hover:text-neutral-600 transition-colors truncate">
+          <h3 className="font-serif text-base text-[#4A2E35] font-normal group-hover:text-[#8A7976] transition-colors truncate">
             {artwork.title}
           </h3>
-          <span className="text-xs text-neutral-500 font-sans flex-shrink-0">
+          <span className="text-xs text-[#8A7976] font-sans flex-shrink-0">
             {artwork.year}
           </span>
         </div>
 
-        <p className="text-xs text-neutral-500 truncate font-sans">
+        <p className="text-xs text-[#8A7976] truncate font-sans">
           {artwork.medium}
         </p>
       </div>

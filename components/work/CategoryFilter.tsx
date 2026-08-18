@@ -27,8 +27,8 @@ export function CategoryFilter({
               text-xs uppercase tracking-[0.15em] transition-colors cursor-pointer
               ${
                 isActive
-                  ? "text-neutral-900 font-semibold border-b border-neutral-900 pb-0.5"
-                  : "text-neutral-500 hover:text-neutral-900 font-normal"
+                  ? "text-[#4A2E35] font-semibold border-b border-[#4A2E35] pb-0.5"
+                  : "text-[#8A7976] hover:text-[#4A2E35] font-normal"
               }
             `}
           >
