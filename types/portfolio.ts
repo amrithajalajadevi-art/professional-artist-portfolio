@@ -159,3 +159,15 @@ export interface PublicArtProject {
   impactMetric?: string;
   externalLink?: string;
 }
+
+export interface PressArticle {
+  id: string;
+  articleTitle: string;
+  publicationName: string;
+  date: string;
+  coverImage: string;
+  externalLink: string;
+  excerpt?: string;
+  category?: "Feature" | "Review" | "Interview" | "Exhibition Coverage";
+  author?: string;
+}
