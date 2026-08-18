@@ -208,3 +208,19 @@ export interface FullCVData {
   awards: CVEntry[];
   collections: CVEntry[];
 }
+
+export interface ContactFormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+export interface ContactInfoData {
+  email: string;
+  studioLocation: string;
+  galleryRepresentation?: string;
+  instagram: string;
+  linkedin: string;
+  twitter: string;
+}
