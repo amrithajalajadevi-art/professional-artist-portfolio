@@ -122,3 +122,23 @@ export interface Artwork {
   description?: string;
   featured?: boolean;
 }
+
+export interface ExhibitionProject {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  year: string;
+  status: "Upcoming" | "Ongoing" | "Past";
+  venue: string;
+  country: string;
+  city: string;
+  role: string;
+  description: string;
+  coverImage: string;
+  galleryImages?: string[];
+  externalLink?: string;
+  curator?: string;
+  highlights?: string[];
+}
