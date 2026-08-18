@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { MobileHeader } from "./MobileHeader";
 import { MobileDrawer } from "./MobileDrawer";
+import { Footer } from "./Footer";
 
 interface GlobalLayoutProps {
   children: React.ReactNode;
@@ -28,8 +29,12 @@ export function GlobalLayout({ children }: GlobalLayoutProps) {
       />
 
       {/* Scrollable Right Content Area (75% Width on Desktop, 100% on Mobile/Tablet) */}
-      <main className="w-full lg:w-[75%] lg:ml-[25%] min-h-screen bg-gallery-card flex flex-col transition-all">
-        {children}
+      <main className="w-full lg:w-[75%] lg:ml-[25%] min-h-screen bg-gallery-card flex flex-col justify-between transition-all">
+        <div className="flex-1">
+          {children}
+        </div>
+        {/* Global Layout Footer */}
+        <Footer />
       </main>
     </div>
   );
