@@ -14,11 +14,11 @@ export function Sidebar() {
         {/* Artist Logo / Brand Header */}
         <div>
           <Link href="/" className="group block focus:outline-none">
-            <h1 className="font-serif text-2xl xl:text-3xl font-normal tracking-tight text-black group-hover:text-zinc-600 transition-colors leading-tight uppercase">
+            <h1 className="font-serif text-2xl xl:text-3xl font-normal tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors leading-tight uppercase">
               AMRITHA<br />
               JALAJA DEVI
             </h1>
-            <p className="text-[11px] uppercase tracking-widest text-zinc-500 font-sans mt-2 font-light">
+            <p className="text-[11px] uppercase tracking-[0.15em] text-neutral-500 font-sans mt-2 font-light">
               Visual Artist & Sculptor
             </p>
           </Link>

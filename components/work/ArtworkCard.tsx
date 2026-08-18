@@ -29,7 +29,7 @@ export function ArtworkCard({ artwork, onSelect }: ArtworkCardProps) {
             className="w-full h-auto object-contain block bg-gray-50 transition-transform duration-500 group-hover:scale-[1.02]"
           />
         ) : (
-          <div className="w-full h-64 bg-gray-50 flex items-center justify-center text-xs text-gray-400 font-sans">
+          <div className="w-full h-64 bg-gray-50 flex items-center justify-center text-xs text-neutral-400 font-sans">
             {artwork.title || "Artwork Image"}
           </div>
         )}
@@ -38,15 +38,15 @@ export function ArtworkCard({ artwork, onSelect }: ArtworkCardProps) {
       {/* Clean Minimalist Caption Below Image */}
       <div className="space-y-0.5 font-sans pt-1">
         <div className="flex items-baseline justify-between gap-2">
-          <h3 className="font-serif text-base text-black font-normal group-hover:text-zinc-600 transition-colors truncate">
+          <h3 className="font-serif text-base text-neutral-900 font-normal group-hover:text-neutral-600 transition-colors truncate">
             {artwork.title}
           </h3>
-          <span className="text-xs text-gray-500 font-sans flex-shrink-0">
+          <span className="text-xs text-neutral-500 font-sans flex-shrink-0">
             {artwork.year}
           </span>
         </div>
 
-        <p className="text-xs text-gray-500 truncate font-sans">
+        <p className="text-xs text-neutral-500 truncate font-sans">
           {artwork.medium}
         </p>
       </div>

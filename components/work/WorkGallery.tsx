@@ -52,7 +52,7 @@ function WorkGalleryContent({
       {/* Header & Category Sub-Navigation */}
       <FadeIn direction="up">
         <div className="space-y-6">
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-[#6A0F36] tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-neutral-900 tracking-tight">
             WORK
           </h1>
 
@@ -88,12 +88,12 @@ function WorkGalleryContent({
               </div>
             </FadeInStagger>
           ) : (
-            <div className="py-16 text-center text-zinc-500 font-sans space-y-2">
-              <p className="text-sm">No artworks found in this category.</p>
+            <div className="py-16 text-center text-neutral-500 font-sans space-y-2">
+              <p className="text-xs font-sans tracking-wide">No artworks found in this category.</p>
               <button
                 type="button"
                 onClick={() => handleSelectCategory("all")}
-                className="text-xs text-[#6A0F36] font-medium uppercase tracking-widest underline underline-offset-4 cursor-pointer"
+                className="text-xs text-neutral-900 font-medium uppercase tracking-[0.15em] underline underline-offset-4 cursor-pointer"
               >
                 View All Curated Works
               </button>
@@ -103,7 +103,7 @@ function WorkGalleryContent({
           {/* Distinct Studio & In-Progress Section when viewing All */}
           {activeCategory === "all" && (
             <FadeIn direction="up">
-              <div className="pt-12 border-t border-zinc-100">
+              <div className="pt-12 border-t border-neutral-200">
                 <StudioGrid items={studioWorksData} />
               </div>
             </FadeIn>
@@ -125,10 +125,10 @@ export function WorkGallery(props: WorkGalleryProps) {
     <Suspense
       fallback={
         <div className="p-8 sm:p-12 xl:p-16 space-y-8 animate-pulse bg-white">
-          <div className="h-10 w-48 bg-zinc-200" />
+          <div className="h-10 w-48 bg-neutral-100" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
             {[1, 2, 3, 4].map((n) => (
-              <div key={n} className="aspect-[4/3] bg-zinc-200" />
+              <div key={n} className="aspect-[4/3] bg-neutral-100" />
             ))}
           </div>
         </div>
