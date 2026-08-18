@@ -1,4 +1,4 @@
-import { Artwork, CategoryFilterOption, CategorySlug } from "@/types";
+import { Artwork, CategoryFilterOption, CategorySlug, StudioWorkItem } from "@/types";
 
 export const categoryOptions: CategoryFilterOption[] = [
   { id: "all", label: "All Curated Works", count: 8 },
@@ -6,11 +6,13 @@ export const categoryOptions: CategoryFilterOption[] = [
   { id: "recent", label: "Recent Works (2025)", count: 3 },
   { id: "commissions", label: "Commissioned Works", count: 3 },
   { id: "public-art", label: "Public Art & Monuments", count: 2 },
+  { id: "studio", label: "Studio Setup & In-Progress Works", count: 6 },
 ];
 
 export function normalizeCategorySlug(param?: string): CategorySlug {
   if (!param) return "all";
   const slug = param.toLowerCase().trim();
+  if (slug === "studio" || slug === "in-progress" || slug === "studio-setup") return "studio";
   if (slug === "commissions" || slug === "uk-commissions") return "commissions";
   if (slug === "series" || slug === "paintings" || slug === "biennale" || slug === "paintings-sculptures") return "series";
   if (slug === "recent" || slug === "recent-works") return "recent";
@@ -125,5 +127,56 @@ export const artworksData: Artwork[] = [
     image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop",
     aspectRatio: "square",
     description: "Textured ceramic vessel with natural oxide glaze exploring marine sediment stratigraphy.",
+  },
+];
+
+export const studioWorksData: StudioWorkItem[] = [
+  {
+    id: "studio-setup-1",
+    title: "Greenwich Foundry Mold Assembly",
+    caption: "Studio, London 2026",
+    year: "2026",
+    image: "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
+    aspectRatio: "portrait",
+  },
+  {
+    id: "studio-setup-2",
+    title: "Clay Maquette & Plaster Study",
+    caption: "Work in Progress",
+    year: "2026",
+    image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=1200&auto=format&fit=crop",
+    aspectRatio: "square",
+  },
+  {
+    id: "studio-setup-3",
+    title: "Patination & Chemical Oxide Testing",
+    caption: "Studio, London 2026",
+    year: "2026",
+    image: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?q=80&w=1200&auto=format&fit=crop",
+    aspectRatio: "landscape",
+  },
+  {
+    id: "studio-setup-4",
+    title: "Incomplete Charcoal Sketches & Scale Renderings",
+    caption: "Work in Progress",
+    year: "2026",
+    image: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1200&auto=format&fit=crop",
+    aspectRatio: "portrait",
+  },
+  {
+    id: "studio-setup-5",
+    title: "Terracotta Clay Prep & Kiln Loading",
+    caption: "Studio, London 2025",
+    year: "2025",
+    image: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?q=80&w=1200&auto=format&fit=crop",
+    aspectRatio: "square",
+  },
+  {
+    id: "studio-setup-6",
+    title: "Lost-Wax Casting & Foundry Workspace",
+    caption: "Work in Progress",
+    year: "2025",
+    image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop",
+    aspectRatio: "landscape",
   },
 ];
