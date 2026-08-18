@@ -10,7 +10,6 @@ interface MobileDrawerProps {
 }
 
 export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
-  // Prevent background scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -33,7 +32,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={onClose}
-            className="fixed inset-0 bg-zinc-950/40 backdrop-blur-xs"
+            className="fixed inset-0 bg-zinc-950/20"
           />
 
           {/* Drawer Content */}
@@ -42,7 +41,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             animate={{ y: "0%", opacity: 1 }}
             exit={{ y: "-100%", opacity: 0 }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="relative z-10 w-full bg-gallery-bg border-b border-gallery-border shadow-2xl max-h-[85vh] overflow-y-auto px-6 py-8"
+            className="relative z-10 w-full bg-white max-h-[85vh] overflow-y-auto px-8 py-10"
           >
             <div className="flex flex-col space-y-6">
               <NavLinks onItemClick={onClose} />

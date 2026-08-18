@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { X, MapPin, Layers, Maximize2 } from "lucide-react";
+import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CustomImage } from "@/components/ui/CustomImage";
 import { Artwork } from "@/types";
@@ -27,36 +27,36 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-10">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8">
         {/* Backdrop Overlay */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-zinc-950/85 backdrop-blur-md"
+          className="fixed inset-0 bg-black/80"
         />
 
         {/* Modal Container */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ type: "spring", damping: 25, stiffness: 250 }}
-          className="relative z-10 w-full max-w-4xl max-h-[90vh] bg-white border border-zinc-200 shadow-2xl overflow-y-auto flex flex-col md:flex-row"
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.2 }}
+          className="relative z-10 w-full max-w-4xl max-h-[90vh] bg-white overflow-y-auto flex flex-col md:flex-row shadow-none"
         >
           {/* Close Button */}
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-3 right-3 z-30 p-2 bg-zinc-950/80 hover:bg-zinc-950 text-white rounded-full transition-colors shadow-md cursor-pointer"
+            className="absolute top-4 right-4 z-30 p-2 text-zinc-600 hover:text-[#6A0F36] transition-colors cursor-pointer"
             aria-label="Close artwork preview"
           >
-            <X className="w-5 h-5" />
+            <X className="w-6 h-6" />
           </button>
 
-          {/* Left: Artwork Image View - Relative Parent Container with explicit height & priority fill */}
-          <div className="relative w-full h-[45vh] sm:h-[55vh] md:h-auto md:w-3/5 min-h-[300px] md:min-h-[480px] bg-zinc-950 flex-shrink-0 border-b md:border-b-0 md:border-r border-zinc-800 overflow-hidden">
+          {/* Left: Artwork Image View */}
+          <div className="relative w-full h-[50vh] md:h-auto md:w-3/5 min-h-[320px] md:min-h-[500px] bg-black flex-shrink-0">
             <CustomImage
               src={artwork.image}
               alt={artwork.title}
@@ -68,72 +68,38 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
             />
           </div>
 
-          {/* Right: Artwork Metadata & Curator Details */}
-          <div className="w-full md:w-2/5 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-white overflow-y-auto">
-            <div className="space-y-6">
-              <div>
-                <span className="inline-block px-2.5 py-1 text-[9px] uppercase tracking-widest font-semibold bg-zinc-100 text-zinc-800 border border-zinc-200 mb-2">
-                  {artwork.categoryLabel}
-                </span>
-                <h2 className="font-serif text-2xl sm:text-3xl text-zinc-950 font-normal leading-tight">
-                  {artwork.title}
-                </h2>
-                <p className="text-xs text-zinc-400 font-mono mt-1">{artwork.year}</p>
-              </div>
+          {/* Right: Artwork Metadata */}
+          <div className="w-full md:w-2/5 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-white font-sans">
+            <div className="space-y-4">
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#6A0F36] font-bold uppercase tracking-tight">
+                {artwork.title}
+              </h2>
 
-              {/* Metadata List */}
-              <div className="space-y-3 pt-4 border-t border-zinc-100 text-xs text-zinc-700">
-                <div className="flex items-start gap-2.5">
-                  <Layers className="w-4 h-4 text-zinc-400 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <span className="text-[10px] uppercase tracking-widest text-zinc-400 block font-sans">
-                      Medium
-                    </span>
-                    <span className="font-medium text-zinc-900">{artwork.medium}</span>
-                  </div>
-                </div>
-
+              <div className="space-y-1 text-xs text-zinc-600">
+                <p><span className="font-medium text-zinc-900">Year:</span> {artwork.year}</p>
+                <p><span className="font-medium text-zinc-900">Medium:</span> {artwork.medium}</p>
                 {artwork.dimensions && (
-                  <div className="flex items-start gap-2.5">
-                    <Maximize2 className="w-4 h-4 text-zinc-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="text-[10px] uppercase tracking-widest text-zinc-400 block font-sans">
-                        Dimensions
-                      </span>
-                      <span className="font-medium text-zinc-900">{artwork.dimensions}</span>
-                    </div>
-                  </div>
+                  <p><span className="font-medium text-zinc-900">Dimensions:</span> {artwork.dimensions}</p>
                 )}
-
                 {artwork.location && (
-                  <div className="flex items-start gap-2.5">
-                    <MapPin className="w-4 h-4 text-zinc-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="text-[10px] uppercase tracking-widest text-zinc-400 block font-sans">
-                        Current Location / Collection
-                      </span>
-                      <span className="font-medium text-zinc-900">{artwork.location}</span>
-                    </div>
-                  </div>
+                  <p><span className="font-medium text-zinc-900">Collection:</span> {artwork.location}</p>
                 )}
               </div>
 
               {artwork.description && (
-                <div className="pt-3 border-t border-zinc-100">
-                  <p className="text-xs text-zinc-600 font-light leading-relaxed">
-                    {artwork.description}
-                  </p>
-                </div>
+                <p className="text-xs text-zinc-600 leading-relaxed pt-2">
+                  {artwork.description}
+                </p>
               )}
             </div>
 
-            {/* Inquire Action */}
-            <div className="pt-6 border-t border-zinc-100">
+            {/* Inquire Action Link */}
+            <div className="pt-4">
               <a
                 href={`mailto:contact@amrithajalajadevi.art?subject=Inquiry%20regarding%20${encodeURIComponent(artwork.title)}`}
-                className="inline-flex items-center justify-center w-full px-5 py-3 text-xs font-semibold uppercase tracking-widest bg-zinc-950 text-white hover:bg-zinc-800 transition-colors shadow-sm text-center"
+                className="inline-block text-xs uppercase tracking-widest font-medium text-[#6A0F36] hover:underline underline-offset-4"
               >
-                Inquire About This Piece
+                Inquire About This Artwork →
               </a>
             </div>
           </div>

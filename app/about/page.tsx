@@ -13,14 +13,9 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gallery-bg text-gallery-text">
-      {/* 1. Artist Biography & Studio Profile */}
+    <div className="flex flex-col min-h-screen bg-white text-zinc-950">
       <BiographySection data={aboutData.biography} />
-
-      {/* 2. Core Artist Statement & Vision */}
       <ArtistStatement data={aboutData.statement} />
-
-      {/* 3. Education & Professional Affiliations Timeline */}
       <EducationSection
         education={aboutData.education}
         affiliations={aboutData.affiliations}

@@ -7,48 +7,37 @@ interface CVSectionProps {
   index: string;
 }
 
-export function CVSection({ title, items, index }: CVSectionProps) {
+export function CVSection({ title, items }: CVSectionProps) {
   return (
-    <section className="space-y-6 pt-8 border-t border-zinc-200/80">
-      <div className="flex items-center justify-between gap-4">
-        <h2 className="font-serif text-2xl sm:text-3xl text-zinc-950 font-normal">
-          {title}
-        </h2>
-        <span className="text-xs font-mono text-zinc-400">/{index}</span>
-      </div>
+    <section className="space-y-4 pt-6 border-b border-zinc-100 last:border-b-0 pb-6">
+      <h2 className="font-serif text-xl sm:text-2xl font-bold uppercase text-[#6A0F36] tracking-tight">
+        {title}
+      </h2>
 
-      <div className="space-y-6">
+      <div className="space-y-4 font-sans text-xs sm:text-sm">
         {items.map((item, idx) => (
           <div
             key={idx}
-            className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-6 py-2 group"
+            className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 py-1"
           >
-            {/* Year Column */}
-            <div className="w-full sm:w-36 flex-shrink-0 font-mono text-xs font-semibold text-zinc-500 pt-0.5">
+            <div className="w-full sm:w-28 flex-shrink-0 font-mono text-xs text-zinc-400">
               {item.year}
             </div>
 
-            {/* Content Column */}
-            <div className="flex-1 space-y-1">
-              <h3 className="font-serif text-base sm:text-lg text-zinc-950 font-normal group-hover:text-zinc-700 transition-colors">
+            <div className="flex-1 space-y-0.5">
+              <h3 className="font-serif text-base text-zinc-950 font-normal">
                 {item.title}
               </h3>
 
               {item.subtitle && (
-                <p className="text-xs sm:text-sm font-semibold text-zinc-800 font-sans">
+                <p className="text-xs text-zinc-600 font-sans">
                   {item.subtitle}
                 </p>
               )}
 
               {item.details && (
-                <p className="text-xs text-zinc-600 font-light leading-relaxed pt-0.5">
+                <p className="text-xs text-zinc-500 font-sans">
                   {item.details}
-                </p>
-              )}
-
-              {item.location && (
-                <p className="text-[11px] text-zinc-400 font-mono pt-0.5">
-                  {item.location}
                 </p>
               )}
             </div>

@@ -1,7 +1,5 @@
 import React from "react";
-import { GraduationCap, Briefcase, Award } from "lucide-react";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { EducationItem, AffiliationItem } from "@/types";
 
 interface EducationSectionProps {
@@ -11,85 +9,63 @@ interface EducationSectionProps {
 
 export function EducationSection({ education, affiliations }: EducationSectionProps) {
   return (
-    <section className="p-6 sm:p-10 xl:p-16 border-b border-gallery-border bg-white space-y-12">
-      <SectionHeading
-        eyebrow="03 / Education & Practice"
-        title="Academic Qualifications & Affiliations"
-      />
+    <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-10">
+      <h2 className="font-serif text-2xl sm:text-4xl font-bold uppercase text-[#6A0F36] tracking-tight">
+        ACADEMIC QUALIFICATIONS & AFFILIATIONS
+      </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Education Timeline */}
         <div className="space-y-6">
           <FadeIn direction="up">
-            <div className="flex items-center gap-2 border-b border-zinc-200 pb-3">
-              <GraduationCap className="w-5 h-5 text-zinc-900" />
-              <h3 className="font-serif text-xl font-normal text-zinc-950">
-                Academic Background & Degrees
-              </h3>
-            </div>
+            <h3 className="font-serif text-xl font-bold uppercase text-[#6A0F36]">
+              Education
+            </h3>
           </FadeIn>
 
           <FadeInStagger staggerDelay={0.15}>
-            <div className="relative pl-6 space-y-8 border-l border-zinc-200/80">
+            <div className="space-y-4 font-sans text-xs sm:text-sm">
               {education.map((item, idx) => (
-                <div key={idx} className="relative group">
-                  {/* Timeline Dot Indicator */}
-                  <span className="absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full bg-zinc-400 group-hover:bg-zinc-950 group-hover:scale-125 transition-all" />
-
-                  <div className="space-y-1">
-                    <span className="text-xs font-mono text-zinc-400 block font-medium">
-                      {item.year}
-                    </span>
-                    <h4 className="font-serif text-lg font-normal text-zinc-900 group-hover:text-zinc-700 transition-colors">
-                      {item.degree}
-                    </h4>
-                    <p className="text-xs text-zinc-600 font-medium">
-                      {item.institution} — <span className="text-zinc-500 font-light">{item.location}</span>
+                <div key={idx} className="space-y-1 pb-3 border-b border-zinc-100 last:border-b-0">
+                  <span className="text-zinc-400 font-mono text-xs block">{item.year}</span>
+                  <h4 className="font-serif text-base font-normal text-zinc-950">
+                    {item.degree}
+                  </h4>
+                  <p className="text-zinc-600">
+                    {item.institution} — {item.location}
+                  </p>
+                  {item.honors && (
+                    <p className="text-[#6A0F36] font-medium text-xs pt-0.5">
+                      {item.honors}
                     </p>
-                    {item.honors && (
-                      <div className="pt-1 flex items-center gap-1.5 text-[11px] text-amber-700 font-sans font-medium">
-                        <Award className="w-3.5 h-3.5" />
-                        <span>{item.honors}</span>
-                      </div>
-                    )}
-                  </div>
+                  )}
                 </div>
               ))}
             </div>
           </FadeInStagger>
         </div>
 
-        {/* Professional Affiliations & Fellowships */}
+        {/* Professional Affiliations */}
         <div className="space-y-6">
           <FadeIn direction="up">
-            <div className="flex items-center gap-2 border-b border-zinc-200 pb-3">
-              <Briefcase className="w-5 h-5 text-zinc-900" />
-              <h3 className="font-serif text-xl font-normal text-zinc-950">
-                Professional Affiliations & Fellowships
-              </h3>
-            </div>
+            <h3 className="font-serif text-xl font-bold uppercase text-[#6A0F36]">
+              Professional Appointments
+            </h3>
           </FadeIn>
 
           <FadeInStagger staggerDelay={0.15}>
-            <div className="space-y-4">
+            <div className="space-y-4 font-sans text-xs sm:text-sm">
               {affiliations.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="bg-gallery-bg border border-zinc-200/80 p-5 space-y-2 hover:border-zinc-400 transition-all shadow-2xs"
-                >
-                  <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-zinc-900">
-                      {item.role}
-                    </span>
-                    <span className="text-xs font-mono text-zinc-400">{item.years}</span>
-                  </div>
-
-                  <h4 className="font-serif text-base text-zinc-900 font-normal">
-                    {item.organization}
+                <div key={idx} className="space-y-1 pb-3 border-b border-zinc-100 last:border-b-0">
+                  <span className="text-zinc-400 font-mono text-xs block">{item.years}</span>
+                  <h4 className="font-serif text-base font-normal text-zinc-950">
+                    {item.role}
                   </h4>
-
+                  <p className="text-zinc-600">
+                    {item.organization}
+                  </p>
                   {item.details && (
-                    <p className="text-xs text-zinc-600 font-light leading-relaxed">
+                    <p className="text-xs text-zinc-500 pt-0.5">
                       {item.details}
                     </p>
                   )}

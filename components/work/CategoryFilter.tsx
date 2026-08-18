@@ -15,7 +15,7 @@ export function CategoryFilter({
   onSelectCategory,
 }: CategoryFilterProps) {
   return (
-    <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 scrollbar-none">
+    <div className="flex flex-wrap items-center gap-6 pb-2 pt-1 font-sans">
       {categories.map((cat) => {
         const isActive = activeCategory === cat.id;
         return (
@@ -24,11 +24,11 @@ export function CategoryFilter({
             type="button"
             onClick={() => onSelectCategory(cat.id)}
             className={`
-              px-4 py-2 text-xs font-semibold uppercase tracking-widest transition-all duration-300 whitespace-nowrap rounded-xs border cursor-pointer
+              text-xs uppercase tracking-widest font-medium transition-colors cursor-pointer
               ${
                 isActive
-                  ? "bg-zinc-950 text-white border-zinc-950 shadow-xs"
-                  : "bg-white text-zinc-600 border-zinc-200 hover:border-zinc-400 hover:text-zinc-950"
+                  ? "text-[#6A0F36] font-semibold"
+                  : "text-zinc-500 hover:text-zinc-950"
               }
             `}
           >

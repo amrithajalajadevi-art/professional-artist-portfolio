@@ -9,31 +9,23 @@ interface ExhibitionsListProps {
 
 export function ExhibitionsList({ exhibitions }: ExhibitionsListProps) {
   return (
-    <section className="p-6 sm:p-10 xl:p-16 border-b border-gallery-border bg-white space-y-10">
+    <section className="p-8 sm:p-12 xl:p-16 bg-white space-y-8">
       {/* Header Eyebrow & Title */}
       <FadeIn direction="up">
-        <div className="space-y-4 border-b border-zinc-200 pb-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <p className="text-xs uppercase tracking-[0.25em] text-zinc-400 font-semibold font-sans">
-              01 / Exhibitions, Commissions & Public Projects
-            </p>
-            <span className="text-xs font-mono text-zinc-400">
-              Total Recorded Exhibitions: {exhibitions.length}
-            </span>
-          </div>
-
-          <h1 className="font-serif text-3xl sm:text-5xl text-zinc-950 font-normal leading-tight max-w-3xl">
-            Major Professional Projects & International Exhibitions
+        <div className="space-y-6">
+          <h1 className="font-serif text-3xl sm:text-5xl font-bold uppercase text-[#6A0F36] tracking-tight">
+            EXHIBITIONS
           </h1>
-          <p className="text-sm text-zinc-600 font-light max-w-2xl">
-            A chronological portfolio of solo and group museum exhibitions, civic public art commissions, and international pavilion showcases across the United Kingdom, Europe, and Asia.
-          </p>
+
+          <h2 className="font-serif text-xl sm:text-2xl font-bold uppercase text-[#6A0F36] tracking-tight pt-4">
+            UPCOMING & ONGOING EXHIBITIONS
+          </h2>
         </div>
       </FadeIn>
 
       {/* Exhibitions List Container */}
       <FadeInStagger staggerDelay={0.15}>
-        <div className="space-y-8">
+        <div className="space-y-6">
           {exhibitions.map((exhibition) => (
             <ExhibitionCard key={exhibition.id} exhibition={exhibition} />
           ))}

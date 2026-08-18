@@ -11,13 +11,13 @@ interface MobileHeaderProps {
 
 export function MobileHeader({ isOpen, onToggle }: MobileHeaderProps) {
   return (
-    <header className="lg:hidden sticky top-0 z-40 w-full bg-gallery-bg/95 backdrop-blur-md border-b border-gallery-border px-5 py-3.5 flex items-center justify-between transition-all">
+    <header className="lg:hidden sticky top-0 z-40 w-full bg-white px-6 py-4 flex items-center justify-between transition-all">
       {/* Brand / Logo */}
       <Link href="/" className="focus:outline-none">
-        <span className="font-serif text-base font-normal tracking-tight text-zinc-950 block leading-none">
+        <span className="font-serif text-base font-normal tracking-tight text-zinc-950 block leading-none uppercase">
           AMRITHA JALAJA DEVI
         </span>
-        <span className="text-[9px] uppercase tracking-widest text-zinc-500 font-sans block mt-1 font-medium">
+        <span className="text-[9px] uppercase tracking-widest text-zinc-500 font-sans block mt-1 font-light">
           Visual Artist & Sculptor
         </span>
       </Link>
@@ -26,7 +26,7 @@ export function MobileHeader({ isOpen, onToggle }: MobileHeaderProps) {
       <button
         type="button"
         onClick={onToggle}
-        className="p-2 text-zinc-800 hover:text-zinc-950 focus:outline-none transition-colors rounded-sm hover:bg-zinc-200/50"
+        className="p-2 text-zinc-800 hover:text-zinc-950 focus:outline-none transition-colors"
         aria-label={isOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
       >
         {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
