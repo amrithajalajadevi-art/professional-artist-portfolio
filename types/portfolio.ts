@@ -185,3 +185,26 @@ export interface RecognitionItem {
   location?: string;
   category?: string;
 }
+
+export interface CVEntry {
+  year: string;
+  title: string;
+  subtitle?: string;
+  location?: string;
+  details?: string;
+}
+
+export interface CVSectionGroup {
+  id: string;
+  sectionTitle: string;
+  items: CVEntry[];
+}
+
+export interface FullCVData {
+  education: CVEntry[];
+  appointments: CVEntry[];
+  exhibitions: CVEntry[];
+  commissions: CVEntry[];
+  awards: CVEntry[];
+  collections: CVEntry[];
+}
