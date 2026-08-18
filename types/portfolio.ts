@@ -59,3 +59,43 @@ export interface HomePageData {
   keyProjects: Project[];
   pressFeatures: PressItem[];
 }
+
+export interface EducationItem {
+  year: string;
+  degree: string;
+  institution: string;
+  location: string;
+  honors?: string;
+}
+
+export interface AffiliationItem {
+  role: string;
+  organization: string;
+  years: string;
+  details?: string;
+}
+
+export interface BiographyData {
+  eyebrow: string;
+  heading: string;
+  portraitImage: string;
+  portraitAlt: string;
+  portraitCaption: string;
+  paragraphs: string[];
+  quickFacts: { label: string; value: string }[];
+}
+
+export interface ArtistStatementData {
+  eyebrow: string;
+  quote: string;
+  author: string;
+  context: string;
+  keyThemes: string[];
+}
+
+export interface AboutData {
+  biography: BiographyData;
+  statement: ArtistStatementData;
+  education: EducationItem[];
+  affiliations: AffiliationItem[];
+}
