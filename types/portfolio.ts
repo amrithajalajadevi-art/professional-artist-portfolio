@@ -224,3 +224,21 @@ export interface ContactInfoData {
   linkedin: string;
   twitter: string;
 }
+
+export interface CommissionStep {
+  stepNumber: string;
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+export interface WorkshopService {
+  id: string;
+  title: string;
+  category: "Mentoring" | "Foundry Masterclass" | "Ceramics Workshop" | "Online Masterclass";
+  duration: string;
+  skillLevel: string;
+  location: string;
+  description: string;
+  highlights: string[];
+}
