@@ -99,3 +99,26 @@ export interface AboutData {
   education: EducationItem[];
   affiliations: AffiliationItem[];
 }
+
+export type CategorySlug = "all" | "series" | "recent" | "commissions" | "public-art";
+
+export interface CategoryFilterOption {
+  id: CategorySlug;
+  label: string;
+  count: number;
+}
+
+export interface Artwork {
+  id: string;
+  title: string;
+  category: CategorySlug;
+  categoryLabel: string;
+  medium: string;
+  year: string;
+  dimensions?: string;
+  location?: string;
+  image: string;
+  aspectRatio?: "square" | "portrait" | "landscape";
+  description?: string;
+  featured?: boolean;
+}
