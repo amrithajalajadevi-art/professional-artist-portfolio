@@ -26,78 +26,63 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 font-sans text-xs sm:text-sm">
       {isSuccess && (
-        <div className="p-3 bg-[#EFEAE4] border border-[#E8E2DA] text-[#4A2E35] text-xs">
+        <div className="p-3 bg-[#EFEAE4] border border-[#4A2E35]/30 text-[#4A2E35] text-xs font-sans">
           Thank you for your message. Studio management will respond shortly.
         </div>
       )}
 
-      <div className="space-y-1">
-        <label htmlFor="name" className="block text-xs uppercase tracking-wider text-[#4A2E35] font-semibold">
-          Name *
-        </label>
-        <input
-          id="name"
-          type="text"
-          required
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full px-3 py-2 bg-[#F7F4F0] border border-[#E8E2DA] focus:border-[#4A2E35] focus:outline-none rounded-none text-[#4A2E35] text-xs font-sans"
-          placeholder="Your full name"
-        />
+      {/* Single Outer Bordered Box */}
+      <div className="border border-[#4A2E35]/30 bg-transparent rounded-none overflow-hidden">
+        {/* Name Input */}
+        <div className="border-b border-[#4A2E35]/30">
+          <input
+            type="text"
+            required
+            aria-label="Name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#8A7976]"
+            placeholder="Name *"
+          />
+        </div>
+
+        {/* Email Input */}
+        <div className="border-b border-[#4A2E35]/30">
+          <input
+            type="email"
+            required
+            aria-label="Email"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#8A7976]"
+            placeholder="Email *"
+          />
+        </div>
+
+        {/* Message Input */}
+        <div>
+          <textarea
+            rows={6}
+            required
+            aria-label="Message"
+            value={formData.message}
+            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#8A7976] resize-none"
+            placeholder="Message *"
+          />
+        </div>
       </div>
 
-      <div className="space-y-1">
-        <label htmlFor="email" className="block text-xs uppercase tracking-wider text-[#4A2E35] font-semibold">
-          Email *
-        </label>
-        <input
-          id="email"
-          type="email"
-          required
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full px-3 py-2 bg-[#F7F4F0] border border-[#E8E2DA] focus:border-[#4A2E35] focus:outline-none rounded-none text-[#4A2E35] text-xs font-sans"
-          placeholder="your.email@domain.com"
-        />
+      {/* Minimal Submit Button aligned right outside form box */}
+      <div className="flex justify-end pt-2">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="text-xs uppercase tracking-[0.15em] text-[#4A2E35] font-semibold hover:underline cursor-pointer transition-colors bg-transparent border-none p-0"
+        >
+          {isSubmitting ? "Sending..." : "Submit →"}
+        </button>
       </div>
-
-      <div className="space-y-1">
-        <label htmlFor="subject" className="block text-xs uppercase tracking-wider text-[#4A2E35] font-semibold">
-          Subject *
-        </label>
-        <input
-          id="subject"
-          type="text"
-          required
-          value={formData.subject}
-          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-          className="w-full px-3 py-2 bg-[#F7F4F0] border border-[#E8E2DA] focus:border-[#4A2E35] focus:outline-none rounded-none text-[#4A2E35] text-xs font-sans"
-          placeholder="Commissions, Gallery Acquisition, Press, etc."
-        />
-      </div>
-
-      <div className="space-y-1">
-        <label htmlFor="message" className="block text-xs uppercase tracking-wider text-[#4A2E35] font-semibold">
-          Message *
-        </label>
-        <textarea
-          id="message"
-          rows={5}
-          required
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          className="w-full px-3 py-2 bg-[#F7F4F0] border border-[#E8E2DA] focus:border-[#4A2E35] focus:outline-none rounded-none text-[#4A2E35] text-xs font-sans"
-          placeholder="Detail your inquiry..."
-        />
-      </div>
-
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full py-3 bg-[#4A2E35] text-white text-xs uppercase tracking-[0.15em] font-semibold hover:bg-[#352025] transition-colors rounded-none cursor-pointer"
-      >
-        {isSubmitting ? "Sending..." : "Send Message"}
-      </button>
     </form>
   );
 }
