@@ -14,11 +14,11 @@ export function StudioGrid({ items }: StudioGridProps) {
 
   return (
     <div className="space-y-8 font-sans">
-      <div className="space-y-2 border-b border-zinc-100 pb-4">
-        <h2 className="font-serif text-2xl sm:text-3xl text-black font-bold uppercase tracking-tight">
+      <div className="space-y-2 border-b border-neutral-200 pb-4">
+        <h2 className="font-serif text-2xl sm:text-3xl text-neutral-900 font-normal uppercase tracking-tight">
           STUDIO SETUP & IN-PROGRESS WORKS
         </h2>
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-neutral-500 font-sans tracking-wide">
           Behind-the-scenes mold fabrication, lost-wax bronze casting, plaster studies, and clay maquettes from Amritha Jalaja Devi's London studio.
         </p>
       </div>
@@ -42,17 +42,17 @@ export function StudioGrid({ items }: StudioGridProps) {
                     className="w-full h-auto object-contain block bg-gray-50 transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 ) : (
-                  <div className="w-full h-64 bg-gray-50 flex items-center justify-center text-xs text-gray-400 font-sans">
+                  <div className="w-full h-64 bg-gray-50 flex items-center justify-center text-xs text-neutral-400 font-sans">
                     {item.title || "Studio Setup"}
                   </div>
                 )}
               </div>
 
-              <div className="space-y-0.5 text-xs text-gray-500 font-sans pt-1">
-                <h3 className="font-serif text-base text-black font-normal group-hover:text-zinc-600 transition-colors">
+              <div className="space-y-0.5 text-xs text-neutral-500 font-sans pt-1">
+                <h3 className="font-serif text-base text-neutral-900 font-normal group-hover:text-neutral-600 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-gray-500 font-sans">
+                <p className="text-neutral-500 font-sans">
                   {item.caption}
                 </p>
               </div>
