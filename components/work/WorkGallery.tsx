@@ -52,7 +52,7 @@ function WorkGalleryContent({
       {/* Header & Category Sub-Navigation */}
       <FadeIn direction="up">
         <div className="space-y-6">
-          <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-[#4A2E35] tracking-tight">
+          <h1 className="font-serif text-3xl sm:text-5xl font-light uppercase text-[#4A2E35] tracking-tight">
             WORK
           </h1>
 
@@ -74,10 +74,10 @@ function WorkGalleryContent({
         </FadeIn>
       ) : (
         <div className="space-y-16">
-          {/* Curated Artworks Grid */}
+          {/* Curated Artworks Grid: Large 2-3 Column Masonry */}
           {filteredArtworks.length > 0 ? (
             <FadeInStagger key={activeCategory} staggerDelay={0.1}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              <div className="columns-1 md:columns-2 xl:columns-3 gap-10 lg:gap-14">
                 {filteredArtworks.map((artwork) => (
                   <ArtworkCard
                     key={artwork.id}
@@ -103,7 +103,7 @@ function WorkGalleryContent({
           {/* Distinct Studio & In-Progress Section when viewing All */}
           {activeCategory === "all" && (
             <FadeIn direction="up">
-              <div className="pt-12 border-t border-[#E8E2DA]">
+              <div className="pt-16 border-t border-[#E8E2DA]">
                 <StudioGrid items={studioWorksData} />
               </div>
             </FadeIn>
@@ -126,9 +126,9 @@ export function WorkGallery(props: WorkGalleryProps) {
       fallback={
         <div className="p-8 sm:p-12 xl:p-16 space-y-8 animate-pulse bg-[#F7F4F0]">
           <div className="h-10 w-48 bg-[#EFEAE4]" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
-            {[1, 2, 3, 4].map((n) => (
-              <div key={n} className="aspect-[4/3] bg-[#EFEAE4]" />
+          <div className="columns-1 md:columns-2 xl:columns-3 gap-10 lg:gap-14 pt-4">
+            {[1, 2, 3].map((n) => (
+              <div key={n} className="aspect-[3/4] bg-[#EFEAE4] mb-8" />
             ))}
           </div>
         </div>
