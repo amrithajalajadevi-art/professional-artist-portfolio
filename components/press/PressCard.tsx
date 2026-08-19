@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { CustomImage } from "@/components/ui/CustomImage";
 import { PressArticle } from "@/types";
 
@@ -9,13 +10,10 @@ interface PressCardProps {
 export function PressCard({ article }: PressCardProps) {
   if (!article) return null;
 
-  return (
-    <a
-      href={article.externalLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group block space-y-3 bg-[#F7F4F0] text-center font-sans text-xs"
-    >
+  const isInternal = article.externalLink && article.externalLink.startsWith("/");
+
+  const cardContent = (
+    <>
       {/* Thumbnail/Cover Image View - Aspect Square with bg-[#EFEAE4] */}
       <div className="relative w-full aspect-square overflow-hidden bg-[#EFEAE4]">
         {article.coverImage ? (
@@ -45,6 +43,28 @@ export function PressCard({ article }: PressCardProps) {
           {article.publicationName}, <span className="font-normal text-[#8A7976]">{article.date}</span>
         </p>
       </div>
+    </>
+  );
+
+  if (isInternal) {
+    return (
+      <Link
+        href={article.externalLink}
+        className="group block space-y-3 bg-[#F7F4F0] text-center font-sans text-xs"
+      >
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return (
+    <a
+      href={article.externalLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block space-y-3 bg-[#F7F4F0] text-center font-sans text-xs"
+    >
+      {cardContent}
     </a>
   );
 }
