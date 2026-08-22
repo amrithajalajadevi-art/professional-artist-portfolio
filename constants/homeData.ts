@@ -13,7 +13,7 @@ export const homePageData: HomePageData = {
       medium: "Oil on Canvas",
       dimensions: "150 × 120 cm",
       location: "British Council Study UK Exhibition, New Delhi",
-      image: "/artworks/mural-03.jpg",
+      image: "/artworks/work/work20.jpg",
     },
   },
   highlightBanner: {
