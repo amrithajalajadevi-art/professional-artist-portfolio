@@ -74,10 +74,10 @@ function WorkGalleryContent({
         </FadeIn>
       ) : (
         <div className="space-y-16">
-          {/* Curated Artworks Grid: Large 2-3 Column Masonry */}
+          {/* Curated Artworks Grid: Grand 2-Column Layout with Generous Gaps */}
           {filteredArtworks.length > 0 ? (
             <FadeInStagger key={activeCategory} staggerDelay={0.1}>
-              <div className="columns-1 md:columns-2 xl:columns-3 gap-10 lg:gap-14">
+              <div className="columns-1 md:columns-2 gap-12 lg:gap-16">
                 {filteredArtworks.map((artwork) => (
                   <ArtworkCard
                     key={artwork.id}
@@ -126,8 +126,8 @@ export function WorkGallery(props: WorkGalleryProps) {
       fallback={
         <div className="p-8 sm:p-12 xl:p-16 space-y-8 animate-pulse bg-[#F7F4F0]">
           <div className="h-10 w-48 bg-[#EFEAE4]" />
-          <div className="columns-1 md:columns-2 xl:columns-3 gap-10 lg:gap-14 pt-4">
-            {[1, 2, 3].map((n) => (
+          <div className="columns-1 md:columns-2 gap-12 lg:gap-16 pt-4">
+            {[1, 2].map((n) => (
               <div key={n} className="aspect-[3/4] bg-[#EFEAE4] mb-8" />
             ))}
           </div>

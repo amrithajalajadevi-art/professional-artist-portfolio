@@ -7,7 +7,7 @@ import { NavLinks } from "./NavLinks";
 export function Sidebar() {
   return (
     <aside 
-      className="hidden lg:flex lg:w-1/4 fixed left-0 top-0 h-screen bg-[#F7F4F0] flex-col justify-between p-8 xl:p-12 z-30 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      className="hidden lg:flex lg:w-64 fixed left-0 top-0 h-screen bg-[#F7F4F0] flex-col justify-between p-6 xl:p-8 z-30 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       aria-label="Sidebar Navigation"
     >
       <div className="flex flex-col h-full justify-between space-y-8">
