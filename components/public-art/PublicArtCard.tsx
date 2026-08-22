@@ -13,7 +13,7 @@ export function PublicArtCard({ project }: PublicArtCardProps) {
   if (!project) return null;
 
   return (
-    <article className="py-16 sm:py-24 border-b border-[#E8E2DA] last:border-b-0 space-y-10 bg-[#F7F4F0]">
+    <article className="py-24 sm:py-32 border-b border-[#E8E2DA] last:border-b-0 space-y-12 bg-[#F7F4F0]">
       {/* 1 & 2. Massive Full-Width Hero Image Container */}
       <div className="relative w-full overflow-hidden bg-[#EFEAE4] flex items-center justify-center">
         {project.coverImage ? (

@@ -13,7 +13,7 @@ export const publicArtData: PublicArtProject[] = [
     dimensions: "520 × 240 × 180 cm",
     impactMetric: "Permanent Civic Installation — Estimated 450,000+ Annual Public Audience",
     description: "A monumental 5.2-meter permanent civic public art installation commemorating post-industrial labor transformation in Northern England. Combining heavy weathering steel with bronze mineral patinas.",
-    coverImage: "/artworks/mural-01.jpg?q=80&w=1200&auto=format&fit=crop",
+    coverImage: "/artworks/mural-01.jpg",
     externalLink: "https://manchester.gov.uk/arts",
   },
   {
@@ -28,7 +28,7 @@ export const publicArtData: PublicArtProject[] = [
     dimensions: "28 × 4.5 meters (126 sq meters)",
     impactMetric: "Permanent Public Frieze — Commissioned for Urban Regeneration",
     description: "A 28-meter architectural ceramic mural and low-relief sculpture installation examining maritime tidal history and Thames Estuary ecosystem preservation.",
-    coverImage: "/artworks/mural-02.jpg?q=80&w=1200&auto=format&fit=crop",
+    coverImage: "/artworks/mural-02.jpg",
     externalLink: "https://artscouncil.org.uk",
   },
   {
@@ -43,7 +43,7 @@ export const publicArtData: PublicArtProject[] = [
     dimensions: "340 × 190 × 160 cm",
     impactMetric: "Public Botanical Garden Sculpture Feature",
     description: "A site-specific outdoor pavilion installation of interconnected ceramic vessels investigating soil biodiversity, seed memory, and geological time.",
-    coverImage: "/artworks/mural-03.jpg?q=80&w=1200&auto=format&fit=crop",
+    coverImage: "/artworks/mural-03.jpg",
     externalLink: "https://rbge.org.uk",
   },
 ];
