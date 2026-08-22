@@ -26,7 +26,7 @@ export function RecognitionList({ items }: RecognitionListProps) {
             Awards, Honors & Professional Recognition
           </h1>
           <p className="text-sm text-zinc-600 font-light max-w-2xl">
-            An authoritative register of competitive international art awards, national sculpture fellowships, museum exhibition selections, and institutional grants awarded to Amritha Jalaja Devi.
+            An authoritative register of competitive international art selections, British Council features, exhibition selections, and academic distinctions awarded to Amritha Jalaja Devi.
           </p>
         </div>
       </FadeIn>

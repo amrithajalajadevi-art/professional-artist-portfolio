@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { CommissionsView } from "@/components/services/CommissionsView";
 
 export const metadata: Metadata = {
-  title: "Bespoke Sculptural Commissions",
+  title: "Public & Architectural Commissions",
   description:
-    "Commission custom bronze sculptures, architectural terracotta friezes, and private art monuments with London visual artist Amritha Jalaja Devi.",
+    "Commission custom public murals, architectural heritage artworks, and figurative canvases with visual artist Amritha Jalaja Devi.",
 };
 
 export default function CommissionsPage() {

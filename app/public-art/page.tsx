@@ -5,9 +5,9 @@ import { PublicArtCard } from "@/components/public-art/PublicArtCard";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 
 export const metadata: Metadata = {
-  title: "Public Art & Civic Commissions",
+  title: "Public Art & Murals",
   description:
-    "Site-specific sculptures, monumental murals, and civic art commissions by London artist Amritha Jalaja Devi.",
+    "Collaborative public murals, community art projects, and architectural heritage commissions by UK visual artist Amritha Jalaja Devi.",
 };
 
 export default function PublicArtPage() {
@@ -17,10 +17,10 @@ export default function PublicArtPage() {
         <FadeIn direction="up">
           <div className="space-y-4 pb-6 border-b border-[#E8E2DA]">
             <h1 className="font-serif text-3xl sm:text-5xl font-light uppercase text-[#4A2E35] tracking-tight">
-              PUBLIC ART & CIVIC COMMISSIONS
+              PUBLIC ART & MURALS
             </h1>
             <p className="text-xs sm:text-sm text-[#8A7976] font-sans font-light max-w-2xl leading-relaxed">
-              Monumental civic sculptures, architectural ceramic murals, and site-responsive public art installations commissioned across the United Kingdom and internationally.
+              Collaborative public murals, community art projects, and architectural heritage commissions bringing fine art outside gallery walls to interact directly with local communities in the UK and India.
             </p>
           </div>
         </FadeIn>

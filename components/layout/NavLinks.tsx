@@ -19,10 +19,10 @@ export const mainNavItems: NavItem[] = [
     label: "Work",
     href: "/work",
     subItems: [
-      { label: "Paintings & Sculptures", href: "/work?category=series", category: "series" },
+      { label: "Figurative Paintings", href: "/work?category=series", category: "series" },
       { label: "UK Commissions", href: "/work?category=commissions", category: "commissions" },
-      { label: "Biennale Series", href: "/work?category=series", category: "series" },
-      { label: "Studio Setup & In-Progress", href: "/work?category=studio", category: "studio" },
+      { label: "Public Murals", href: "/public-art", category: "public-art" },
+      { label: "Studio Practice & Drawings", href: "/work?category=studio", category: "studio" },
     ],
   },
   { label: "Exhibitions & Projects", href: "/exhibitions" },

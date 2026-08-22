@@ -15,7 +15,7 @@ export function CommissionsView() {
               COMMISSIONS
             </h1>
             <p className="text-sm text-[#8A7976] font-sans max-w-2xl leading-relaxed">
-              Creating custom, site-specific bronze sculptures, architectural terracotta friezes, and private gallery monuments tailored for residential, corporate, and civic environments.
+              Creating custom, site-specific public murals, architectural heritage artworks, and private figurative canvases tailored for cultural, civic, and residential spaces.
             </p>
           </div>
         </FadeIn>
@@ -24,8 +24,8 @@ export function CommissionsView() {
         <FadeIn direction="up" delay={0.2}>
           <div className="relative w-full aspect-[16/9] overflow-hidden bg-[#F7F4F0]">
             <CustomImage
-              src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop"
-              alt="Bespoke bronze commission in a contemporary architectural interior"
+              src="/artworks/mural-02.jpg"
+              alt="Kerala visual heritage architectural mural commission"
               fill
               priority
               objectFit="cover"

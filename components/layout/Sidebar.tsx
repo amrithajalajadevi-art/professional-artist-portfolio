@@ -19,7 +19,7 @@ export function Sidebar() {
               JALAJA DEVI
             </h1>
             <p className="text-[11px] uppercase tracking-[0.15em] text-[#8A7976] font-sans mt-2 font-light">
-              Visual Artist & Sculptor
+              Visual Artist
             </p>
           </Link>
         </div>

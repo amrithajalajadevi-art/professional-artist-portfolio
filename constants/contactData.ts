@@ -2,17 +2,17 @@ import { ContactInfoData, ArtworkMeta } from "@/types";
 
 export const contactInfoData: ContactInfoData = {
   email: "contact@amrithajalajadevi.art",
-  studioLocation: "Studio 14, Sculpture Yard & Foundry, Greenwich Peninsula, London SE10, United Kingdom",
-  galleryRepresentation: "Represented for UK & International Civic Commissions by Contemporary Fine Art Agency London",
+  studioLocation: "Visual Art Studio, Leicester, United Kingdom & Mavelikara, Kerala, India",
+  galleryRepresentation: "Available for public murals, community workshops, commissions, and gallery exhibitions in the UK and internationally",
   instagram: "https://instagram.com",
   linkedin: "https://linkedin.com",
   twitter: "https://x.com",
 };
 
 export const studioImageData: ArtworkMeta = {
-  title: "Amritha Jalaja Devi in her Studio — Bronze Patination & Mold Assembly",
-  year: "2026",
-  medium: "Bronze Patination & Mold Assembly",
-  location: "Greenwich Peninsula Studio, London",
-  image: "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
+  title: "Amritha Jalaja Devi in her Studio — Figurative Painting & Drawing",
+  year: "2024",
+  medium: "Oil on Canvas & Preparatory Sketches",
+  location: "Leicester Studio, United Kingdom",
+  image: "/artworks/work/work1.jpg",
 };

@@ -26,7 +26,7 @@ export function PublicArtList({ projects }: PublicArtListProps) {
             Public Art & Site-Specific UK Commissions
           </h1>
           <p className="text-sm text-zinc-600 font-light max-w-2xl">
-            Large-scale permanent sculptures, architectural ceramic murals, and community civic commissions created for public plazas, botanical gardens, and urban regeneration sites across the UK.
+            Collaborative public murals, community art projects, and architectural heritage commissions created for public plazas, cultural spaces, and urban regeneration sites across the UK and India.
           </p>
         </div>
       </FadeIn>
