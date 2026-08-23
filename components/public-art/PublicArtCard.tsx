@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { PublicArtProject } from "@/types";
+import { ArtworkDisplay } from "./ArtworkDisplay";
 
 interface PublicArtCardProps {
   project: PublicArtProject;
@@ -12,27 +12,17 @@ interface PublicArtCardProps {
 export function PublicArtCard({ project }: PublicArtCardProps) {
   if (!project) return null;
 
+  const displayImages =
+    project.galleryImages && project.galleryImages.length > 0
+      ? project.galleryImages.includes(project.coverImage)
+        ? project.galleryImages
+        : [project.coverImage, ...project.galleryImages]
+      : [project.coverImage];
+
   return (
     <article className="py-24 sm:py-32 border-b border-[#E8E2DA] last:border-b-0 space-y-12 bg-[#F7F4F0]">
-      {/* 1 & 2. Massive Full-Width Hero Image Container */}
-      <div className="relative w-full overflow-hidden bg-[#EFEAE4] flex items-center justify-center">
-        {project.coverImage ? (
-          <Image
-            src={project.coverImage}
-            alt={project.title}
-            width={2400}
-            height={1600}
-            quality={95}
-            priority={true}
-            sizes="100vw"
-            className="w-full h-auto max-h-[85vh] object-contain block bg-[#EFEAE4] transition-transform duration-700 ease-out hover:scale-[1.01]"
-          />
-        ) : (
-          <div className="w-full h-96 bg-[#EFEAE4] flex items-center justify-center text-xs text-[#8A7976] font-sans">
-            {project.title}
-          </div>
-        )}
-      </div>
+      {/* 1 & 2. Artwork Display Component (Single Image or Splitted Murals Carousel) */}
+      <ArtworkDisplay images={displayImages} title={project.title} />
 
       {/* 4. Text Placement Below Image in a Clean Multi-Column Grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-14 pt-2 font-sans text-xs sm:text-sm">
