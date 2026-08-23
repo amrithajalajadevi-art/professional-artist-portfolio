@@ -11,6 +11,7 @@ export interface HeroContent {
   eyebrow: string;
   headline: string;
   statement: string;
+  tagline?: string;
   primaryCta: { label: string; href: string };
   secondaryCta: { label: string; href: string };
   featuredArtwork: ArtworkMeta;

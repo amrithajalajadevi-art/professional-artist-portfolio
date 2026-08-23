@@ -3,7 +3,8 @@ import { HomePageData } from "@/types";
 export const homePageData: HomePageData = {
   hero: {
     eyebrow: "01 / Artist Statement & Portfolio",
-    headline: "Observing quiet human moments, domestic rest, and cultural transition between Kerala and Britain.",
+    headline: "Contemporary Figurative painter with an expanding public-art practice.",
+    tagline: "Contemporary Figurative painter with an expanding public-art practice.",
     statement: "Amritha Jalaja Devi is a visual artist originally from Mavelikara in Alappuzha, Kerala, currently based in the United Kingdom. Her practice is primarily figurative, observing everyday domestic environments—sleeping, resting, and quiet human connections that explore wellbeing, vulnerability, memory, and belonging.",
     primaryCta: { label: "View Selected Work", href: "/work" },
     secondaryCta: { label: "Download CV", href: "/cv" },

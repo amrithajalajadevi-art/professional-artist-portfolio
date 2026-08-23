@@ -13,10 +13,24 @@ interface HeroSectionProps {
 export function HeroSection({ data }: HeroSectionProps) {
   if (!data || !data.featuredArtwork) return null;
 
+  const heroStatement =
+    data.tagline ||
+    data.headline ||
+    "Contemporary Figurative painter with an expanding public-art practice.";
+
   return (
-    <section className="relative w-full p-6 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-6">
-      {/* 1. Universal Image Container with Fill, Object-Contain & Object-Left */}
+    <section className="relative w-full p-6 sm:p-12 xl:p-16 bg-[#F7F4F0]">
+      {/* 1. Hero Typography Block: High-End Gallery Wall Statement */}
       <FadeIn direction="up">
+        <div className="max-w-3xl mb-16 md:mb-24">
+          <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-light leading-tight text-[#4A2E35]">
+            {heroStatement}
+          </h1>
+        </div>
+      </FadeIn>
+
+      {/* 2. Universal Image Container with Fill, Object-Contain & Object-Left */}
+      <FadeIn direction="up" delay={0.1}>
         <div className="relative w-full h-[65vh] sm:h-[75vh] lg:h-[80vh] min-h-[350px] sm:min-h-[480px] bg-[#F7F4F0] overflow-hidden flex items-center justify-start">
           {data.featuredArtwork.image ? (
             <Image
@@ -36,9 +50,9 @@ export function HeroSection({ data }: HeroSectionProps) {
         </div>
       </FadeIn>
 
-      {/* 2. Caption Text Container Strictly Aligned to Left Edge */}
+      {/* 3. Caption Text Container Strictly Aligned to Left Edge */}
       <FadeIn direction="up" delay={0.2}>
-        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pt-2 font-sans text-xs text-[#8A7976]">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pt-6 font-sans text-xs text-[#8A7976]">
           <div className="text-left">
             <h2 className="font-serif text-lg sm:text-xl text-[#4A2E35] font-light italic">
               {data.featuredArtwork.title},{" "}
