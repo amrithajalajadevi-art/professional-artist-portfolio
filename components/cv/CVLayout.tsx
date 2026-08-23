@@ -30,7 +30,7 @@ export function CVLayout({ cvData }: CVLayoutProps) {
           </div>
 
           <p className="text-sm text-[#8A7976] font-sans">
-            Amritha Jalaja Devi — Contemporary Visual Artist & Sculptor (London, UK)
+            Amritha Jalaja Devi — Contemporary Visual Artist (UK & India)
           </p>
         </div>
       </FadeIn>

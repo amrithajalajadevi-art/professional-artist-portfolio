@@ -31,20 +31,20 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://amrithajalajadevi.com"),
   title: {
-    default: "Amritha Jalaja Devi | Visual Artist & Sculptor",
+    default: "Amritha Jalaja Devi | Visual Artist",
     template: "%s | Amritha Jalaja Devi",
   },
   description:
-    "Official portfolio of Amritha Jalaja Devi, contemporary visual artist and sculptor featuring paintings, UK commissions, exhibitions, press features, and selected works.",
+    "Official portfolio of Amritha Jalaja Devi, visual artist featuring figurative paintings, public murals, UK commissions, and British Council selected works.",
   keywords: [
     "Amritha Jalaja Devi",
     "Visual Artist",
-    "Painter",
-    "Sculptor",
-    "UK Commissions",
-    "Art Portfolio",
-    "Contemporary Art",
-    "Exhibitions",
+    "Figurative Painter",
+    "Public Murals",
+    "British Council Selection",
+    "Kerala Artist UK",
+    "De Montfort University",
+    "Raja Ravi Varma College",
     "Fine Art",
   ],
   authors: [{ name: "Amritha Jalaja Devi", url: "https://amrithajalajadevi.com" }],
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: "https://amrithajalajadevi.com",
     siteName: "Amritha Jalaja Devi Visual Art",
-    title: "Amritha Jalaja Devi | Visual Artist & Sculptor",
+    title: "Amritha Jalaja Devi | Visual Artist",
     description:
-      "Official portfolio of Amritha Jalaja Devi featuring contemporary paintings, sculptures, UK commissions, and gallery exhibitions.",
+      "Official portfolio of Amritha Jalaja Devi featuring contemporary figurative paintings, public murals, UK commissions, and gallery exhibitions.",
     images: [
       {
         url: "/og-image.jpg",
@@ -74,9 +74,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amritha Jalaja Devi | Visual Artist & Sculptor",
+    title: "Amritha Jalaja Devi | Visual Artist",
     description:
-      "Official portfolio of Amritha Jalaja Devi featuring contemporary paintings, sculptures, UK commissions, and gallery exhibitions.",
+      "Official portfolio of Amritha Jalaja Devi featuring contemporary figurative paintings, public murals, UK commissions, and gallery exhibitions.",
     images: ["/og-image.jpg"],
     creator: "@amrithajalaja",
   },
@@ -109,4 +109,3 @@ export default function RootLayout({
     </html>
   );
 }
-

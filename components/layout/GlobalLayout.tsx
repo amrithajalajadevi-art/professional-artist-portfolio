@@ -15,7 +15,7 @@ export function GlobalLayout({ children }: GlobalLayoutProps) {
 
   return (
     <div className="min-h-screen bg-[#F7F4F0] text-[#4A2E35] selection:bg-[#4A2E35] selection:text-white flex flex-col lg:flex-row relative font-sans">
-      {/* Fixed Left Sidebar (25% Width on Desktop) */}
+      {/* Fixed Left Sidebar (Slim 16rem / 256px Width on Desktop) */}
       <Sidebar />
 
       {/* Mobile Top Navbar & Slide-out Drawer (< lg Breakpoint) */}
@@ -28,8 +28,8 @@ export function GlobalLayout({ children }: GlobalLayoutProps) {
         onClose={() => setMobileMenuOpen(false)} 
       />
 
-      {/* Scrollable Right Content Area (75% Width on Desktop, 100% on Mobile/Tablet) */}
-      <main className="w-full lg:w-[75%] lg:ml-[25%] min-h-screen bg-[#F7F4F0] flex flex-col justify-between transition-all">
+      {/* Scrollable Right Content Area (Expanded Width on Desktop, 100% on Mobile/Tablet) */}
+      <main className="w-full lg:w-[calc(100%-16rem)] lg:ml-64 min-h-screen bg-[#F7F4F0] flex flex-col justify-between transition-all">
         <div className="flex-1">
           {children}
         </div>

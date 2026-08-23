@@ -6,7 +6,7 @@ import { ContactLayout } from "@/components/contact/ContactLayout";
 export const metadata: Metadata = {
   title: "Contact & Studio Inquiry",
   description:
-    "Direct studio inquiries, commission requests, and gallery correspondence with London visual artist and sculptor Amritha Jalaja Devi.",
+    "Direct studio inquiries, mural commission requests, and gallery correspondence with visual artist Amritha Jalaja Devi.",
 };
 
 export default function ContactPage() {

@@ -2,104 +2,105 @@ import { ExhibitionProject } from "@/types";
 
 export const exhibitionsData: ExhibitionProject[] = [
   {
-    id: "echoes-of-silence-ysp",
+    id: "shared-silence-new-delhi",
     slug: "echoes-of-silence",
-    title: "Echoes of Silence: Monumental Public Commission",
-    subtitle: "UK Civic Sculpture Commission & Solo Park Feature",
-    date: "October 15, 2025 — March 30, 2026",
-    year: "2025–2026",
-    status: "Ongoing",
-    venue: "Yorkshire Sculpture Park & London Civic Plaza",
-    city: "Wakefield & London",
-    country: "United Kingdom",
-    role: "Lead Sculptor & Commissioned Artist",
-    curator: "Dr. Eleanor Vance (Senior Curator, YSP)",
-    description: "A major UK public sculpture installation featuring 4-meter cast bronze forms examining industrial heritage, post-industrial landscape memory, and environmental patina.",
-    coverImage: "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
+    title: "Shared Silence: British Council Study UK Creative Connections",
+    subtitle: "British Council International Exhibition Showcase",
+    date: "2026",
+    year: "2026",
+    status: "Upcoming",
+    venue: "British Council New Delhi Gallery",
+    city: "New Delhi",
+    country: "India",
+    role: "Featured Selected Artist",
+    curator: "British Council UK Creative Connections Panel",
+    description: "Amritha Jalaja Devi's painting 'Shared Silence' (2024) was selected by the British Council for the Study UK Creative Connections 2026 exhibition in New Delhi. The exhibition celebrates creative dialogue and cultural transition between India and Britain.",
+    coverImage: "/artworks/work/work1.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
-      "/images/hero-artwork.jpg",
-      "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=1200&auto=format&fit=crop"
+      "/artworks/work/work1.jpg",
+      "/artworks/mural-03.jpg"
     ],
-    externalLink: "https://ysp.org.uk",
+    externalLink: "https://britishcouncil.org",
     highlights: [
-      "Supported by British Council Visual Arts Fellowship 2025",
-      "Commissioned for UK National Heritage Public Plaza",
-      "Featured in The Guardian & Art UK Reviews"
+      "Selected for British Council Study UK Creative Connections 2026",
+      "Featured Artist Profile by British Council Programme",
+      "Explores quietness, domestic rest, and emotional bonds"
     ]
   },
   {
-    id: "terra-incognita-biennale",
+    id: "varavazhikal-alappuzha",
     slug: "terra-incognita",
-    title: "Terra Incognita: 60th International Art Exhibition",
-    subtitle: "Venice Biennale Collateral Pavilion Solo Exhibition",
-    date: "April 20 — November 24, 2024",
-    year: "2024",
+    title: "Varavazhikal Public Mural Project",
+    subtitle: "Collaborative Community Art Showcase",
+    date: "2022",
+    year: "2022",
     status: "Past",
-    venue: "Palazzo Mora, Venice Biennale Collateral Event",
-    city: "Venice",
-    country: "Italy",
-    role: "Solo Pavilion Exhibitor",
-    curator: "European Cultural Centre (ECC)",
-    description: "A solo suite of 14 glazed terracotta vessels and bronze assemblages addressing sea-level vulnerability, maritime trade route relics, and ecological time.",
-    coverImage: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?q=80&w=1200&auto=format&fit=crop",
+    venue: "Alappuzha Public Promenade",
+    city: "Alappuzha, Kerala",
+    country: "India",
+    role: "Collaborative Project Artist",
+    curator: "Kochi Biennale Foundation",
+    description: "Participated in the collaborative public mural project Varavazhikal in Alappuzha in 2022, associated with the Kochi Biennale Foundation. Demonstrated how fine art can move outside gallery spaces to interact directly with local residents.",
+    coverImage: "/artworks/mural-01.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1561214115-f2f134cc4912?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop"
+      "/artworks/mural-01.jpg"
     ],
-    externalLink: "https://labiennale.org",
+    externalLink: "https://kochibiennale.org",
     highlights: [
-      "Nominated for Venice Biennale ECC Personal Structures Award",
-      "Attracted over 45,000 international gallery visitors",
-      "Catalog published by ECC Art Press Venice"
+      "Associated with Kochi Biennale Foundation",
+      "Collaborative public mural project in Alappuzha, Kerala",
+      "Community-facing engagement and public visual art"
     ]
   },
   {
-    id: "lumina-va-museum",
+    id: "leicester-resto-heritage-mural",
     slug: "lumina-vessel-of-light",
-    title: "Lumina: Spatial Canvas & Assemblage Showcase",
-    subtitle: "Museum Architecture & Materiality Feature",
-    date: "May 10 — September 15, 2025",
-    year: "2025",
+    title: "Kerala Heritage Cultural Murals",
+    subtitle: "Architectural Commission & Public Feature",
+    date: "2024",
+    year: "2024",
     status: "Past",
-    venue: "Victoria and Albert Museum (V&A)",
-    city: "London",
+    venue: "90's Mix Resto Bar",
+    city: "Leicester",
     country: "United Kingdom",
-    role: "Featured Guest Sculptor & Speaker",
-    curator: "V&A Contemporary Architecture & Sculpture Dept.",
-    description: "An architectural installation comprising raw flax oil canvases and bronze spatial sculptures examining light diffusion in museum spaces.",
-    coverImage: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1200&auto=format&fit=crop",
+    role: "Commissioned Mural Artist",
+    curator: "UK Commercial & Civic Arts Board",
+    description: "A major UK commission creating large-scale murals drawing from Kerala’s cultural memory, visual heritage, traditional street celebrations, and everyday life within a British city context.",
+    coverImage: "/artworks/mural-02.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=1200&auto=format&fit=crop"
+      "/artworks/mural-02.jpg"
     ],
-    externalLink: "https://vam.ac.uk",
+    externalLink: "https://instagram.com",
     highlights: [
-      "Acquired for V&A Contemporary Study Collection",
-      "Accompanied by V&A Public Masterclass Lecture series"
+      "Large-scale architectural mural commission in Leicester, UK",
+      "Bridges Kerala street life and traditional celebrations with British urban life",
+      "Explores migration, belonging, and visual memory"
     ]
   },
   {
-    id: "post-industrial-basel",
+    id: "rest-and-quietude-showcase",
     slug: "post-industrial-geometries",
-    title: "Post-Industrial Geometries: Sculpture Triennial",
-    subtitle: "International Triennial Group Exhibition",
-    date: "June 12 — August 28, 2024",
+    title: "Rest, Sleep & Domestic Space Series",
+    subtitle: "MA Contemporary Arts Practice Showcase",
+    date: "2024",
     year: "2024",
     status: "Past",
-    venue: "Kunsthalle Basel & Open Air Sculpture Park",
-    city: "Basel",
-    country: "Switzerland",
-    role: "Invited International Artist",
-    curator: "Hans-Peter Meyer",
-    description: "A group showcase featuring international sculptors working with heavy industrial alloys and raw stone assemblages.",
-    coverImage: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?q=80&w=1200&auto=format&fit=crop",
+    venue: "De Montfort University Gallery",
+    city: "Leicester",
+    country: "United Kingdom",
+    role: "Postgraduate Studio Artist",
+    curator: "De Montfort University Fine Art Faculty",
+    description: "A comprehensive figurative painting series exploring sleep and rest as central subjects—examining how ordinary domestic moments reflect wellbeing, vulnerability, memory, and cultural transition.",
+    coverImage: "/artworks/work/work2.jpg",
     galleryImages: [
-      "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?q=80&w=1200&auto=format&fit=crop"
+      "/artworks/work/work2.jpg",
+      "/artworks/work/work3.jpg"
     ],
-    externalLink: "https://kunsthallebasel.ch",
+    externalLink: "https://dmu.ac.uk",
     highlights: [
-      "Swiss Art Foundation Honor Mention",
-      "Exhibited alongside leading European sculptors"
+      "MA Contemporary Arts Practice Showcase at De Montfort University",
+      "Figurative oil and acrylic paintings exploring domestic quietude",
+      "Examines wellbeing, vulnerability, and human connection"
     ]
   }
 ];

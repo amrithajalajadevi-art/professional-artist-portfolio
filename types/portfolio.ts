@@ -11,6 +11,7 @@ export interface HeroContent {
   eyebrow: string;
   headline: string;
   statement: string;
+  tagline?: string;
   primaryCta: { label: string; href: string };
   secondaryCta: { label: string; href: string };
   featuredArtwork: ArtworkMeta;
@@ -181,7 +182,7 @@ export interface PressArticle {
   author?: string;
 }
 
-export type RecognitionStatus = "Won" | "Nominated" | "Shortlisted" | "Selected" | "Offered";
+export type RecognitionStatus = "Won" | "Nominated" | "Shortlisted" | "Selected" | "Offered" | "Featured";
 
 export interface RecognitionItem {
   id: string;
@@ -244,7 +245,7 @@ export interface CommissionStep {
 export interface WorkshopService {
   id: string;
   title: string;
-  category: "Mentoring" | "Foundry Masterclass" | "Ceramics Workshop" | "Online Masterclass";
+  category: "Mentoring" | "Painting Masterclass" | "Public Art Workshop" | "Online Masterclass" | "Foundry Masterclass" | "Ceramics Workshop";
   duration: string;
   skillLevel: string;
   location: string;

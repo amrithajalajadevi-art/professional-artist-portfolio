@@ -8,7 +8,7 @@ import { EducationSection } from "@/components/about/EducationSection";
 export const metadata: Metadata = {
   title: "About & Artist Profile",
   description:
-    "Biography, core artistic vision, academic background, and professional affiliations of contemporary visual artist and sculptor Amritha Jalaja Devi.",
+    "Biography, core artistic vision, BFA and MA education, British Council selection, and public murals of UK visual artist Amritha Jalaja Devi.",
 };
 
 export default function AboutPage() {

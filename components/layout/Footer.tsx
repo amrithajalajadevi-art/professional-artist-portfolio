@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] text-center sm:text-left flex flex-col sm:flex-row justify-between items-center text-xs text-[#8A7976] tracking-wider gap-4">
       <div>
         <p className="font-serif text-sm text-[#4A2E35] font-normal">
-          Amritha Jalaja Devi — Contemporary Visual Artist & Sculptor
+          Amritha Jalaja Devi — Contemporary Visual Artist
         </p>
         <p className="text-[11px] text-[#8A7976] mt-1">
           © {new Date().getFullYear()} Amritha Jalaja Devi

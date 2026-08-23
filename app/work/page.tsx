@@ -4,9 +4,9 @@ import { artworksData, categoryOptions, normalizeCategorySlug } from "@/constant
 import { WorkGallery } from "@/components/work/WorkGallery";
 
 export const metadata: Metadata = {
-  title: "Selected Works & Sculptural Gallery",
+  title: "Selected Works & Gallery",
   description:
-    "Curated art portfolio of Amritha Jalaja Devi featuring bronze sculptures, ceramics, UK commissions, and oil paintings.",
+    "Curated art portfolio of visual artist Amritha Jalaja Devi featuring figurative oil paintings, public murals, drawings, and rest series.",
 };
 
 interface WorkPageProps {
