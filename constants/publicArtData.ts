@@ -46,4 +46,23 @@ export const publicArtData: PublicArtProject[] = [
     coverImage: "/artworks/mural-03.jpg",
     externalLink: "https://britishcouncil.org",
   },
+  {
+    id: "varavazhikal-mural-alappuzha4",
+    title: "Varavazhikal Public Mural Project",
+    medium: "Public Mural & Mineral Pigments",
+    location: "Alappuzha Promenade",
+    city: "Alappuzha, Kerala",
+    country: "India",
+    year: "2022",
+    commissioningBody: "Kochi Biennale Foundation Collaboration",
+    dimensions: "18 × 3.5 meters",
+    impactMetric: "Public Community Mural — Interacting Directly with Local Residents",
+    description: "Participated in the collaborative public mural project Varavazhikal in Alappuzha in 2022, associated with the Kochi Biennale Foundation. Working on a public-facing project gave me a different understanding of art—seeing how art becomes part of a place and interacts directly with people.",
+    galleryImages:[
+        "/artworks/1.jpg",
+        "/artworks/2.jpg",
+        "/artworks/3.jpg"
+    ],
+    externalLink: "https://kochibiennale.org",
+  },
 ];

@@ -163,7 +163,7 @@ export interface PublicArtProject {
   year: string;
   commissioningBody: string;
   description: string;
-  coverImage: string;
+  coverImage?: string;
   galleryImages?: string[];
   dimensions?: string;
   impactMetric?: string;
