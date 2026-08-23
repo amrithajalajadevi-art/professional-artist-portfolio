@@ -58,7 +58,6 @@ export const publicArtData: PublicArtProject[] = [
     dimensions: "18 × 3.5 meters",
     impactMetric: "Public Community Mural — Interacting Directly with Local Residents",
     description: "Participated in the collaborative public mural project Varavazhikal in Alappuzha in 2022, associated with the Kochi Biennale Foundation. Working on a public-facing project gave me a different understanding of art—seeing how art becomes part of a place and interacts directly with people.",
-    coverImage: "/artworks/mural-04.jpg",
     galleryImages:[
         "/artworks/1.jpg",
         "/artworks/2.jpg",

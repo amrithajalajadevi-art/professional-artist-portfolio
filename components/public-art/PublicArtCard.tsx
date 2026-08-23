@@ -12,12 +12,19 @@ interface PublicArtCardProps {
 export function PublicArtCard({ project }: PublicArtCardProps) {
   if (!project) return null;
 
-  const displayImages =
-    project.galleryImages && project.galleryImages.length > 0
-      ? project.galleryImages.includes(project.coverImage)
-        ? project.galleryImages
-        : [project.coverImage, ...project.galleryImages]
-      : [project.coverImage];
+  const coverImage = project.coverImage;
+  const galleryImages = project.galleryImages || [];
+
+  const displayImages: string[] =
+    galleryImages.length > 0
+      ? coverImage && galleryImages.includes(coverImage)
+        ? galleryImages
+        : coverImage
+        ? [coverImage, ...galleryImages]
+        : galleryImages
+      : coverImage
+      ? [coverImage]
+      : [];
 
   return (
     <article className="py-24 sm:py-32 border-b border-[#E8E2DA] last:border-b-0 space-y-12 bg-[#F7F4F0]">

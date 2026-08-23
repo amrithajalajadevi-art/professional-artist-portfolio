@@ -77,17 +77,17 @@ export function ArtworkDisplay({
 
   // Condition 2: Multiple Images Carousel
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={`space-y-3 ${className}`}>
       {/* 1. Horizontal Scroll Snap Container */}
       <div className="relative group w-full">
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-4 sm:gap-6 scrollbar-hide [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden scroll-smooth py-0.5"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-0 md:scrollbar-hide md:[scrollbar-width:none] md:[-ms-overflow-style:none] md:[&::-webkit-scrollbar]:hidden scroll-smooth py-0.5"
         >
           {normalizedImages.map((image, idx) => (
             <div
               key={idx}
-              className="h-[65vh] sm:h-[75vh] w-auto shrink-0 snap-start relative overflow-hidden bg-[#EFEAE4] flex items-center justify-center"
+              className="h-[60vh] sm:h-[75vh] w-auto shrink-0 snap-start relative overflow-hidden bg-[#EFEAE4] flex items-center justify-center"
             >
               <Image
                 src={image.src}
@@ -103,7 +103,7 @@ export function ArtworkDisplay({
           ))}
         </div>
 
-        {/* Desktop Navigation Arrow Overlays (Retained for interactivity) */}
+        {/* Desktop Navigation Arrow Overlays */}
         <div className="hidden md:flex items-center justify-between pointer-events-none absolute inset-y-0 -left-3 -right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <button
             onClick={() => scrollByDirection("left")}
@@ -122,12 +122,21 @@ export function ArtworkDisplay({
         </div>
       </div>
 
-      {/* 2. Minimalist Title / Caption Area (Clean without numbers or dots) */}
-      {(caption || title) && (
-        <div className="text-left font-sans text-xs text-[#8A7976]">
-          <p className="font-light text-[#8A7976]">{caption || title}</p>
+      {/* 2. Caption Area & Mobile-Only Swipe Indicator */}
+      <div className="flex items-center justify-between gap-4 font-sans text-xs text-[#8A7976] pt-1">
+        <div className="text-left">
+          {(caption || title) && (
+            <p className="font-light text-[#8A7976]">{caption || title}</p>
+          )}
         </div>
-      )}
+
+        {/* Mobile-Only Swipe Text Indicator */}
+        <div className="block md:hidden shrink-0 text-right">
+          <span className="text-[10px] uppercase tracking-wider text-[#8A7976] font-light flex items-center gap-1">
+            Swipe to explore ⟶
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
