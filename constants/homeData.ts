@@ -2,12 +2,7 @@ import { HomePageData } from "@/types";
 
 export const homePageData: HomePageData = {
   hero: {
-    eyebrow: "01 / Artist Statement & Portfolio",
     headline: "Contemporary Figurative painter with an expanding public-art practice.",
-    tagline: "Contemporary Figurative painter with an expanding public-art practice.",
-    statement: "Amritha Jalaja Devi is a visual artist originally from Mavelikara in Alappuzha, Kerala, currently based in the United Kingdom. Her practice is primarily figurative, observing everyday domestic environments—sleeping, resting, and quiet human connections that explore wellbeing, vulnerability, memory, and belonging.",
-    primaryCta: { label: "View Selected Work", href: "/work" },
-    secondaryCta: { label: "Download CV", href: "/cv" },
     featuredArtwork: {
       title: "Shared Silence",
       year: "2024",
@@ -18,7 +13,6 @@ export const homePageData: HomePageData = {
     },
   },
   highlightBanner: {
-    eyebrow: "02 / Key Recognition & Selection",
     title: "Selected for British Council Study UK Creative Connections 2026",
     badge: "British Council Featured Artist",
     description: "Amritha's painting 'Shared Silence' (2024) was selected by the British Council for the Study UK Creative Connections 2026 exhibition in New Delhi. The British Council also featured her artwork and profile as part of their international cultural programme connecting Britain and India.",

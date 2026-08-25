@@ -10,7 +10,7 @@ interface RecognitionListProps {
 export function RecognitionList({ items }: RecognitionListProps) {
   return (
     <section className="p-6 sm:p-10 xl:p-16 border-b border-gallery-border bg-white space-y-12">
-      {/* Header Eyebrow & Title */}
+      {/* Header & Title */}
       <FadeIn direction="up">
         <div className="space-y-4 border-b border-zinc-200 pb-6">
           <div className="flex flex-wrap items-center justify-between gap-4">

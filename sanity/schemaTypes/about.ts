@@ -11,12 +11,6 @@ export const aboutType = defineType({
       type: 'object',
       fields: [
         defineField({
-          name: 'eyebrow',
-          title: 'Eyebrow Text',
-          type: 'string',
-          initialValue: '01 / Artist Profile & Biography',
-        }),
-        defineField({
           name: 'heading',
           title: 'Heading',
           type: 'string',
@@ -59,7 +53,6 @@ export const aboutType = defineType({
       title: 'Core Artist Vision / Statement',
       type: 'object',
       fields: [
-        defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string' }),
         defineField({ name: 'quote', title: 'Quote', type: 'text', rows: 4 }),
         defineField({ name: 'author', title: 'Author', type: 'string' }),
         defineField({ name: 'context', title: 'Context', type: 'string' }),

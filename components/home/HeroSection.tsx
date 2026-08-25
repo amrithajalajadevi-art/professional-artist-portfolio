@@ -14,7 +14,6 @@ export function HeroSection({ data }: HeroSectionProps) {
   if (!data || !data.featuredArtwork) return null;
 
   const heroStatement =
-    data.tagline ||
     data.headline ||
     "Contemporary Figurative painter with an expanding public-art practice.";
 

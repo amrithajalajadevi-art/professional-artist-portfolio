@@ -10,28 +10,7 @@ export const homePageType = defineType({
       title: 'Hero Section',
       type: 'object',
       fields: [
-        defineField({ name: 'eyebrow', title: 'Eyebrow Text', type: 'string' }),
         defineField({ name: 'headline', title: 'Headline', type: 'string', validation: (Rule) => Rule.required() }),
-        defineField({ name: 'tagline', title: 'Tagline', type: 'string' }),
-        defineField({ name: 'statement', title: 'Statement', type: 'text', rows: 4 }),
-        defineField({
-          name: 'primaryCta',
-          title: 'Primary CTA Button',
-          type: 'object',
-          fields: [
-            { name: 'label', title: 'Label', type: 'string' },
-            { name: 'href', title: 'Link (URL)', type: 'string' },
-          ],
-        }),
-        defineField({
-          name: 'secondaryCta',
-          title: 'Secondary CTA Button',
-          type: 'object',
-          fields: [
-            { name: 'label', title: 'Label', type: 'string' },
-            { name: 'href', title: 'Link (URL)', type: 'string' },
-          ],
-        }),
         defineField({
           name: 'featuredArtwork',
           title: 'Featured Hero Artwork',
@@ -57,7 +36,6 @@ export const homePageType = defineType({
       title: 'Highlight Banner Section',
       type: 'object',
       fields: [
-        defineField({ name: 'eyebrow', title: 'Eyebrow Text', type: 'string' }),
         defineField({ name: 'title', title: 'Title', type: 'string' }),
         defineField({ name: 'badge', title: 'Badge Text', type: 'string' }),
         defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),

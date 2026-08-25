@@ -8,12 +8,7 @@ export interface ArtworkMeta {
 }
 
 export interface HeroContent {
-  eyebrow: string;
   headline: string;
-  statement: string;
-  tagline?: string;
-  primaryCta: { label: string; href: string };
-  secondaryCta: { label: string; href: string };
   featuredArtwork: ArtworkMeta;
 }
 
@@ -24,7 +19,6 @@ export interface HighlightMetric {
 }
 
 export interface HighlightBannerContent {
-  eyebrow: string;
   title: string;
   badge: string;
   description: string;
@@ -77,7 +71,6 @@ export interface AffiliationItem {
 }
 
 export interface BiographyData {
-  eyebrow: string;
   heading: string;
   portraitImage: string;
   portraitAlt: string;
@@ -87,7 +80,6 @@ export interface BiographyData {
 }
 
 export interface ArtistStatementData {
-  eyebrow: string;
   quote: string;
   author: string;
   context: string;

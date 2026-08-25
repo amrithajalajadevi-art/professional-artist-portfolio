@@ -3,7 +3,6 @@ import Link from "next/link";
 import { FadeIn } from "@/components/ui/FadeIn";
 
 interface SectionHeadingProps {
-  eyebrow?: string;
   title: string;
   linkHref?: string;
   linkText?: string;

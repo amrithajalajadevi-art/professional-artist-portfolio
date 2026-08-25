@@ -2,7 +2,6 @@ import { AboutData } from "@/types";
 
 export const aboutData: AboutData = {
   biography: {
-    eyebrow: "01 / Artist Profile & Biography",
     heading: "Exploring quiet human moments, domestic rest, and cultural transition between Kerala and Britain.",
     portraitImage: "/artworks/work/work1.jpg",
     portraitAlt: "Amritha Jalaja Devi portrait and artwork",
@@ -21,7 +20,6 @@ export const aboutData: AboutData = {
     ],
   },
   statement: {
-    eyebrow: "02 / Core Artist Vision",
     quote: "For me, figurative painting is not simply about creating a likeness of a person. I am interested in what a body, gesture, domestic environment, or quiet moment can communicate about someone's emotional experience—exploring rest, wellbeing, memory, and human connection.",
     author: "Amritha Jalaja Devi",
     context: "Excerpt from Artist Statement",
