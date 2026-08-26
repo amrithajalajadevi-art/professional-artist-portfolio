@@ -73,8 +73,18 @@ export const homePageType = defineType({
         {
           type: 'object',
           fields: [
-            { name: 'id', title: 'ID / Slug', type: 'string' },
             { name: 'title', title: 'Title', type: 'string' },
+            {
+              name: 'slug',
+              title: 'Slug',
+              type: 'slug',
+              options: {
+                source: (doc: any, options: any) => options.parent?.title,
+                maxLength: 96,
+                disableArrayWarning: true,
+              },
+              validation: (Rule) => Rule.required(),
+            },
             { name: 'subtitle', title: 'Subtitle', type: 'string' },
             { name: 'year', title: 'Year', type: 'string' },
             { name: 'medium', title: 'Medium', type: 'string' },
@@ -85,7 +95,6 @@ export const homePageType = defineType({
               type: 'image',
               options: { hotspot: true },
             },
-            { name: 'aspectRatio', title: 'Aspect Ratio', type: 'string' },
             { name: 'description', title: 'Description', type: 'text', rows: 3 },
             {
               name: 'tags',

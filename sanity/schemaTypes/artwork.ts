@@ -88,18 +88,6 @@ export const artworkType = defineType({
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
-      name: 'aspectRatio',
-      title: 'Aspect Ratio',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Square (1:1)', value: 'square' },
-          { title: 'Portrait (3:4)', value: 'portrait' },
-          { title: 'Landscape (16:9 / 4:3)', value: 'landscape' },
-        ],
-      },
-    }),
-    defineField({
       name: 'description',
       title: 'Description',
       type: 'text',

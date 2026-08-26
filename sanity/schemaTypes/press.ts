@@ -6,9 +6,19 @@ export const pressType = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'articleTitle',
+      name: 'title',
       title: 'Article Title',
       type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -80,7 +90,7 @@ export const pressType = defineType({
   ],
   preview: {
     select: {
-      title: 'articleTitle',
+      title: 'title',
       subtitle: 'publicationName',
       media: 'images.0',
     },

@@ -29,8 +29,18 @@ export const servicesType = defineType({
         {
           type: 'object',
           fields: [
-            { name: 'id', title: 'Service ID / Slug', type: 'string' },
             { name: 'title', title: 'Workshop Title', type: 'string', validation: (Rule) => Rule.required() },
+            {
+              name: 'slug',
+              title: 'Slug',
+              type: 'slug',
+              options: {
+                source: (doc: any, options: any) => options.parent?.title,
+                maxLength: 96,
+                disableArrayWarning: true,
+              },
+              validation: (Rule) => Rule.required(),
+            },
             {
               name: 'category',
               title: 'Workshop Category',
