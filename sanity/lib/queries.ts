@@ -250,3 +250,42 @@ export const ABOUT_PAGE_QUERY = groq`
     affiliations
   }
 `
+
+// Response TypeScript interface for Single Artwork Detail Query
+export interface SanityArtworkDetail {
+  _id: string;
+  id: string;
+  title: string;
+  category: string;
+  medium: string;
+  year: string;
+  dimensions?: string;
+  location?: string;
+  description?: string;
+  images?: {
+    url: string;
+    aspectRatio?: number;
+  }[];
+}
+
+/**
+ * Centralized GROQ Query: Single Artwork by Slug
+ * Accepts $slug parameter and fetches single artwork document with mapped images array containing asset URL and metadata aspect ratio
+ */
+export const ARTWORK_BY_SLUG_QUERY = groq`
+  *[_type == "artwork" && slug.current == $slug][0] {
+    "_id": _id,
+    "id": coalesce(slug.current, _id),
+    title,
+    category,
+    medium,
+    year,
+    dimensions,
+    location,
+    description,
+    "images": images[] {
+      "url": asset->url,
+      "aspectRatio": asset->metadata.dimensions.aspectRatio
+    }
+  }
+`
