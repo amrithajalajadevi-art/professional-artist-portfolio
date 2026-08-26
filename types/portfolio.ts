@@ -29,14 +29,16 @@ export interface HighlightBannerContent {
 export interface Project {
   id: string;
   title: string;
-  subtitle: string;
   year: string;
   medium: string;
-  location: string;
-  image: string;
-  aspectRatio?: string;
-  description: string;
-  tags: string[];
+  subtitle?: string;
+  location?: string;
+  image?: string;
+  imageUrl?: string;
+  slug?: string;
+  aspectRatio?: number | string;
+  description?: string;
+  tags?: string[];
 }
 
 export interface PressItem {
