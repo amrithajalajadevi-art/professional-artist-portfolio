@@ -101,6 +101,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${cormorant.variable} ${inter.variable} ${playfair.variable}`}
     >
       <body className="font-sans antialiased bg-gallery-bg text-gallery-text min-h-screen">

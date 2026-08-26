@@ -65,7 +65,7 @@ export interface SanityHomePageData {
 
 /**
  * Centralized GROQ Query: Home Page Complete Document
- * Fetches hero, featured hero artwork, key projects with metadata aspect ratio, and press features
+ * Fetches hero, dynamically featured artworks (where featured == true), and press features
  */
 export const HOME_PAGE_QUERY = groq`
   *[_type == "homePage"][0] {
@@ -77,21 +77,20 @@ export const HOME_PAGE_QUERY = groq`
         medium,
         dimensions,
         location,
-        "imageUrl": image.asset->url,
-        "image": image.asset->url
+        "imageUrl": image.asset->url
       }
     },
-    keyProjects[] {
-      "id": coalesce(slug.current, title),
+    "keyProjects": *[_type == "artwork" && featured == true] | order(year desc) {
+      "_id": _id,
+      "id": coalesce(slug.current, _id),
       title,
       "slug": slug.current,
       subtitle,
       year,
       medium,
       location,
-      "imageUrl": image.asset->url,
-      "image": image.asset->url,
-      "aspectRatio": image.asset->metadata.dimensions.aspectRatio,
+      "imageUrl": images[0].asset->url,
+      "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio,
       description
     },
     pressFeatures[] {
@@ -102,23 +101,6 @@ export const HOME_PAGE_QUERY = groq`
       linkText,
       url
     }
-  }
-`
-
-/**
- * Centralized GROQ Query: Home Page Featured Artworks & Projects
- * Fetches title, slug, medium, year, image CDN URL, and dynamic metadata aspect ratio
- */
-export const HOME_PAGE_ARTWORKS_QUERY = groq`
-  *[_type == "artwork" && featured == true] {
-    "_id": _id,
-    "id": coalesce(slug.current, _id),
-    title,
-    "slug": slug.current,
-    medium,
-    year,
-    "imageUrl": images[0].asset->url,
-    "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio
   }
 `
 

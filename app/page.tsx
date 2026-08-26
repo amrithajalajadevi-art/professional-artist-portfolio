@@ -2,9 +2,7 @@ import React from "react";
 import { client } from "@/sanity/lib/client";
 import {
   HOME_PAGE_QUERY,
-  HOME_PAGE_ARTWORKS_QUERY,
   SanityHomePageData,
-  SanityFeaturedArtwork,
 } from "@/sanity/lib/queries";
 import { HeroSection } from "@/components/home/HeroSection";
 import { KeyProjectsSection } from "@/components/home/KeyProjectsSection";
@@ -15,30 +13,17 @@ export default async function Home() {
   const sanityHomePage: SanityHomePageData | null = await client.fetch(
     HOME_PAGE_QUERY
   );
-  const sanityArtworks: SanityFeaturedArtwork[] =
-    (await client.fetch(HOME_PAGE_ARTWORKS_QUERY)) || [];
 
-  // Key projects rendered strictly from Sanity
-  const projects: Project[] =
-    sanityHomePage?.keyProjects && sanityHomePage.keyProjects.length > 0
-      ? sanityHomePage.keyProjects.map((p) => ({
-          id: p.id,
-          title: p.title,
-          year: p.year,
-          medium: p.medium,
-          imageUrl: p.imageUrl || p.image || undefined,
-          slug: p.slug || undefined,
-          aspectRatio: p.aspectRatio || undefined,
-        }))
-      : sanityArtworks.map((item) => ({
-          id: item.id || item._id,
-          title: item.title,
-          year: item.year,
-          medium: item.medium,
-          imageUrl: item.imageUrl || undefined,
-          slug: item.slug || undefined,
-          aspectRatio: item.aspectRatio || undefined,
-        }));
+  // Key projects rendered directly from HOME_PAGE_QUERY single source of truth
+  const projects: Project[] = (sanityHomePage?.keyProjects || []).map((p) => ({
+    id: p.id,
+    title: p.title,
+    year: p.year,
+    medium: p.medium,
+    imageUrl: p.imageUrl || p.image || undefined,
+    slug: p.slug || undefined,
+    aspectRatio: p.aspectRatio || undefined,
+  }));
 
   const heroData = {
     headline: sanityHomePage?.hero?.headline || "",

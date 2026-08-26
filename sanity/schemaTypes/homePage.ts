@@ -66,47 +66,6 @@ export const homePageType = defineType({
       ],
     }),
     defineField({
-      name: 'keyProjects',
-      title: 'Key Featured Projects',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'title', title: 'Title', type: 'string' },
-            {
-              name: 'slug',
-              title: 'Slug',
-              type: 'slug',
-              options: {
-                source: (doc: any, options: any) => options.parent?.title,
-                maxLength: 96,
-                disableArrayWarning: true,
-              },
-              validation: (Rule) => Rule.required(),
-            },
-            { name: 'subtitle', title: 'Subtitle', type: 'string' },
-            { name: 'year', title: 'Year', type: 'string' },
-            { name: 'medium', title: 'Medium', type: 'string' },
-            { name: 'location', title: 'Location', type: 'string' },
-            {
-              name: 'image',
-              title: 'Image',
-              type: 'image',
-              options: { hotspot: true },
-            },
-            { name: 'description', title: 'Description', type: 'text', rows: 3 },
-            {
-              name: 'tags',
-              title: 'Tags',
-              type: 'array',
-              of: [{ type: 'string' }],
-            },
-          ],
-        },
-      ],
-    }),
-    defineField({
       name: 'pressFeatures',
       title: 'Featured Press & Recognition',
       type: 'array',
