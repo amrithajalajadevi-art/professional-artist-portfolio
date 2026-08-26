@@ -77,6 +77,7 @@ export interface BiographyData {
   portraitImage: string;
   portraitAlt: string;
   portraitCaption: string;
+  aspectRatio?: number | string;
   paragraphs: string[];
   quickFacts: { label: string; value: string }[];
 }

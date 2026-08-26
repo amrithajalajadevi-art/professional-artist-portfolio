@@ -12,6 +12,84 @@ export interface SanityFeaturedArtwork {
   aspectRatio: number | null;
 }
 
+export interface SanityHomePageData {
+  hero?: {
+    headline: string;
+    featuredArtwork?: {
+      title: string;
+      year: string;
+      medium: string;
+      dimensions?: string;
+      location?: string;
+      imageUrl?: string;
+      image?: string;
+    };
+  };
+  keyProjects?: {
+    id: string;
+    title: string;
+    slug?: string;
+    subtitle?: string;
+    year: string;
+    medium: string;
+    location?: string;
+    imageUrl?: string;
+    image?: string;
+    aspectRatio?: number;
+    description?: string;
+  }[];
+  pressFeatures?: {
+    publication: string;
+    date: string;
+    title: string;
+    excerpt: string;
+    linkText: string;
+    url: string;
+  }[];
+}
+
+/**
+ * Centralized GROQ Query: Home Page Complete Document
+ * Fetches hero, featured hero artwork, key projects with metadata aspect ratio, and press features
+ */
+export const HOME_PAGE_QUERY = groq`
+  *[_type == "homePage"][0] {
+    hero {
+      headline,
+      featuredArtwork {
+        title,
+        year,
+        medium,
+        dimensions,
+        location,
+        "imageUrl": image.asset->url,
+        "image": image.asset->url
+      }
+    },
+    keyProjects[] {
+      "id": coalesce(slug.current, title),
+      title,
+      "slug": slug.current,
+      subtitle,
+      year,
+      medium,
+      location,
+      "imageUrl": image.asset->url,
+      "image": image.asset->url,
+      "aspectRatio": image.asset->metadata.dimensions.aspectRatio,
+      description
+    },
+    pressFeatures[] {
+      publication,
+      date,
+      title,
+      excerpt,
+      linkText,
+      url
+    }
+  }
+`
+
 /**
  * Centralized GROQ Query: Home Page Featured Artworks & Projects
  * Fetches title, slug, medium, year, image CDN URL, and dynamic metadata aspect ratio
@@ -112,5 +190,63 @@ export const PRESS_ARTICLES_QUERY = groq`
     excerpt,
     "coverImage": images[0].asset->url,
     externalLink
+  }
+`
+
+// Response TypeScript interface for About Page Query
+export interface SanityAboutPage {
+  biography?: {
+    heading?: string;
+    portraitUrl?: string;
+    portraitAlt?: string;
+    portraitCaption?: string;
+    aspectRatio?: number;
+    paragraphs?: string[];
+    quickFacts?: { label: string; value: string }[];
+  };
+  statement?: {
+    quote?: string;
+    author?: string;
+    context?: string;
+    keyThemes?: string[];
+  };
+  education?: {
+    year: string;
+    degree: string;
+    institution: string;
+    location: string;
+    honors?: string;
+  }[];
+  affiliations?: {
+    role: string;
+    organization: string;
+    years: string;
+    details?: string;
+  }[];
+}
+
+/**
+ * Centralized GROQ Query: About Page Data
+ * Fetches biography, portrait image with CDN URL & metadata aspect ratio, artist statement, education, and affiliations
+ */
+export const ABOUT_PAGE_QUERY = groq`
+  *[_type == "about"][0] {
+    biography {
+      heading,
+      "portraitUrl": portraitImage.asset->url,
+      "portraitAlt": portraitImage.alt,
+      "portraitCaption": portraitImage.caption,
+      "aspectRatio": portraitImage.asset->metadata.dimensions.aspectRatio,
+      paragraphs,
+      quickFacts
+    },
+    statement {
+      quote,
+      author,
+      context,
+      keyThemes
+    },
+    education,
+    affiliations
   }
 `

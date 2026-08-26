@@ -13,7 +13,7 @@ export function BiographySection({ data }: BiographySectionProps) {
       <FadeIn direction="up">
         <div className="space-y-4">
           <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-[#4A2E35] tracking-tight">
-            ARTIST PROFILE
+            {data.heading || "ARTIST PROFILE"}
           </h1>
         </div>
       </FadeIn>
@@ -23,7 +23,14 @@ export function BiographySection({ data }: BiographySectionProps) {
         <div className="lg:col-span-5">
           <FadeIn direction="up" delay={0.2}>
             <div className="space-y-3">
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F7F4F0]">
+              <div
+                className="relative w-full overflow-hidden bg-[#F7F4F0]"
+                style={
+                  data.aspectRatio
+                    ? { aspectRatio: data.aspectRatio }
+                    : { aspectRatio: "3/4" }
+                }
+              >
                 <CustomImage
                   src={data.portraitImage}
                   alt={data.portraitAlt}
@@ -44,9 +51,11 @@ export function BiographySection({ data }: BiographySectionProps) {
         {/* Right Side: Biography Paragraphs */}
         <div className="lg:col-span-7 space-y-6">
           <FadeInStagger staggerDelay={0.15}>
-            <div className="space-y-4 text-sm sm:text-base text-[#8A7976] font-sans leading-relaxed">
+            <div className="text-sm sm:text-base text-[#8A7976] font-sans leading-relaxed">
               {data.paragraphs.map((paragraph, idx) => (
-                <p key={idx}>{paragraph}</p>
+                <p key={idx} className="mb-4 sm:mb-6 whitespace-pre-wrap leading-relaxed">
+                  {paragraph}
+                </p>
               ))}
             </div>
           </FadeInStagger>

@@ -1,49 +1,72 @@
 import React from "react";
 import { client } from "@/sanity/lib/client";
 import {
+  HOME_PAGE_QUERY,
   HOME_PAGE_ARTWORKS_QUERY,
+  SanityHomePageData,
   SanityFeaturedArtwork,
 } from "@/sanity/lib/queries";
-import { homePageData } from "@/constants/homeData";
 import { HeroSection } from "@/components/home/HeroSection";
 import { KeyProjectsSection } from "@/components/home/KeyProjectsSection";
 import { PressSection } from "@/components/home/PressSection";
 import { Project } from "@/types";
 
 export default async function Home() {
-  let sanityArtworks: SanityFeaturedArtwork[] = [];
+  const sanityHomePage: SanityHomePageData | null = await client.fetch(
+    HOME_PAGE_QUERY
+  );
+  const sanityArtworks: SanityFeaturedArtwork[] =
+    (await client.fetch(HOME_PAGE_ARTWORKS_QUERY)) || [];
 
-  try {
-    sanityArtworks = await client.fetch(HOME_PAGE_ARTWORKS_QUERY);
-  } catch (error) {
-    console.error("Error fetching projects from Sanity:", error);
-  }
+  // Key projects rendered strictly from Sanity
+  const projects: Project[] =
+    sanityHomePage?.keyProjects && sanityHomePage.keyProjects.length > 0
+      ? sanityHomePage.keyProjects.map((p) => ({
+          id: p.id,
+          title: p.title,
+          year: p.year,
+          medium: p.medium,
+          imageUrl: p.imageUrl || p.image || undefined,
+          slug: p.slug || undefined,
+          aspectRatio: p.aspectRatio || undefined,
+        }))
+      : sanityArtworks.map((item) => ({
+          id: item.id || item._id,
+          title: item.title,
+          year: item.year,
+          medium: item.medium,
+          imageUrl: item.imageUrl || undefined,
+          slug: item.slug || undefined,
+          aspectRatio: item.aspectRatio || undefined,
+        }));
 
-  // Transform typed Sanity items to Project interface for UI component
-  const fetchedProjects: Project[] = (sanityArtworks || []).map((item) => ({
-    id: item.id || item._id,
-    title: item.title,
-    year: item.year,
-    medium: item.medium,
-    imageUrl: item.imageUrl || undefined,
-    slug: item.slug || undefined,
-    aspectRatio: item.aspectRatio || undefined,
-  }));
+  const heroData = {
+    headline: sanityHomePage?.hero?.headline || "",
+    featuredArtwork: {
+      title: sanityHomePage?.hero?.featuredArtwork?.title || "",
+      year: sanityHomePage?.hero?.featuredArtwork?.year || "",
+      medium: sanityHomePage?.hero?.featuredArtwork?.medium || "",
+      dimensions: sanityHomePage?.hero?.featuredArtwork?.dimensions || "",
+      location: sanityHomePage?.hero?.featuredArtwork?.location || "",
+      image:
+        sanityHomePage?.hero?.featuredArtwork?.imageUrl ||
+        sanityHomePage?.hero?.featuredArtwork?.image ||
+        "",
+    },
+  };
 
-  // Fallback to static mock constants if Sanity dataset is empty during setup
-  const displayProjects =
-    fetchedProjects.length > 0 ? fetchedProjects : homePageData.keyProjects;
+  const pressFeatures = sanityHomePage?.pressFeatures || [];
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35] space-y-16">
       {/* 1. High-Impact Hero Artwork View */}
-      <HeroSection data={homePageData.hero} />
+      <HeroSection data={heroData} />
 
-      {/* 2. Minimalist Large Image Portfolio Grid */}
-      <KeyProjectsSection projects={displayProjects} />
+      {/* 2. Portfolio Grid strictly from Sanity */}
+      <KeyProjectsSection projects={projects} />
 
-      {/* 3. Clean Press & Media List */}
-      <PressSection features={homePageData.pressFeatures} />
+      {/* 3. Clean Press & Media List strictly from Sanity */}
+      <PressSection features={pressFeatures} />
     </div>
   );
 }
