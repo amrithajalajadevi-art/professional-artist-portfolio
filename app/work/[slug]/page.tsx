@@ -42,18 +42,19 @@ export default async function ArtworkDetailPage({
 }: DynamicArtworkPageProps) {
   const { slug } = await params;
 
-  // Fetch artwork data by slug using centralized GROQ query
+  // 1. Data Fetching via Centralized GROQ Query
   const artwork: SanityArtworkDetail | null = await client.fetch(
     ARTWORK_BY_SLUG_QUERY,
     { slug }
   );
 
-  // Return notFound() if no artwork document is found
+  // 404 Handling
   if (!artwork) {
     notFound();
   }
 
   const mainImage = artwork.images?.[0];
+  const inquirySubject = encodeURIComponent(`Inquiry: ${artwork.title}`);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35] p-8 sm:p-12 xl:p-16 space-y-12">
@@ -61,18 +62,18 @@ export default async function ArtworkDetailPage({
       <FadeIn direction="up">
         <Link
           href="/work"
-          className="inline-flex items-center gap-2 text-xs font-sans text-[#8A7976] hover:text-[#4A2E35] transition-colors tracking-wide uppercase"
+          className="inline-flex items-center gap-2 text-xs font-sans text-[#8A7976] hover:text-[#4A2E35] transition-colors tracking-widest uppercase"
         >
           &larr; Back to Selected Works
         </Link>
       </FadeIn>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        {/* Left Side: Main Artwork Image with Dynamic Aspect Ratio */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        {/* Left Side: 3. Dynamic Main Image preserving original aspect ratio */}
         <div className="lg:col-span-7 space-y-6">
           <FadeIn direction="up" delay={0.1}>
             <div
-              className="relative w-full overflow-hidden bg-[#F7F4F0]"
+              className="relative w-full overflow-hidden bg-[#EFEAE4]"
               style={
                 mainImage?.aspectRatio
                   ? { aspectRatio: mainImage.aspectRatio }
@@ -92,13 +93,13 @@ export default async function ArtworkDetailPage({
             </div>
           </FadeIn>
 
-          {/* Additional Gallery Images */}
+          {/* Additional Gallery Detail Views */}
           {artwork.images && artwork.images.length > 1 && (
             <div className="grid grid-cols-2 gap-4 pt-4">
               {artwork.images.slice(1).map((img, idx) => (
                 <div
                   key={idx}
-                  className="relative w-full overflow-hidden bg-[#F7F4F0]"
+                  className="relative w-full overflow-hidden bg-[#EFEAE4]"
                   style={
                     img.aspectRatio
                       ? { aspectRatio: img.aspectRatio }
@@ -120,62 +121,75 @@ export default async function ArtworkDetailPage({
           )}
         </div>
 
-        {/* Right Side: Artwork Details */}
+        {/* Right Side: 2. Aesthetic Typography & Artwork Details */}
         <div className="lg:col-span-5 space-y-8 lg:pl-4">
+          {/* Header Title */}
           <FadeIn direction="up" delay={0.2}>
-            <div className="space-y-4 border-b border-[#EFEAE4] pb-6">
-              <span className="text-xs uppercase tracking-widest text-[#8A7976] font-sans">
+            <div className="space-y-3 border-b border-[#EFEAE4] pb-6">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-[#8A7976] font-sans font-light">
                 {artwork.category || "Artwork"}
               </span>
 
-              <h1 className="font-serif text-3xl sm:text-4xl text-[#4A2E35] font-normal tracking-tight">
+              <h1 className="font-serif text-3xl sm:text-4xl text-[#4A2E35] font-light tracking-tight leading-snug">
                 {artwork.title}
               </h1>
             </div>
           </FadeIn>
 
-          {/* Specifications List */}
+          {/* Minimalist Specs List */}
           <FadeIn direction="up" delay={0.3}>
-            <dl className="space-y-4 text-sm font-sans text-[#8A7976]">
-              <div className="flex justify-between py-2 border-b border-[#EFEAE4]">
-                <dt className="text-[#4A2E35]">Year</dt>
-                <dd>{artwork.year}</dd>
+            <dl className="space-y-1 text-xs sm:text-sm font-sans font-light tracking-wide text-[#8A7976]">
+              <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
+                <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Year</dt>
+                <dd className="text-[#8A7976] text-right break-words">{artwork.year}</dd>
               </div>
 
-              <div className="flex justify-between py-2 border-b border-[#EFEAE4]">
-                <dt className="text-[#4A2E35]">Medium</dt>
-                <dd>{artwork.medium}</dd>
+              <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
+                <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Medium</dt>
+                <dd className="text-[#8A7976] text-right break-words">{artwork.medium}</dd>
               </div>
 
               {artwork.dimensions && (
-                <div className="flex justify-between py-2 border-b border-[#EFEAE4]">
-                  <dt className="text-[#4A2E35]">Dimensions / Scale</dt>
-                  <dd>{artwork.dimensions}</dd>
+                <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
+                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Dimensions</dt>
+                  <dd className="text-[#8A7976] text-right break-words">{artwork.dimensions}</dd>
                 </div>
               )}
 
               {artwork.location && (
-                <div className="flex justify-between py-2 border-b border-[#EFEAE4]">
-                  <dt className="text-[#4A2E35]">Location / Collection</dt>
-                  <dd>{artwork.location}</dd>
+                <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
+                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Collection</dt>
+                  <dd className="text-[#8A7976] text-right break-words">{artwork.location}</dd>
                 </div>
               )}
             </dl>
           </FadeIn>
 
-          {/* Description */}
+          {/* Description Paragraph */}
           {artwork.description && (
             <FadeIn direction="up" delay={0.4}>
               <div className="space-y-2">
-                <h3 className="text-xs uppercase tracking-widest text-[#4A2E35] font-sans">
+                <h3 className="text-[11px] uppercase tracking-[0.2em] text-[#4A2E35] font-sans font-normal">
                   About the Work
                 </h3>
-                <p className="text-sm sm:text-base text-[#8A7976] font-sans leading-relaxed whitespace-pre-wrap">
+                <p className="text-xs sm:text-sm text-[#8A7976] font-sans font-light leading-relaxed tracking-wide whitespace-pre-wrap">
                   {artwork.description}
                 </p>
               </div>
             </FadeIn>
           )}
+
+          {/* 4. Elegant Inquiry Link */}
+          <FadeIn direction="up" delay={0.5}>
+            <div className="pt-6 border-t border-[#EFEAE4]">
+              <Link
+                href={`/contact?subject=${inquirySubject}`}
+                className="inline-block text-xs uppercase tracking-[0.2em] text-[#4A2E35] font-sans font-light border-b border-[#4A2E35] pb-1 hover:text-[#8A7976] hover:border-[#8A7976] transition-colors"
+              >
+                Inquire about this work &rarr;
+              </Link>
+            </div>
+          </FadeIn>
         </div>
       </div>
     </div>

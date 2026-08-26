@@ -12,6 +12,21 @@ export interface SanityFeaturedArtwork {
   aspectRatio: number | null;
 }
 
+// Response TypeScript interface for All Artworks Query
+export interface SanityArtwork {
+  _id: string;
+  id: string;
+  title: string;
+  category: string;
+  medium: string;
+  year: string;
+  dimensions?: string;
+  location?: string;
+  imageUrl: string | null;
+  aspectRatio: number | null;
+  description?: string;
+}
+
 export interface SanityHomePageData {
   hero?: {
     headline: string;

@@ -107,14 +107,16 @@ export interface CategoryFilterOption {
 export interface Artwork {
   id: string;
   title: string;
-  category: CategorySlug;
-  categoryLabel: string;
+  category: CategorySlug | string;
+  categoryLabel?: string;
   medium: string;
   year: string;
   dimensions?: string;
   location?: string;
   image: string;
-  aspectRatio?: "square" | "portrait" | "landscape";
+  imageUrl?: string;
+  slug?: string;
+  aspectRatio?: "square" | "portrait" | "landscape" | number | string;
   description?: string;
   featured?: boolean;
 }
