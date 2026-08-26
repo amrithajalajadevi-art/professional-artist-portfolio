@@ -87,6 +87,32 @@ export const exhibitionType = defineType({
       rows: 5,
     }),
     defineField({
+      name: 'installationViews',
+      title: 'Installation Views & Installation Photography',
+      type: 'array',
+      description: 'Array of installation views for the exhibition gallery.',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative Text',
+            },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: 'images',
       title: 'Exhibition Images Gallery',
       type: 'array',
@@ -111,7 +137,6 @@ export const exhibitionType = defineType({
           ],
         },
       ],
-      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'externalLink',

@@ -146,8 +146,30 @@ export const PUBLIC_ART_PROJECTS_QUERY = groq`
   }
 `
 
+// Response TypeScript interface for Exhibition Query
+export interface SanityExhibition {
+  _id: string;
+  id: string;
+  slug?: string;
+  title: string;
+  subtitle?: string;
+  date: string;
+  year: string;
+  status: "Upcoming" | "Ongoing" | "Past" | string;
+  venue: string;
+  city: string;
+  country: string;
+  role?: string;
+  curator?: string;
+  description?: string;
+  coverImage?: string;
+  galleryImages?: string[];
+  externalLink?: string;
+  highlights?: string[];
+}
+
 /**
- * Centralized GROQ Query: Exhibitions
+ * Centralized GROQ Query: Exhibitions List
  */
 export const EXHIBITIONS_QUERY = groq`
   *[_type == "exhibition"] | order(year desc) {
@@ -169,6 +191,59 @@ export const EXHIBITIONS_QUERY = groq`
     "galleryImages": images[].asset->url,
     externalLink,
     highlights
+  }
+`
+
+// Response TypeScript interface for Single Exhibition Detail Query
+export interface SanityExhibitionDetail {
+  _id: string;
+  id: string;
+  title: string;
+  subtitle?: string;
+  slug: string;
+  date?: string;
+  year: string;
+  venue: string;
+  city: string;
+  country: string;
+  role?: string;
+  curator?: string;
+  description?: string;
+  externalLink?: string;
+  images?: {
+    url: string;
+    alt?: string;
+    caption?: string;
+    aspectRatio?: number;
+  }[];
+}
+
+/**
+ * Centralized GROQ Query: Single Exhibition by Slug
+ * Fetches title, venue, location, year, description, and single images array with CDN URLs & dynamic metadata aspect ratios
+ */
+export const EXHIBITION_BY_SLUG_QUERY = groq`
+  *[_type == "exhibition" && (slug.current == $slug || _id == $slug)][0] {
+    "_id": _id,
+    "id": coalesce(slug.current, _id),
+    title,
+    subtitle,
+    "slug": slug.current,
+    date,
+    year,
+    venue,
+    city,
+    country,
+    role,
+    curator,
+    description,
+    externalLink,
+    "images": images[] {
+      "url": asset->url,
+      alt,
+      caption,
+      "aspectRatio": asset->metadata.dimensions.aspectRatio
+    }
   }
 `
 

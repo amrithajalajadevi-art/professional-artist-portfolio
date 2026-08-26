@@ -134,10 +134,10 @@ export interface ExhibitionProject {
   id: string;
   slug: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   date: string;
   year: string;
-  status: "Upcoming" | "Ongoing" | "Past";
+  status: "Upcoming" | "Ongoing" | "Past" | string;
   venue: string;
   country: string;
   city: string;
