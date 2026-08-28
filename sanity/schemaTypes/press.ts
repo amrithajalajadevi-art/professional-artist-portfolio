@@ -34,21 +34,6 @@ export const pressType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'category',
-      title: 'Press Category',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Feature', value: 'Feature' },
-          { title: 'Review', value: 'Review' },
-          { title: 'Interview', value: 'Interview' },
-          { title: 'Exhibition Coverage', value: 'Exhibition Coverage' },
-        ],
-        layout: 'dropdown',
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: 'author',
       title: 'Author / Critic',
       type: 'string',

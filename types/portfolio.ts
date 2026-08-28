@@ -175,7 +175,6 @@ export interface PressArticle {
   coverImage: string;
   externalLink: string;
   excerpt?: string;
-  category?: "Feature" | "Review" | "Interview" | "Exhibition Coverage";
   author?: string;
 }
 

@@ -308,7 +308,6 @@ export interface SanityPressArticle {
   publicationName?: string;
   publication?: string;
   date: string;
-  category?: string;
   author?: string;
   excerpt?: string;
   externalLink?: string;
@@ -335,7 +334,6 @@ export const PRESS_QUERY = groq`
     "publicationName": publicationName,
     "publication": publicationName,
     date,
-    category,
     author,
     excerpt,
     "externalLink": externalLink,
