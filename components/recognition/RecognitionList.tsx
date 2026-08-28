@@ -1,10 +1,10 @@
 import React from "react";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 import { RecognitionItemCard } from "@/components/recognition/RecognitionItemCard";
-import { RecognitionItem } from "@/types";
+import { SanityRecognitionItem } from "@/sanity/lib/queries";
 
 interface RecognitionListProps {
-  items: RecognitionItem[];
+  items: SanityRecognitionItem[];
 }
 
 export function RecognitionList({ items }: RecognitionListProps) {

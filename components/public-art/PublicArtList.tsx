@@ -1,10 +1,10 @@
 import React from "react";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 import { PublicArtCard } from "@/components/public-art/PublicArtCard";
-import { PublicArtProject } from "@/types";
+import { SanityPublicArt } from "@/sanity/lib/queries";
 
 interface PublicArtListProps {
-  projects: PublicArtProject[];
+  projects: SanityPublicArt[];
 }
 
 export function PublicArtList({ projects }: PublicArtListProps) {
