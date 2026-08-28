@@ -1,16 +1,24 @@
 import React from "react";
 import type { Metadata } from "next";
-import { publicArtData } from "@/constants/publicArtData";
+import { client } from "@/sanity/lib/client";
+import { PUBLIC_ART_QUERY, SanityPublicArt } from "@/sanity/lib/queries";
 import { PublicArtCard } from "@/components/public-art/PublicArtCard";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 
 export const metadata: Metadata = {
-  title: "Public Art & Murals",
+  title: "Public Art & Murals | Amritha Jalaja Devi",
   description:
     "Collaborative public murals, community art projects, and architectural heritage commissions by UK visual artist Amritha Jalaja Devi.",
 };
 
-export default function PublicArtPage() {
+export default async function PublicArtPage() {
+  let projects: SanityPublicArt[] = [];
+  try {
+    projects = (await client.fetch(PUBLIC_ART_QUERY)) || [];
+  } catch (error) {
+    console.error("Error fetching public art from Sanity:", error);
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35]">
       <section className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-12">
@@ -25,13 +33,23 @@ export default function PublicArtPage() {
           </div>
         </FadeIn>
 
-        <FadeInStagger staggerDelay={0.15}>
-          <div>
-            {publicArtData.map((project, idx) => (
-              <PublicArtCard key={project.id} project={project} index={idx} />
-            ))}
+        {projects && projects.length > 0 ? (
+          <FadeInStagger staggerDelay={0.15}>
+            <div>
+              {projects.map((project: any, idx: number) => (
+                <PublicArtCard
+                  key={project._id || project.id || idx}
+                  project={project}
+                  index={idx}
+                />
+              ))}
+            </div>
+          </FadeInStagger>
+        ) : (
+          <div className="py-12 text-center text-[#8A7976] font-sans text-xs">
+            No public art projects found.
           </div>
-        </FadeInStagger>
+        )}
       </section>
     </div>
   );

@@ -1,37 +1,32 @@
 "use client";
 
 import React from "react";
-import { PublicArtProject } from "@/types";
+import { SanityPublicArt } from "@/sanity/lib/queries";
 import { ArtworkDisplay } from "./ArtworkDisplay";
 
 interface PublicArtCardProps {
-  project: PublicArtProject;
-  index: number;
+  project: SanityPublicArt;
+  index?: number;
 }
 
 export function PublicArtCard({ project }: PublicArtCardProps) {
   if (!project) return null;
 
-  const coverImage = project.coverImage;
-  const galleryImages = project.galleryImages || [];
-
-  const displayImages: string[] =
-    galleryImages.length > 0
-      ? coverImage && galleryImages.includes(coverImage)
-        ? galleryImages
-        : coverImage
-        ? [coverImage, ...galleryImages]
-        : galleryImages
-      : coverImage
-      ? [coverImage]
+  const displayImages =
+    project.images && project.images.length > 0
+      ? project.images.map((img) => ({
+          src: img.url,
+          alt: img.alt || project.title,
+          caption: img.caption,
+        }))
       : [];
 
   return (
-    <article className="py-24 sm:py-32 border-b border-[#E8E2DA] last:border-b-0 space-y-12 bg-[#F7F4F0]">
-      {/* 1 & 2. Artwork Display Component (Single Image or Splitted Murals Carousel) */}
+    <article className="py-16 sm:py-24 border-b border-[#E8E2DA] last:border-b-0 space-y-12 bg-[#F7F4F0]">
+      {/* 1 & 2. Artwork Display Component */}
       <ArtworkDisplay images={displayImages} title={project.title} />
 
-      {/* 4. Text Placement Below Image in a Clean Multi-Column Grid */}
+      {/* Text Placement Below Image in a Clean Multi-Column Grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-14 pt-2 font-sans text-xs sm:text-sm">
         {/* Left Sub-Column: Title & Key Metadata */}
         <div className="md:col-span-5 space-y-4">
@@ -40,18 +35,29 @@ export function PublicArtCard({ project }: PublicArtCardProps) {
           </h2>
 
           <div className="space-y-1.5 text-xs text-[#8A7976] font-light">
-            <p>
-              <span className="font-medium text-[#4A2E35]">Year:</span> {project.year}
-            </p>
-            <p>
-              <span className="font-medium text-[#4A2E35]">Commissioned by:</span> {project.commissioningBody}
-            </p>
-            <p>
-              <span className="font-medium text-[#4A2E35]">Location:</span> {project.location} ({project.city}, {project.country})
-            </p>
-            <p>
-              <span className="font-medium text-[#4A2E35]">Medium:</span> {project.medium}
-            </p>
+            {project.year && (
+              <p>
+                <span className="font-medium text-[#4A2E35]">Year:</span> {project.year}
+              </p>
+            )}
+            {project.commissioningBody && (
+              <p>
+                <span className="font-medium text-[#4A2E35]">Commissioned by:</span> {project.commissioningBody}
+              </p>
+            )}
+            {(project.location || project.city || project.country) && (
+              <p>
+                <span className="font-medium text-[#4A2E35]">Location:</span> {project.location}{" "}
+                {[project.city, project.country].filter(Boolean).length > 0
+                  ? `(${[project.city, project.country].filter(Boolean).join(", ")})`
+                  : ""}
+              </p>
+            )}
+            {project.medium && (
+              <p>
+                <span className="font-medium text-[#4A2E35]">Medium:</span> {project.medium}
+              </p>
+            )}
             {project.dimensions && (
               <p>
                 <span className="font-medium text-[#4A2E35]">Scale / Dimensions:</span> {project.dimensions}
@@ -62,9 +68,11 @@ export function PublicArtCard({ project }: PublicArtCardProps) {
 
         {/* Right Sub-Column: Description, Impact Metric & Link */}
         <div className="md:col-span-7 space-y-5 flex flex-col justify-between">
-          <p className="text-sm sm:text-base text-[#8A7976] leading-relaxed font-light">
-            {project.description}
-          </p>
+          {project.description && (
+            <p className="text-sm sm:text-base text-[#8A7976] leading-relaxed font-light whitespace-pre-wrap">
+              {project.description}
+            </p>
+          )}
 
           {project.impactMetric && (
             <div className="border-l-2 border-[#4A2E35]/40 pl-4 py-1 text-xs text-[#4A2E35] font-medium tracking-wide">

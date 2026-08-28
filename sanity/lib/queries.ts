@@ -123,6 +123,58 @@ export const ALL_ARTWORKS_QUERY = groq`
   }
 `
 
+// Response TypeScript interface for Public Art Query
+export interface SanityPublicArt {
+  _id: string;
+  id: string;
+  title: string;
+  slug?: string;
+  medium?: string;
+  location?: string;
+  city?: string;
+  country?: string;
+  year?: string;
+  commissioningBody?: string;
+  dimensions?: string;
+  impactMetric?: string;
+  description?: string;
+  externalLink?: string;
+  images?: {
+    url: string;
+    alt?: string;
+    caption?: string;
+    aspectRatio?: number;
+  }[];
+}
+
+/**
+ * Centralized GROQ Query: Public Art Projects & Murals
+ */
+export const PUBLIC_ART_QUERY = groq`
+  *[_type == "publicArt"] | order(year desc) {
+    "_id": _id,
+    "id": coalesce(slug.current, _id),
+    title,
+    "slug": slug.current,
+    medium,
+    location,
+    city,
+    country,
+    year,
+    commissioningBody,
+    dimensions,
+    impactMetric,
+    description,
+    externalLink,
+    "images": images[] {
+      "url": asset->url,
+      alt,
+      caption,
+      "aspectRatio": asset->metadata.dimensions.aspectRatio
+    }
+  }
+`
+
 /**
  * Centralized GROQ Query: Public Art Projects
  */
