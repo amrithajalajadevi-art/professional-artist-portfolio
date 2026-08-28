@@ -299,8 +299,59 @@ export const EXHIBITION_BY_SLUG_QUERY = groq`
   }
 `
 
+// Response TypeScript interface for Press Query
+export interface SanityPressArticle {
+  _id: string;
+  id: string;
+  title: string;
+  articleTitle?: string;
+  publicationName?: string;
+  publication?: string;
+  date: string;
+  category?: string;
+  author?: string;
+  excerpt?: string;
+  externalLink?: string;
+  url?: string;
+  linkText?: string;
+  image?: {
+    url: string;
+    alt?: string;
+    aspectRatio?: number;
+  };
+  coverImage?: string;
+}
+
 /**
  * Centralized GROQ Query: Press & Media Features
+ * Fetches title, publication, date, excerpt, url, and image object with dynamic metadata aspectRatio
+ */
+export const PRESS_QUERY = groq`
+  *[_type == "press"] | order(date desc) {
+    "_id": _id,
+    "id": coalesce(slug.current, _id),
+    "title": title,
+    "articleTitle": title,
+    "publicationName": publicationName,
+    "publication": publicationName,
+    date,
+    category,
+    author,
+    excerpt,
+    "externalLink": externalLink,
+    "url": externalLink,
+    "linkText": coalesce(publicationName, "Read Article"),
+    "coverImage": images[0].asset->url,
+    "image": {
+      "url": images[0].asset->url,
+      "alt": images[0].alt,
+      "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio
+    }
+  }
+`
+
+/**
+ * Centralized GROQ Query: Press & Media Features (Legacy)
  */
 export const PRESS_ARTICLES_QUERY = groq`
   *[_type == "press"] | order(date desc) {
