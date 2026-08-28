@@ -348,6 +348,41 @@ export const PRESS_QUERY = groq`
   }
 `
 
+// Response TypeScript interface for Recognition Query
+export interface SanityRecognitionItem {
+  _id: string;
+  id: string;
+  title: string;
+  awardTitle?: string;
+  organization?: string;
+  awardingBody?: string;
+  year: string;
+  status?: string;
+  link?: string;
+  description?: string;
+  location?: string;
+}
+
+/**
+ * Centralized GROQ Query: Recognition & Awards
+ * Fetches title, organization, year, status, link, description, location
+ */
+export const RECOGNITION_QUERY = groq`
+  *[_type == "recognition"] | order(year desc) {
+    "_id": _id,
+    "id": coalesce(slug.current, _id),
+    "title": title,
+    "awardTitle": title,
+    "organization": awardingBody,
+    "awardingBody": awardingBody,
+    year,
+    status,
+    link,
+    description,
+    location
+  }
+`
+
 /**
  * Centralized GROQ Query: Press & Media Features (Legacy)
  */

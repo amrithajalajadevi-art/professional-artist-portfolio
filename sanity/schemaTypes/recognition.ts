@@ -51,11 +51,6 @@ export const recognitionType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'string',
-    }),
-    defineField({
       name: 'location',
       title: 'Location',
       type: 'string',

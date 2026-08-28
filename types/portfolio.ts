@@ -189,7 +189,6 @@ export interface RecognitionItem {
   link?: string;
   description?: string;
   location?: string;
-  category?: string;
 }
 
 export interface CVEntry {
