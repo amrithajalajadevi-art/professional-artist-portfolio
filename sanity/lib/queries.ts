@@ -459,6 +459,77 @@ export const ABOUT_PAGE_QUERY = groq`
   }
 `
 
+// Response TypeScript interfaces for Full CV Query
+export interface SanityCVEntry {
+  year: string;
+  title: string;
+  subtitle?: string;
+  location?: string;
+  details?: string;
+}
+
+export interface SanityFullCVData {
+  pdfUrl?: string;
+  education?: SanityCVEntry[];
+  appointments?: SanityCVEntry[];
+  exhibitions?: SanityCVEntry[];
+  commissions?: SanityCVEntry[];
+  awards?: SanityCVEntry[];
+  collections?: SanityCVEntry[];
+}
+
+/**
+ * Centralized GROQ Query: Full Curriculum Vitae (CV) Singleton
+ * Fetches pdfUrl resolved URL and nested section arrays
+ */
+export const CV_PAGE_QUERY = groq`
+  *[_type == "cv"][0] {
+    "pdfUrl": pdfDownload.asset->url,
+    education[] {
+      year,
+      title,
+      subtitle,
+      location,
+      details
+    },
+    appointments[] {
+      year,
+      title,
+      subtitle,
+      location,
+      details
+    },
+    exhibitions[] {
+      year,
+      title,
+      subtitle,
+      location,
+      details
+    },
+    commissions[] {
+      year,
+      title,
+      subtitle,
+      location,
+      details
+    },
+    awards[] {
+      year,
+      title,
+      subtitle,
+      location,
+      details
+    },
+    collections[] {
+      year,
+      title,
+      subtitle,
+      location,
+      details
+    }
+  }
+`
+
 // Response TypeScript interface for Single Artwork Detail Query
 export interface SanityArtworkDetail {
   _id: string;

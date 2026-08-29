@@ -17,6 +17,14 @@ export const cvType = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'pdfDownload',
+      title: 'Downloadable PDF Version of CV',
+      type: 'file',
+      options: {
+        accept: '.pdf',
+      },
+    }),
+    defineField({
       name: 'education',
       title: 'Education',
       type: 'array',
