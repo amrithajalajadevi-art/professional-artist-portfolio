@@ -10,9 +10,10 @@ import { ContactInfoData } from "@/types";
 export interface ContactLayoutProps {
   contactInfo?: SanityContactPage | null;
   profileImage?: string;
+  studioImage?: string;
 }
 
-export function ContactLayout({ contactInfo, profileImage }: ContactLayoutProps) {
+export function ContactLayout({ contactInfo, profileImage, studioImage }: ContactLayoutProps) {
   const resolvedContactData: ContactInfoData = {
     email: contactInfo?.email || contactInfoData.email,
     studioLocation: contactInfo?.studioLocation || contactInfoData.studioLocation,
@@ -21,7 +22,7 @@ export function ContactLayout({ contactInfo, profileImage }: ContactLayoutProps)
     twitter: contactInfo?.twitter || contactInfoData.twitter,
   };
 
-  const imageUrl = profileImage || contactInfo?.profileImage || "/artworks/work/work1.jpg";
+  const imageUrl = profileImage || studioImage || contactInfo?.profileImage || contactInfo?.studioImage || "/artworks/work/work1.jpg";
 
   return (
     <article className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">

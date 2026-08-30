@@ -1,33 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
-import { ContactFormData } from "@/types";
+import React, { useActionState, useEffect, useRef } from "react";
+import { sendEmail, FormState } from "@/actions/sendEmail";
+
+const initialState: FormState = {
+  success: false,
+  message: "",
+};
 
 export function ContactForm() {
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [state, formAction, isPending] = useActionState(sendEmail, initialState);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 1000);
-  };
+  useEffect(() => {
+    if (state.success) {
+      formRef.current?.reset();
+    }
+  }, [state.success]);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 font-sans text-xs sm:text-sm">
-      {isSuccess && (
-        <div className="p-3 bg-[#EFEAE4] border border-[#4A2E35]/30 text-[#4A2E35] text-xs font-sans">
-          Thank you for your message. Studio management will respond shortly.
+    <form ref={formRef} action={formAction} className="space-y-4 font-sans text-xs sm:text-sm">
+      {state.message && (
+        <div
+          className={`p-3 text-xs font-sans border ${
+            state.success
+              ? "bg-[#EFEAE4] border-[#4A2E35]/30 text-[#4A2E35]"
+              : "bg-red-50 border-red-300 text-red-800"
+          }`}
+        >
+          {state.message}
         </div>
       )}
 
@@ -37,10 +38,9 @@ export function ContactForm() {
         <div className="border-b border-[#4A2E35]/30">
           <input
             type="text"
+            name="name"
             required
             aria-label="Name"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#8A7976]"
             placeholder="Name *"
           />
@@ -50,10 +50,9 @@ export function ContactForm() {
         <div className="border-b border-[#4A2E35]/30">
           <input
             type="email"
+            name="email"
             required
             aria-label="Email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#8A7976]"
             placeholder="Email *"
           />
@@ -63,10 +62,9 @@ export function ContactForm() {
         <div>
           <textarea
             rows={6}
+            name="message"
             required
             aria-label="Message"
-            value={formData.message}
-            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
             className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#8A7976] resize-none"
             placeholder="Message *"
           />
@@ -77,10 +75,10 @@ export function ContactForm() {
       <div className="flex justify-end pt-2">
         <button
           type="submit"
-          disabled={isSubmitting}
-          className="text-xs uppercase tracking-[0.15em] text-[#4A2E35] font-semibold hover:underline cursor-pointer transition-colors bg-transparent border-none p-0"
+          disabled={isPending}
+          className="text-xs uppercase tracking-[0.15em] text-[#4A2E35] font-semibold hover:underline cursor-pointer transition-colors bg-transparent border-none p-0 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? "Sending..." : "Submit →"}
+          {isPending ? "Sending..." : "Submit →"}
         </button>
       </div>
     </form>
