@@ -9,6 +9,8 @@ import { cvType } from './cv'
 import { homePageType } from './homePage'
 import { recognitionType } from './recognition'
 import { servicesType } from './services'
+import { commissionPageType } from './commissionPage'
+import { workshopPageType } from './workshopPage'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -22,5 +24,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     homePageType,
     recognitionType,
     servicesType,
+    commissionPageType,
+    workshopPageType,
   ],
 }

@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 import { CustomImage } from "@/components/ui/CustomImage";
-import { commissionStepsData } from "@/constants/servicesData";
 import { CommissionPageData } from "@/sanity/lib/queries";
 
 interface CommissionsViewProps {
@@ -15,10 +14,7 @@ export function CommissionsView({ data }: CommissionsViewProps) {
     data?.introText ||
     "Creating custom, site-specific public murals, architectural heritage artworks, and private figurative canvases tailored for cultural, civic, and residential spaces.";
   const heroImageUrl = data?.heroImage;
-  const steps =
-    data?.processSteps && data.processSteps.length > 0
-      ? data.processSteps
-      : commissionStepsData;
+  const steps = data?.processSteps || [];
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35]">
@@ -36,51 +32,61 @@ export function CommissionsView({ data }: CommissionsViewProps) {
         </FadeIn>
 
         {/* Hero Spotlight Image Banner */}
-        <FadeIn direction="up" delay={0.2}>
-          <div className="relative w-full aspect-[16/9] overflow-hidden bg-[#F7F4F0]">
-            <CustomImage
-              src={heroImageUrl}
-              alt={`${titleText} Kerala visual heritage architectural mural commission`}
-              fill
-              priority
-              objectFit="cover"
-              aspectRatio="auto"
-              sizes="100vw"
-            />
-          </div>
-        </FadeIn>
+        {heroImageUrl && (
+          <FadeIn direction="up" delay={0.2}>
+            <div className="relative w-full aspect-[16/9] overflow-hidden bg-[#F7F4F0]">
+              <CustomImage
+                src={heroImageUrl}
+                alt={`${titleText} architectural mural commission`}
+                fill
+                priority
+                objectFit="cover"
+                aspectRatio="auto"
+                sizes="100vw"
+              />
+            </div>
+          </FadeIn>
+        )}
 
         {/* Step-by-Step Commission Process */}
-        <div className="space-y-8 pt-4">
-          <FadeIn direction="up">
-            <h2 className="font-serif text-2xl sm:text-3xl font-normal uppercase text-[#4A2E35] tracking-tight">
-              THE COMMISSION PROCESS
-            </h2>
-          </FadeIn>
+        {steps.length > 0 && (
+          <div className="space-y-8 pt-4">
+            <FadeIn direction="up">
+              <h2 className="font-serif text-2xl sm:text-3xl font-normal uppercase text-[#4A2E35] tracking-tight">
+                THE COMMISSION PROCESS
+              </h2>
+            </FadeIn>
 
-          <FadeInStagger staggerDelay={0.1}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {steps.map((step) => (
-                <div
-                  key={step.stepNumber}
-                  className="bg-[#F7F4F0] space-y-3 font-sans"
-                >
-                  <span className="font-sans text-xl font-bold text-[#4A2E35]">
-                    {step.stepNumber}
-                  </span>
+            <FadeInStagger staggerDelay={0.1}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {steps.map((step, idx) => (
+                  <div
+                    key={step.stepNumber || step.title || idx}
+                    className="bg-[#F7F4F0] space-y-3 font-sans"
+                  >
+                    {step.stepNumber && (
+                      <span className="font-sans text-xl font-bold text-[#4A2E35]">
+                        {step.stepNumber}
+                      </span>
+                    )}
 
-                  <h3 className="font-serif text-lg text-[#4A2E35] font-normal">
-                    {step.title}
-                  </h3>
+                    {step.title && (
+                      <h3 className="font-serif text-lg text-[#4A2E35] font-normal">
+                        {step.title}
+                      </h3>
+                    )}
 
-                  <p className="text-xs text-[#8A7976] leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </FadeInStagger>
-        </div>
+                    {step.description && (
+                      <p className="text-xs text-[#8A7976] leading-relaxed">
+                        {step.description}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </FadeInStagger>
+          </div>
+        )}
 
         {/* CTA */}
         <FadeIn direction="up">
@@ -97,4 +103,5 @@ export function CommissionsView({ data }: CommissionsViewProps) {
     </div>
   );
 }
+
 

@@ -13,11 +13,10 @@ export const metadata: Metadata = {
 export default async function CommissionsPage() {
   let data: CommissionPageData | null = null;
   try {
-    data = await client.fetch(COMMISSION_PAGE_QUERY);
+    data = await client.fetch<CommissionPageData | null>(COMMISSION_PAGE_QUERY);
   } catch (error) {
     console.error("Error fetching commission page data from Sanity:", error);
   }
 
   return <CommissionsView data={data} />;
 }
-

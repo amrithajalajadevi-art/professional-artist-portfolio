@@ -13,11 +13,10 @@ export const metadata: Metadata = {
 export default async function WorkshopsPage() {
   let data: WorkshopPageData | null = null;
   try {
-    data = await client.fetch(WORKSHOP_PAGE_QUERY);
+    data = await client.fetch<WorkshopPageData | null>(WORKSHOP_PAGE_QUERY);
   } catch (error) {
     console.error("Error fetching workshop page data from Sanity:", error);
   }
 
   return <WorkshopsView data={data} />;
 }
-

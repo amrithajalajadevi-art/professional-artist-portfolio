@@ -615,14 +615,14 @@ export interface CommissionPageData {
 
 /**
  * Centralized GROQ Query: Commission Page Singleton Data
- * Fetches title, intro text, hero image URL, and process steps array
+ * Fetches title, intro text, hero image URL, and process steps array strictly from commissionPage schema
  */
 export const COMMISSION_PAGE_QUERY = groq`
-  *[_type in ["services", "commissions", "commissionPage"]][0] {
+  *[_type == "commissionPage"][0] {
     title,
     introText,
     "heroImage": coalesce(heroImage.asset->url, heroImage),
-    "processSteps": coalesce(processSteps, commissionSteps)[] {
+    processSteps[] {
       stepNumber,
       title,
       subtitle,
@@ -643,18 +643,22 @@ export interface UpcomingWorkshop {
 
 // Response TypeScript interface for Workshop Page Query
 export interface WorkshopPageData {
+  title?: string;
+  subtitle?: string;
   upcomingWorkshops?: UpcomingWorkshop[];
 }
 
 /**
  * Centralized GROQ Query: Workshop Page Singleton Data
- * Fetches upcoming workshops array
+ * Fetches title, subtitle, and upcoming workshops array strictly from workshopPage schema
  */
 export const WORKSHOP_PAGE_QUERY = groq`
-  *[_type in ["services", "workshops", "workshopPage"]][0] {
-    "upcomingWorkshops": coalesce(upcomingWorkshops, workshopServices)[] {
-      "workshopTitle": coalesce(workshopTitle, title),
-      "date": coalesce(date, duration),
+  *[_type == "workshopPage"][0] {
+    title,
+    subtitle,
+    upcomingWorkshops[] {
+      workshopTitle,
+      date,
       location,
       description,
       isFullyBooked,
@@ -662,6 +666,8 @@ export const WORKSHOP_PAGE_QUERY = groq`
     }
   }
 `
+
+
 
 
 
