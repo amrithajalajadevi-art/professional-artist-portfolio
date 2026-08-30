@@ -6,6 +6,26 @@ export const servicesType = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'title',
+      title: 'Commissions Page Title',
+      type: 'string',
+      initialValue: 'COMMISSIONS',
+    }),
+    defineField({
+      name: 'introText',
+      title: 'Introductory Text',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
+      name: 'heroImage',
+      title: 'Commission Page Hero Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
       name: 'commissionSteps',
       title: 'Commission Process Steps',
       type: 'array',

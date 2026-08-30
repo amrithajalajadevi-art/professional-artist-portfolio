@@ -596,3 +596,38 @@ export const CONTACT_PAGE_QUERY = groq`
     "aspectRatio": coalesce(profileImage.asset->metadata.dimensions.aspectRatio, studioImageData.image.asset->metadata.dimensions.aspectRatio)
   }
 `
+
+// Response TypeScript interface for Commission Process Step
+export interface ProcessStep {
+  stepNumber: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+}
+
+// Response TypeScript interface for Commission Page Query
+export interface CommissionPageData {
+  title?: string;
+  introText?: string;
+  heroImage?: string;
+  processSteps?: ProcessStep[];
+}
+
+/**
+ * Centralized GROQ Query: Commission Page Singleton Data
+ * Fetches title, intro text, hero image URL, and process steps array
+ */
+export const COMMISSION_PAGE_QUERY = groq`
+  *[_type in ["services", "commissions", "commissionPage"]][0] {
+    title,
+    introText,
+    "heroImage": coalesce(heroImage.asset->url, heroImage),
+    "processSteps": coalesce(processSteps, commissionSteps)[] {
+      stepNumber,
+      title,
+      subtitle,
+      description
+    }
+  }
+`
+

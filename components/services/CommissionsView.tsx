@@ -3,8 +3,23 @@ import Link from "next/link";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 import { CustomImage } from "@/components/ui/CustomImage";
 import { commissionStepsData } from "@/constants/servicesData";
+import { CommissionPageData } from "@/sanity/lib/queries";
 
-export function CommissionsView() {
+interface CommissionsViewProps {
+  data?: CommissionPageData | null;
+}
+
+export function CommissionsView({ data }: CommissionsViewProps) {
+  const titleText = data?.title || "COMMISSIONS";
+  const introText =
+    data?.introText ||
+    "Creating custom, site-specific public murals, architectural heritage artworks, and private figurative canvases tailored for cultural, civic, and residential spaces.";
+  const heroImageUrl = data?.heroImage;
+  const steps =
+    data?.processSteps && data.processSteps.length > 0
+      ? data.processSteps
+      : commissionStepsData;
+
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35]">
       <section className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
@@ -12,10 +27,10 @@ export function CommissionsView() {
         <FadeIn direction="up">
           <div className="space-y-4">
             <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-[#4A2E35] tracking-tight">
-              COMMISSIONS
+              {titleText}
             </h1>
             <p className="text-sm text-[#8A7976] font-sans max-w-2xl leading-relaxed">
-              Creating custom, site-specific public murals, architectural heritage artworks, and private figurative canvases tailored for cultural, civic, and residential spaces.
+              {introText}
             </p>
           </div>
         </FadeIn>
@@ -24,8 +39,8 @@ export function CommissionsView() {
         <FadeIn direction="up" delay={0.2}>
           <div className="relative w-full aspect-[16/9] overflow-hidden bg-[#F7F4F0]">
             <CustomImage
-              src="/artworks/mural-02.jpg"
-              alt="Kerala visual heritage architectural mural commission"
+              src={heroImageUrl}
+              alt={`${titleText} Kerala visual heritage architectural mural commission`}
               fill
               priority
               objectFit="cover"
@@ -45,7 +60,7 @@ export function CommissionsView() {
 
           <FadeInStagger staggerDelay={0.1}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {commissionStepsData.map((step) => (
+              {steps.map((step) => (
                 <div
                   key={step.stepNumber}
                   className="bg-[#F7F4F0] space-y-3 font-sans"
@@ -82,3 +97,4 @@ export function CommissionsView() {
     </div>
   );
 }
+
