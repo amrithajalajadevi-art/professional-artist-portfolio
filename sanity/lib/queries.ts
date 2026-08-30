@@ -568,3 +568,36 @@ export const ARTWORK_BY_SLUG_QUERY = groq`
     }
   }
 `
+
+// Response TypeScript interface for Contact Page Query
+export interface SanityContactPage {
+  email?: string;
+  studioLocation?: string;
+  address?: string;
+  galleryRepresentation?: string;
+  instagram?: string;
+  linkedin?: string;
+  twitter?: string;
+  studioImage?: string;
+  studioImageTitle?: string;
+  aspectRatio?: number;
+}
+
+/**
+ * Centralized GROQ Query: Contact Page & Studio Info Singleton
+ * Fetches email, location/address, social links, and resolved studio image URL & aspect ratio
+ */
+export const CONTACT_PAGE_QUERY = groq`
+  *[_type == "contact"][0] {
+    email,
+    studioLocation,
+    "address": studioLocation,
+    galleryRepresentation,
+    instagram,
+    linkedin,
+    twitter,
+    "studioImage": studioImageData.image.asset->url,
+    "studioImageTitle": studioImageData.title,
+    "aspectRatio": studioImageData.image.asset->metadata.dimensions.aspectRatio
+  }
+`
