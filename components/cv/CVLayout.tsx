@@ -1,16 +1,13 @@
 import React from "react";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 import { CVSection } from "@/components/cv/CVSection";
-import { FullCVData } from "@/types";
 import { SanityFullCVData } from "@/sanity/lib/queries";
 
 interface CVLayoutProps {
-  cvData: FullCVData | SanityFullCVData;
+  cvData: SanityFullCVData;
 }
 
 export function CVLayout({ cvData }: CVLayoutProps) {
-  const pdfUrl = cvData?.pdfUrl || "/cv-placeholder.pdf";
-
   return (
     <article className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
       {/* Header & Download PDF Button Bar */}
@@ -21,15 +18,18 @@ export function CVLayout({ cvData }: CVLayoutProps) {
               CURRICULUM VITAE
             </h1>
 
-            <a
-              href={pdfUrl}
-              download="Amritha_Jalaja_Devi_CV.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs uppercase tracking-[0.15em] font-sans font-medium text-[#4A2E35] hover:underline underline-offset-4 transition-colors"
-            >
-              Download PDF CV →
-            </a>
+            {/* Direct PDF Download Anchor Link (Rendered only if pdfUrl exists) */}
+            {cvData?.pdfUrl && (
+              <a
+                href={cvData.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className="inline-block text-xs uppercase tracking-[0.15em] font-sans font-medium text-[#4A2E35] border border-[#4A2E35]/30 px-3.5 py-1.5 rounded hover:bg-[#4A2E35] hover:text-white transition-colors"
+              >
+                Download CV (PDF) ↓
+              </a>
+            )}
           </div>
 
           <p className="text-sm text-[#8A7976] font-sans">
@@ -61,6 +61,7 @@ export function CVLayout({ cvData }: CVLayoutProps) {
           )}
         </div>
       </FadeInStagger>
+      
     </article>
   );
 }

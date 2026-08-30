@@ -480,11 +480,11 @@ export interface SanityFullCVData {
 
 /**
  * Centralized GROQ Query: Full Curriculum Vitae (CV) Singleton
- * Fetches pdfUrl resolved URL and nested section arrays
+ * Fetches pdfUrl resolved file URL and nested section arrays
  */
 export const CV_PAGE_QUERY = groq`
   *[_type == "cv"][0] {
-    "pdfUrl": pdfDownload.asset->url,
+    "pdfUrl": cvPdf.asset->url,
     education[] {
       year,
       title,

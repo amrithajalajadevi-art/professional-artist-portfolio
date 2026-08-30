@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { CV_PAGE_QUERY, SanityFullCVData } from "@/sanity/lib/queries";
-import { cvData } from "@/constants/cvData";
 import { CVLayout } from "@/components/cv/CVLayout";
 
 export const metadata: Metadata = {
@@ -12,19 +11,16 @@ export const metadata: Metadata = {
 };
 
 export default async function CVPage() {
-  let fetchedCVData: SanityFullCVData | null = null;
+  let cvData: SanityFullCVData | null = null;
   try {
-    fetchedCVData = await client.fetch(CV_PAGE_QUERY);
+    cvData = await client.fetch(CV_PAGE_QUERY);
   } catch (error) {
     console.error("Error fetching CV data from Sanity:", error);
   }
 
-  // Use live Sanity CV dataset if available; fallback to static mock data
-  const data = fetchedCVData || (cvData as any);
-
   return (
     <div className="flex flex-col min-h-screen bg-gallery-bg text-gallery-text">
-      <CVLayout cvData={data} />
+      <CVLayout cvData={cvData || {}} />
     </div>
   );
 }
