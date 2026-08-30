@@ -3,26 +3,26 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { CustomImage } from "@/components/ui/CustomImage";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactInfo } from "@/components/contact/ContactInfo";
-import { contactInfoData } from "@/constants/contactData";
 import { SanityContactPage } from "@/sanity/lib/queries";
 import { ContactInfoData } from "@/types";
+
+
 
 export interface ContactLayoutProps {
   contactInfo?: SanityContactPage | null;
   profileImage?: string;
-  studioImage?: string;
 }
 
-export function ContactLayout({ contactInfo, profileImage, studioImage }: ContactLayoutProps) {
-  const resolvedContactData: ContactInfoData = {
-    email: contactInfo?.email || contactInfoData.email,
-    studioLocation: contactInfo?.studioLocation || contactInfoData.studioLocation,
-    instagram: contactInfo?.instagram || contactInfoData.instagram,
-    linkedin: contactInfo?.linkedin || contactInfoData.linkedin,
-    twitter: contactInfo?.twitter || contactInfoData.twitter,
+export function ContactLayout({ contactInfo, profileImage }: ContactLayoutProps) {
+  const resolvedContactData: SanityContactPage = {
+    email: contactInfo?.email,
+    studioLocation: contactInfo?.studioLocation,
+    instagram: contactInfo?.instagram,
+    linkedin: contactInfo?.linkedin,
+    twitter: contactInfo?.twitter,
   };
 
-  const imageUrl = profileImage || studioImage || contactInfo?.profileImage || contactInfo?.studioImage || "/artworks/work/work1.jpg";
+  const imageUrl = profileImage || contactInfo?.profileImage;
 
   return (
     <article className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">

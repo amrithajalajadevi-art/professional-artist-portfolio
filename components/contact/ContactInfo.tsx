@@ -1,9 +1,9 @@
 import React from "react";
-import { ContactInfoData } from "@/types";
 import { InstagramIcon, LinkedInIcon, TwitterIcon } from "@/components/layout/NavLinks";
+import { SanityContactPage } from "@/sanity/lib/queries";
 
 interface ContactInfoProps {
-  contactInfo: ContactInfoData;
+  contactInfo: SanityContactPage;
 }
 
 export function ContactInfo({ contactInfo }: ContactInfoProps) {

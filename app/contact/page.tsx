@@ -22,7 +22,6 @@ export default async function ContactPage() {
     <div className="flex flex-col min-h-screen bg-gallery-bg text-gallery-text">
       <ContactLayout
         contactInfo={contactPageData}
-        studioImage={contactPageData?.profileImage}
       />
     </div>
   );

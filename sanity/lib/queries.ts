@@ -597,7 +597,6 @@ export const ARTWORK_BY_SLUG_QUERY = groq`
 export interface SanityContactPage {
   email?: string;
   studioLocation?: string;
-  address?: string;
   instagram?: string;
   linkedin?: string;
   twitter?: string;
