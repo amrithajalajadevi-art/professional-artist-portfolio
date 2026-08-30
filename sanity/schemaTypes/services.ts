@@ -42,6 +42,24 @@ export const servicesType = defineType({
       ],
     }),
     defineField({
+      name: 'upcomingWorkshops',
+      title: 'Upcoming Workshops & Masterclasses',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'workshopTitle', title: 'Workshop Title', type: 'string' },
+            { name: 'date', title: 'Date / Duration', type: 'string' },
+            { name: 'location', title: 'Location / Venue', type: 'string' },
+            { name: 'description', title: 'Description', type: 'text', rows: 3 },
+            { name: 'isFullyBooked', title: 'Is Fully Booked?', type: 'boolean', initialValue: false },
+            { name: 'registrationLink', title: 'Registration / Inquiry Link', type: 'string' },
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: 'workshopServices',
       title: 'Workshop & Masterclass Services',
       type: 'array',

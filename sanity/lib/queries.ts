@@ -631,3 +631,37 @@ export const COMMISSION_PAGE_QUERY = groq`
   }
 `
 
+// Response TypeScript interface for Workshop Item
+export interface UpcomingWorkshop {
+  workshopTitle: string;
+  date?: string;
+  location?: string;
+  description?: string;
+  isFullyBooked?: boolean;
+  registrationLink?: string;
+}
+
+// Response TypeScript interface for Workshop Page Query
+export interface WorkshopPageData {
+  upcomingWorkshops?: UpcomingWorkshop[];
+}
+
+/**
+ * Centralized GROQ Query: Workshop Page Singleton Data
+ * Fetches upcoming workshops array
+ */
+export const WORKSHOP_PAGE_QUERY = groq`
+  *[_type in ["services", "workshops", "workshopPage"]][0] {
+    "upcomingWorkshops": coalesce(upcomingWorkshops, workshopServices)[] {
+      "workshopTitle": coalesce(workshopTitle, title),
+      "date": coalesce(date, duration),
+      location,
+      description,
+      isFullyBooked,
+      registrationLink
+    }
+  }
+`
+
+
+
