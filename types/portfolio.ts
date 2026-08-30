@@ -223,8 +223,7 @@ export interface ContactFormData {
 
 export interface ContactInfoData {
   email: string;
-  studioLocation: string;
-  galleryRepresentation?: string;
+  studioLocation?: string;
   instagram: string;
   linkedin: string;
   twitter: string;

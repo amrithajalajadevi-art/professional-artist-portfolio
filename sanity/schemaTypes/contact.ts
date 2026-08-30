@@ -13,15 +13,9 @@ export const contactType = defineType({
     }),
     defineField({
       name: 'studioLocation',
-      title: 'Studio Location(s)',
+      title: 'Studio Location / Base',
       type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'galleryRepresentation',
-      title: 'Gallery Representation & Commission Availability',
-      type: 'text',
-      rows: 3,
+      description: 'e.g. Leicester, United Kingdom & Kerala, India',
     }),
     defineField({
       name: 'instagram',
@@ -39,21 +33,10 @@ export const contactType = defineType({
       type: 'url',
     }),
     defineField({
-      name: 'studioImageData',
-      title: 'Featured Studio Image & Artwork',
-      type: 'object',
-      fields: [
-        defineField({ name: 'title', title: 'Title', type: 'string' }),
-        defineField({ name: 'year', title: 'Year', type: 'string' }),
-        defineField({ name: 'medium', title: 'Medium', type: 'string' }),
-        defineField({ name: 'location', title: 'Location', type: 'string' }),
-        defineField({
-          name: 'image',
-          title: 'Studio Image',
-          type: 'image',
-          options: { hotspot: true },
-        }),
-      ],
+      name: 'profileImage',
+      title: 'Profile / Studio Photograph',
+      type: 'image',
+      options: { hotspot: true },
     }),
   ],
 })

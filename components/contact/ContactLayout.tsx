@@ -2,17 +2,26 @@ import React from "react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { CustomImage } from "@/components/ui/CustomImage";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { ContactInfo } from "@/components/contact/ContactInfo";
+import { contactInfoData } from "@/constants/contactData";
 import { SanityContactPage } from "@/sanity/lib/queries";
+import { ContactInfoData } from "@/types";
 
-interface ContactLayoutProps {
+export interface ContactLayoutProps {
   contactInfo?: SanityContactPage | null;
-  studioImage?: string;
+  profileImage?: string;
 }
 
-export function ContactLayout({ contactInfo, studioImage }: ContactLayoutProps) {
-  const email = contactInfo?.email;
-  const imageUrl = studioImage || contactInfo?.studioImage;
-  const imageAlt = contactInfo?.studioImageTitle || "Amritha Jalaja Devi Studio";
+export function ContactLayout({ contactInfo, profileImage }: ContactLayoutProps) {
+  const resolvedContactData: ContactInfoData = {
+    email: contactInfo?.email || contactInfoData.email,
+    studioLocation: contactInfo?.studioLocation || contactInfoData.studioLocation,
+    instagram: contactInfo?.instagram || contactInfoData.instagram,
+    linkedin: contactInfo?.linkedin || contactInfoData.linkedin,
+    twitter: contactInfo?.twitter || contactInfoData.twitter,
+  };
+
+  const imageUrl = profileImage || contactInfo?.profileImage || "/artworks/work/work1.jpg";
 
   return (
     <article className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
@@ -27,13 +36,13 @@ export function ContactLayout({ contactInfo, studioImage }: ContactLayoutProps) 
 
       {/* Clean 2-Column Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-        {/* Left Column: Studio/Artist Photo with strict aspect ratio */}
+        {/* Left Column: Personal / Studio Photograph (No Captions / Metadata) */}
         <FadeIn direction="up" delay={0.2}>
           <div className="relative w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden bg-[#F7F4F0]">
             {imageUrl && (
               <CustomImage
                 src={imageUrl}
-                alt={imageAlt}
+                alt="Amritha Jalaja Devi — Studio & Artist Profile"
                 fill
                 priority
                 objectFit="cover"
@@ -44,24 +53,16 @@ export function ContactLayout({ contactInfo, studioImage }: ContactLayoutProps) 
           </div>
         </FadeIn>
 
-        {/* Right Column: De-cluttered Single Line & Minimalist Form */}
+        {/* Right Column: Contact Info, Location, Socials & Prominent Contact Form */}
         <FadeIn direction="up" delay={0.3}>
           <div className="space-y-8 font-sans">
-            {/* Single Elegant Line */}
-            {email && (
-              <p className="text-sm sm:text-base text-[#8A7976] leading-relaxed">
-                For all inquiries regarding exhibitions and sales, please contact{" "}
-                <a
-                  href={`mailto:${email}`}
-                  className="text-[#4A2E35] font-semibold hover:underline underline-offset-4"
-                >
-                  {email}
-                </a>
-              </p>
-            )}
+            {/* Direct Contact Details Block */}
+            <ContactInfo contactInfo={resolvedContactData} />
 
-            {/* Form */}
-            <ContactForm />
+            {/* Prominent Integrated Contact Form */}
+            <div className="pt-4">
+              <ContactForm />
+            </div>
           </div>
         </FadeIn>
       </div>

@@ -574,30 +574,25 @@ export interface SanityContactPage {
   email?: string;
   studioLocation?: string;
   address?: string;
-  galleryRepresentation?: string;
   instagram?: string;
   linkedin?: string;
   twitter?: string;
-  studioImage?: string;
-  studioImageTitle?: string;
+  profileImage?: string;
   aspectRatio?: number;
 }
 
 /**
  * Centralized GROQ Query: Contact Page & Studio Info Singleton
- * Fetches email, location/address, social links, and resolved studio image URL & aspect ratio
+ * Fetches email, location/address, social links, and resolved profile image URL
  */
 export const CONTACT_PAGE_QUERY = groq`
   *[_type == "contact"][0] {
     email,
     studioLocation,
-    "address": studioLocation,
-    galleryRepresentation,
     instagram,
     linkedin,
-    twitter,
-    "studioImage": studioImageData.image.asset->url,
-    "studioImageTitle": studioImageData.title,
-    "aspectRatio": studioImageData.image.asset->metadata.dimensions.aspectRatio
+    twitter,  
+    "profileImage": coalesce(profileImage.asset->url, studioImageData.image.asset->url),
+    "aspectRatio": coalesce(profileImage.asset->metadata.dimensions.aspectRatio, studioImageData.image.asset->metadata.dimensions.aspectRatio)
   }
 `
