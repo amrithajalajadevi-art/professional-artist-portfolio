@@ -40,6 +40,16 @@ export interface SanityHomePageData {
       image?: string;
     };
   };
+  highlightedRecognitions?: {
+    _id: string;
+    title: string;
+    awardingBody: string;
+    year: string;
+    status?: string;
+    location?: string;
+    description?: string;
+    link?: string;
+  }[];
   keyProjects?: {
     id: string;
     title: string;
@@ -65,7 +75,7 @@ export interface SanityHomePageData {
 
 /**
  * Centralized GROQ Query: Home Page Complete Document
- * Fetches hero, dynamically featured artworks (where featured == true), and press features
+ * Fetches hero, highlighted recognitions (where isHighlightedForHome == true), dynamically featured artworks (where featured == true), and press features
  */
 export const HOME_PAGE_QUERY = groq`
   *[_type == "homePage"][0] {
@@ -79,6 +89,16 @@ export const HOME_PAGE_QUERY = groq`
         location,
         "imageUrl": image.asset->url
       }
+    },
+    "highlightedRecognitions": *[_type == "recognition" && isHighlightedForHome == true] | order(year desc) {
+      "_id": _id,
+      title,
+      awardingBody,
+      year,
+      status,
+      location,
+      description,
+      link
     },
     "keyProjects": *[_type == "artwork" && featured == true] | order(year desc) {
       "_id": _id,

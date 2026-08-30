@@ -31,40 +31,7 @@ export const homePageType = defineType({
         }),
       ],
     }),
-    defineField({
-      name: 'highlightBanner',
-      title: 'Highlight Banner Section',
-      type: 'object',
-      fields: [
-        defineField({ name: 'title', title: 'Title', type: 'string' }),
-        defineField({ name: 'badge', title: 'Badge Text', type: 'string' }),
-        defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
-        defineField({
-          name: 'cta',
-          title: 'CTA Button',
-          type: 'object',
-          fields: [
-            { name: 'label', title: 'Label', type: 'string' },
-            { name: 'href', title: 'Link (URL)', type: 'string' },
-          ],
-        }),
-        defineField({
-          name: 'metrics',
-          title: 'Highlight Metrics',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                { name: 'value', title: 'Value / Stat', type: 'string' },
-                { name: 'label', title: 'Label', type: 'string' },
-                { name: 'highlight', title: 'Highlight Styling', type: 'boolean', initialValue: false },
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
+
     defineField({
       name: 'pressFeatures',
       title: 'Featured Press & Recognition',

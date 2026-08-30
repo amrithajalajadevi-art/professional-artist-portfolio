@@ -66,6 +66,13 @@ export const recognitionType = defineType({
       title: 'Official / Press Link',
       type: 'url',
     }),
+    defineField({
+      name: 'isHighlightedForHome',
+      title: 'Highlight on Home Page',
+      description: 'Toggle to feature this recognition item on the homepage.',
+      type: 'boolean',
+      initialValue: false,
+    }),
   ],
   preview: {
     select: {

@@ -6,6 +6,7 @@ import {
 } from "@/sanity/lib/queries";
 import { HeroSection } from "@/components/home/HeroSection";
 import { KeyProjectsSection } from "@/components/home/KeyProjectsSection";
+import { HighlightedRecognitionsSection } from "@/components/home/HighlightedRecognitionsSection";
 import { PressSection } from "@/components/home/PressSection";
 import { Project } from "@/types";
 
@@ -40,6 +41,7 @@ export default async function Home() {
     },
   };
 
+  const highlightedRecognitions = sanityHomePage?.highlightedRecognitions || [];
   const pressFeatures = sanityHomePage?.pressFeatures || [];
 
   return (
@@ -47,11 +49,15 @@ export default async function Home() {
       {/* 1. High-Impact Hero Artwork View */}
       <HeroSection data={heroData} />
 
-      {/* 2. Portfolio Grid strictly from Sanity */}
+      {/* 2. Highlighted Recognitions / Awards (rendered if items exist) */}
+      <HighlightedRecognitionsSection recognitions={highlightedRecognitions} />
+
+      {/* 3. Portfolio Grid strictly from Sanity */}
       <KeyProjectsSection projects={projects} />
 
-      {/* 3. Clean Press & Media List strictly from Sanity */}
+      {/* 4. Clean Press & Media List strictly from Sanity */}
       <PressSection features={pressFeatures} />
     </div>
   );
 }
+
