@@ -45,8 +45,8 @@ export interface PressItem {
   publication: string;
   date: string;
   title: string;
-  excerpt: string;
-  linkText: string;
+  excerpt?: string;
+  linkText?: string;
   url: string;
 }
 

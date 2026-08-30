@@ -8,7 +8,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { KeyProjectsSection } from "@/components/home/KeyProjectsSection";
 import { HighlightedRecognitionsSection } from "@/components/home/HighlightedRecognitionsSection";
 import { PressSection } from "@/components/home/PressSection";
-import { Project } from "@/types";
+import { PressItem, Project } from "@/types";
 
 export default async function Home() {
   const sanityHomePage: SanityHomePageData | null = await client.fetch(
@@ -42,7 +42,13 @@ export default async function Home() {
   };
 
   const highlightedRecognitions = sanityHomePage?.highlightedRecognitions || [];
-  const pressFeatures = sanityHomePage?.pressFeatures || [];
+  const pressFeatures: PressItem[] = (sanityHomePage?.highlightedPress || []).map((item) => ({
+    publication: item.publication,
+    date: item.date,
+    title: item.title,
+    url: item.url,
+    excerpt: item.excerpt,
+  }));
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35] space-y-16">
@@ -55,9 +61,10 @@ export default async function Home() {
       {/* 3. Portfolio Grid strictly from Sanity */}
       <KeyProjectsSection projects={projects} />
 
-      {/* 4. Clean Press & Media List strictly from Sanity */}
-      <PressSection features={pressFeatures} />
+      {/* 4. Clean Press & Media List strictly from Sanity (rendered if highlighted items exist) */}
+      {pressFeatures.length > 0 && <PressSection features={pressFeatures} />}
     </div>
   );
 }
+
 

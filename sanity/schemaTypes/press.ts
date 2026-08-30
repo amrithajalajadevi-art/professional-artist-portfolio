@@ -72,6 +72,13 @@ export const pressType = defineType({
       type: 'url',
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'isHighlightedForHome',
+      title: 'Highlight on Home Page',
+      description: 'Toggle to feature this press item on the homepage.',
+      type: 'boolean',
+      initialValue: false,
+    }),
   ],
   preview: {
     select: {

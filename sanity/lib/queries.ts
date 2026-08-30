@@ -63,19 +63,21 @@ export interface SanityHomePageData {
     aspectRatio?: number;
     description?: string;
   }[];
-  pressFeatures?: {
+  highlightedPress?: {
+    _id: string;
+    id: string;
+    title: string;
     publication: string;
     date: string;
-    title: string;
-    excerpt: string;
-    linkText: string;
     url: string;
+    excerpt?: string;
+    imageUrl?: string;
   }[];
 }
 
 /**
  * Centralized GROQ Query: Home Page Complete Document
- * Fetches hero, highlighted recognitions (where isHighlightedForHome == true), dynamically featured artworks (where featured == true), and press features
+ * Fetches hero, highlighted recognitions (where isHighlightedForHome == true), dynamically featured artworks (where featured == true), and highlighted press items
  */
 export const HOME_PAGE_QUERY = groq`
   *[_type == "homePage"][0] {
@@ -113,13 +115,15 @@ export const HOME_PAGE_QUERY = groq`
       "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio,
       description
     },
-    pressFeatures[] {
-      publication,
-      date,
+    "highlightedPress": *[_type == "press" && isHighlightedForHome == true] | order(date desc)[0...3] {
+      "_id": _id,
+      "id": coalesce(slug.current, _id),
       title,
+      "publication": publicationName,
+      date,
+      "url": coalesce(externalLink, "/press"),
       excerpt,
-      linkText,
-      url
+      "imageUrl": images[0].asset->url
     }
   }
 `

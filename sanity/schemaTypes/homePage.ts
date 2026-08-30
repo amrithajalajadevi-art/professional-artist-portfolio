@@ -32,24 +32,6 @@ export const homePageType = defineType({
       ],
     }),
 
-    defineField({
-      name: 'pressFeatures',
-      title: 'Featured Press & Recognition',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'publication', title: 'Publication Name', type: 'string' },
-            { name: 'date', title: 'Date / Year', type: 'string' },
-            { name: 'title', title: 'Article Title', type: 'string' },
-            { name: 'excerpt', title: 'Excerpt', type: 'text', rows: 3 },
-            { name: 'linkText', title: 'Link Button Text', type: 'string' },
-            { name: 'url', title: 'Link URL', type: 'string' },
-          ],
-        },
-      ],
-    }),
   ],
        preview: {
     prepare() {
