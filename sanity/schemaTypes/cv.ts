@@ -61,4 +61,11 @@ export const cvType = defineType({
       of: [cvEntryObject],
     }),
   ],
+      preview: {
+    prepare() {
+      return {
+        title: 'CV Page Content',
+      }
+    }
+  },
 })

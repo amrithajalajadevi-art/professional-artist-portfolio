@@ -84,4 +84,11 @@ export const homePageType = defineType({
       ],
     }),
   ],
+       preview: {
+    prepare() {
+      return {
+        title: 'Home Page Content',
+      }
+    }
+  },
 })

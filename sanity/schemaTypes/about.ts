@@ -98,4 +98,11 @@ export const aboutType = defineType({
       ],
     }),
   ],
+    preview: {
+    prepare() {
+      return {
+        title: 'About Page Content',
+      }
+    }
+  },
 })
