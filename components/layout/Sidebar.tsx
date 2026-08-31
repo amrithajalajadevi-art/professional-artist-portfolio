@@ -1,9 +1,8 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import { NavLinks } from "./NavLinks";
 
+// Server Component
 export function Sidebar() {
   return (
     <aside 

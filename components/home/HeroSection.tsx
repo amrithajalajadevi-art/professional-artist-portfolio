@@ -3,8 +3,20 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SanityHeroSection } from "@/sanity/lib/queries";
+
+// Dynamically lazy-load the multi-image mural marquee to eliminate main-thread blocking
+const MuralMarquee = dynamic(
+  () => import("./MuralMarquee").then((mod) => mod.MuralMarquee),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[65vh] sm:h-[75vh] lg:h-[80vh] min-h-[350px] bg-[#EFEAE4] animate-pulse" />
+    ),
+  }
+);
 
 interface HeroSectionProps {
   data?: SanityHeroSection | null;
@@ -52,31 +64,12 @@ export function HeroSection({ data }: HeroSectionProps) {
         </div>
       </FadeIn>
 
-      {/* 2. Universal Visual Container: Continuous Marquee for Multi-Image Mural or Static View */}
+      {/* 2. Universal Visual Container */}
       <FadeIn direction="up" delay={0.1}>
         <div className="relative w-full h-[65vh] sm:h-[75vh] lg:h-[80vh] min-h-[350px] sm:min-h-[480px] bg-[#F7F4F0] overflow-hidden flex items-center justify-start group">
           {isMultiImageMural ? (
-            /* Continuous Infinite Horizontal Marquee for Multi-Image Mural Projects */
-            <div className="flex w-max animate-marquee hover:[animation-play-state:paused] ease-linear">
-              {/* Duplicate muralImages array twice for seamless 100% infinite loop */}
-              {[...muralImages, ...muralImages].map((imgUrl, idx) => (
-                <div
-                  key={`${imgUrl}-${idx}`}
-                  className="relative h-[65vh] sm:h-[75vh] lg:h-[80vh] min-h-[350px] sm:min-h-[480px] aspect-[4/3] sm:aspect-[16/10] shrink-0 m-0 p-0 overflow-hidden bg-[#EFEAE4]"
-                >
-                  <Image
-                    src={imgUrl}
-                    alt={`${title || "Public Art Mural"} - View ${idx + 1}`}
-                    fill
-                    sizes="(max-width: 768px) 80vw, 50vw"
-                    quality={85}
-                    priority={idx === 0}
-                    loading={idx === 0 ? "eager" : "lazy"}
-                    className="object-cover block"
-                  />
-                </div>
-              ))}
-            </div>
+            /* Dynamically loaded infinite Marquee for Multi-Image Mural Projects */
+            <MuralMarquee muralImages={muralImages} title={title} />
           ) : imageUrl ? (
             /* Standard Static Full Image View */
             <Image
@@ -97,7 +90,7 @@ export function HeroSection({ data }: HeroSectionProps) {
         </div>
       </FadeIn>
 
-      {/* 3. Caption Text Container Strictly Aligned to Left Edge */}
+      {/* 3. Caption Text Container */}
       <FadeIn direction="up" delay={0.2}>
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pt-6 font-sans text-xs text-[#8A7976]">
           <div className="text-left">
