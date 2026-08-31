@@ -52,7 +52,7 @@ export function ContactForm() {
             name="name"
             required
             aria-label="Name"
-            className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#8A7976]"
+            className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#5C4B48]"
             placeholder="Name *"
           />
         </div>
@@ -64,7 +64,7 @@ export function ContactForm() {
             name="email"
             required
             aria-label="Email"
-            className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#8A7976]"
+            className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#5C4B48]"
             placeholder="Email *"
           />
         </div>
@@ -76,7 +76,7 @@ export function ContactForm() {
             name="message"
             required
             aria-label="Message"
-            className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#8A7976] resize-none"
+            className="w-full p-4 bg-transparent border-none focus:ring-0 focus:outline-none text-[#4A2E35] text-xs font-sans placeholder-[#5C4B48] resize-none"
             placeholder="Message *"
           />
         </div>

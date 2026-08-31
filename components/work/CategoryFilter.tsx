@@ -28,7 +28,7 @@ export function CategoryFilter({
               ${
                 isActive
                   ? "text-[#4A2E35] font-semibold border-b border-[#4A2E35] pb-1"
-                  : "text-[#8A7976] hover:text-[#4A2E35] font-light"
+                  : "text-[#5C4B48] hover:text-[#4A2E35] font-normal"
               }
             `}
           >

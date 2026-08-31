@@ -111,7 +111,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                     className={`text-[13px] tracking-wide transition-colors ${
                       active
                         ? "text-[#4A2E35] font-semibold"
-                        : "text-[#8A7976] hover:text-[#4A2E35]"
+                        : "text-[#5C4B48] hover:text-[#4A2E35]"
                     }`}
                   >
                     {item.label}
@@ -154,7 +154,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                               className={`text-[12px] font-normal transition-colors block py-0.5 tracking-wide ${
                                 isSubActive
                                   ? "text-[#4A2E35] font-medium"
-                                  : "text-[#8A7976] hover:text-[#4A2E35]"
+                                  : "text-[#5C4B48] hover:text-[#4A2E35]"
                               }`}
                             >
                               {sub.label}
@@ -177,7 +177,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                 className={`text-[13px] tracking-wide transition-colors block py-1 ${
                   active
                     ? "text-[#4A2E35] font-semibold"
-                    : "text-[#8A7976] hover:text-[#4A2E35]"
+                    : "text-[#5C4B48] hover:text-[#4A2E35]"
                 }`}
               >
                 {item.label}
@@ -196,7 +196,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
             className={`block text-[12px] tracking-wide transition-colors ${
               isActive("/commissions")
                 ? "text-[#4A2E35] font-semibold"
-                : "text-[#8A7976] hover:text-[#4A2E35]"
+                : "text-[#5C4B48] hover:text-[#4A2E35]"
             }`}
           >
             Commissions
@@ -208,7 +208,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
             className={`block text-[12px] tracking-wide transition-colors ${
               isActive("/workshops")
                 ? "text-[#4A2E35] font-semibold"
-                : "text-[#8A7976] hover:text-[#4A2E35]"
+                : "text-[#5C4B48] hover:text-[#4A2E35]"
             }`}
           >
             Art Classes & Workshops
@@ -217,7 +217,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
 
         {/* Social Icons & Copyright */}
         <div className="space-y-3 pt-2">
-          <div className="flex items-center gap-3 text-[#8A7976]">
+          <div className="flex items-center gap-3 text-[#5C4B48]">
             {socialLinks.map((social) => {
               const IconComponent = social.icon;
               return (
@@ -235,7 +235,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
             })}
           </div>
 
-          <p className="text-[10px] text-[#8A7976] tracking-wider leading-relaxed">
+          <p className="text-[10px] text-[#5C4B48] tracking-wider leading-relaxed">
             © {new Date().getFullYear()} Amritha Jalaja Devi
           </p>
         </div>
