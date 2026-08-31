@@ -178,6 +178,7 @@ export const ALL_ARTWORKS_QUERY = groq`
     dimensions,
     location,
     "imageUrl": images[0].asset->url,
+    "lqip": images[0].asset->metadata.lqip,
     "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio,
     description
   }
@@ -228,6 +229,7 @@ export const PUBLIC_ART_QUERY = groq`
     externalLink,
     "images": images[] {
       "url": asset->url,
+      "lqip": asset->metadata.lqip,
       alt,
       caption,
       "aspectRatio": asset->metadata.dimensions.aspectRatio

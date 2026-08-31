@@ -5,6 +5,7 @@ import Image, { ImageProps } from "next/image";
 
 export interface CustomImageProps extends Omit<ImageProps, "onLoad" | "onError" | "src"> {
   src?: string | null;
+  lqip?: string | null;
   containerClassName?: string;
   aspectRatio?: "square" | "portrait" | "landscape" | "video" | "auto" | string;
   hoverScale?: boolean;
@@ -14,6 +15,7 @@ export interface CustomImageProps extends Omit<ImageProps, "onLoad" | "onError" 
 
 export function CustomImage({
   src,
+  lqip,
   alt,
   width = 1200,
   height = 1200,
@@ -68,7 +70,7 @@ export function CustomImage({
       } ${aspectClass} ${containerClassName}`}
     >
       {/* Soft Minimal Loading Placeholder */}
-      {isLoading && (
+      {isLoading && !lqip && (
         <div 
           className="absolute inset-0 z-10 bg-[#EFEAE4] animate-pulse"
           aria-hidden="true"
@@ -92,6 +94,8 @@ export function CustomImage({
           fill={fill}
           priority={priority}
           loading={loading}
+          placeholder={lqip ? "blur" : rest.placeholder}
+          blurDataURL={lqip || rest.blurDataURL}
           sizes={sizes}
           quality={quality}
           onLoad={() => setIsLoading(false)}

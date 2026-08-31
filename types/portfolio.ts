@@ -115,6 +115,7 @@ export interface Artwork {
   location?: string;
   image: string;
   imageUrl?: string;
+  lqip?: string;
   slug?: string;
   aspectRatio?: "square" | "portrait" | "landscape" | number | string;
   description?: string;
@@ -152,6 +153,7 @@ export interface ExhibitionProject {
 
 export interface PublicArtProject {
   id: string;
+  slug?: string;
   title: string;
   medium: string;
   location: string;

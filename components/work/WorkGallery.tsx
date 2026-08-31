@@ -7,6 +7,7 @@ import { CategoryFilter } from "@/components/work/CategoryFilter";
 import { ArtworkCard } from "@/components/work/ArtworkCard";
 import { ArtworkModal } from "@/components/work/ArtworkModal";
 import { StudioGrid } from "@/components/work/StudioGrid";
+import { fetchMoreArtworks } from "@/actions/fetchPaginatedData";
 import { normalizeCategorySlug, studioWorksData } from "@/constants/workData";
 import { Artwork, CategoryFilterOption, CategorySlug } from "@/types";
 
@@ -17,15 +18,23 @@ interface WorkGalleryProps {
 }
 
 function WorkGalleryContent({
-  artworks,
+  artworks: initialArtworks,
   categories,
   initialCategory = "all",
 }: WorkGalleryProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  const [allArtworks, setAllArtworks] = useState<Artwork[]>(initialArtworks);
   const [activeCategory, setActiveCategory] = useState<CategorySlug>(initialCategory);
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(initialArtworks.length >= 12);
+
+  useEffect(() => {
+    setAllArtworks(initialArtworks);
+    setHasMore(initialArtworks.length >= 12);
+  }, [initialArtworks]);
 
   useEffect(() => {
     const categoryParam = searchParams ? searchParams.get("category") : null;
@@ -42,10 +51,20 @@ function WorkGalleryContent({
     }
   };
 
+  const handleLoadMore = async () => {
+    if (loadingMore || !hasMore) return;
+    setLoadingMore(true);
+    const start = allArtworks.length;
+    const { items, hasMore: moreAvailable } = await fetchMoreArtworks(start, 12);
+    setAllArtworks((prev) => [...prev, ...items]);
+    setHasMore(moreAvailable);
+    setLoadingMore(false);
+  };
+
   const filteredArtworks = useMemo(() => {
-    if (activeCategory === "all") return artworks;
-    return artworks.filter((item) => item.category === activeCategory);
-  }, [artworks, activeCategory]);
+    if (activeCategory === "all") return allArtworks;
+    return allArtworks.filter((item) => item.category === activeCategory);
+  }, [allArtworks, activeCategory]);
 
   return (
     <section className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-12">
@@ -74,19 +93,35 @@ function WorkGalleryContent({
         </FadeIn>
       ) : (
         <div className="space-y-16">
-          {/* Curated Artworks Grid: Grand 2-Column Layout with Generous Gaps */}
+          {/* Curated Artworks Grid: Grand 2-Column Layout */}
           {filteredArtworks.length > 0 ? (
-            <FadeInStagger key={activeCategory} staggerDelay={0.1}>
-              <div className="columns-1 md:columns-2 gap-12 lg:gap-16">
-                {filteredArtworks.map((artwork) => (
-                  <ArtworkCard
-                    key={artwork.id}
-                    artwork={artwork}
-                    onSelect={(item) => setSelectedArtwork(item)}
-                  />
-                ))}
-              </div>
-            </FadeInStagger>
+            <div className="space-y-12">
+              <FadeInStagger key={activeCategory} staggerDelay={0.1}>
+                <div className="columns-1 md:columns-2 gap-12 lg:gap-16">
+                  {filteredArtworks.map((artwork) => (
+                    <ArtworkCard
+                      key={artwork.id}
+                      artwork={artwork}
+                      onSelect={(item) => setSelectedArtwork(item)}
+                    />
+                  ))}
+                </div>
+              </FadeInStagger>
+
+              {/* Load More Button */}
+              {hasMore && activeCategory === "all" && (
+                <div className="flex justify-center pt-8">
+                  <button
+                    type="button"
+                    onClick={handleLoadMore}
+                    disabled={loadingMore}
+                    className="text-xs uppercase tracking-[0.15em] font-semibold text-[#4A2E35] border border-[#4A2E35]/30 px-8 py-3.5 hover:bg-[#4A2E35] hover:text-[#F7F4F0] transition-colors cursor-pointer disabled:opacity-50"
+                  >
+                    {loadingMore ? "Loading Works..." : "Load More Works →"}
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <div className="py-16 text-center text-[#8A7976] font-sans space-y-2">
               <p className="text-xs font-sans tracking-wide">No artworks found in this category.</p>

@@ -2,8 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { PUBLIC_ART_QUERY, SanityPublicArt } from "@/sanity/lib/queries";
-import { PublicArtCard } from "@/components/public-art/PublicArtCard";
-import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
+import { PublicArtGrid } from "@/components/public-art/PublicArtGrid";
+import { FadeIn } from "@/components/ui/FadeIn";
 
 export const metadata: Metadata = {
   title: "Public Art & Murals | Amritha Jalaja Devi",
@@ -33,23 +33,7 @@ export default async function PublicArtPage() {
           </div>
         </FadeIn>
 
-        {projects && projects.length > 0 ? (
-          <FadeInStagger staggerDelay={0.15}>
-            <div>
-              {projects.map((project: any, idx: number) => (
-                <PublicArtCard
-                  key={project._id || project.id || idx}
-                  project={project}
-                  index={idx}
-                />
-              ))}
-            </div>
-          </FadeInStagger>
-        ) : (
-          <div className="py-12 text-center text-[#8A7976] font-sans text-xs">
-            No public art projects found.
-          </div>
-        )}
+        <PublicArtGrid initialProjects={projects} />
       </section>
     </div>
   );

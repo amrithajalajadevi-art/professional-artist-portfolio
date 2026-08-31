@@ -30,6 +30,7 @@ export function ArtworkCard({ artwork }: ArtworkCardProps) {
         >
           <CustomImage
             src={imageSrc}
+            lqip={artwork.lqip}
             alt={artwork.title || "Artwork Image"}
             fill
             hoverScale
