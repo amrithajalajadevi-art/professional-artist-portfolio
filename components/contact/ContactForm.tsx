@@ -32,7 +32,18 @@ export function ContactForm() {
         </div>
       )}
 
-      {/* Single Outer Bordered Box */}
+      {/* Visually hidden Honeypot field to trap automated spam bots */}
+      <div className="hidden" aria-hidden="true">
+        <input
+          type="text"
+          name="website_url_bot_check"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* Outer Bordered Box for Input Fields */}
       <div className="border border-[#4A2E35]/30 bg-transparent rounded-none overflow-hidden">
         {/* Name Input */}
         <div className="border-b border-[#4A2E35]/30">
@@ -71,7 +82,7 @@ export function ContactForm() {
         </div>
       </div>
 
-      {/* Minimal Submit Button aligned right outside form box */}
+      {/* Submit Button */}
       <div className="flex justify-end pt-2">
         <button
           type="submit"
