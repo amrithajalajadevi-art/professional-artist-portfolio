@@ -70,6 +70,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                     fill
                     sizes="(max-width: 768px) 80vw, 50vw"
                     quality={95}
+                    priority
                     className="object-cover block"
                   />
                 </div>
