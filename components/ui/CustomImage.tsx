@@ -27,6 +27,7 @@ export function CustomImage({
   caption,
   objectFit = "contain",
   quality = 95,
+  loading = priority ? "eager" : undefined,
   ...rest
 }: CustomImageProps) {
   const [isLoading, setIsLoading] = useState(true);
@@ -90,7 +91,7 @@ export function CustomImage({
           height={!fill ? height : undefined}
           fill={fill}
           priority={priority}
-          loading={priority ? "eager" : undefined}
+          loading={loading}
           sizes={sizes}
           quality={quality}
           onLoad={() => setIsLoading(false)}

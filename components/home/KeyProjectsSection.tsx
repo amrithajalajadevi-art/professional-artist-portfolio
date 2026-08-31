@@ -43,6 +43,7 @@ export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
                     src={projectSrc}
                     alt={project.title}
                     fill
+                    priority={idx < 2}
                     hoverScale
                     objectFit="cover"
                     aspectRatio="auto"
