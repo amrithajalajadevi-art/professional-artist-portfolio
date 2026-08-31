@@ -27,7 +27,25 @@ export interface SanityArtwork {
   description?: string;
 }
 
+export interface SanityHeroSection {
+  headline?: string;
+  heroType?: 'reference' | 'custom';
+  customImageUrl?: string;
+  customTitle?: string;
+  projectReference?: {
+    _type?: string;
+    title?: string;
+    year?: string;
+    medium?: string;
+    dimensions?: string;
+    location?: string;
+    imageUrl?: string;
+    slug?: string;
+  };
+}
+
 export interface SanityHomePageData {
+  heroSection?: SanityHeroSection;
   hero?: {
     headline: string;
     featuredArtwork?: {
@@ -81,6 +99,22 @@ export interface SanityHomePageData {
  */
 export const HOME_PAGE_QUERY = groq`
   *[_type == "homePage" && _id == "singleton-home-page"][0] {
+    heroSection {
+      headline,
+      heroType,
+      "customImageUrl": customImage.asset->url,
+      customTitle,
+      projectReference-> {
+        _type,
+        title,
+        year,
+        medium,
+        dimensions,
+        location,
+        "imageUrl": coalesce(images[0].asset->url, coverImage.asset->url, image.asset->url),
+        "slug": slug.current
+      }
+    },
     hero {
       headline,
       featuredArtwork {

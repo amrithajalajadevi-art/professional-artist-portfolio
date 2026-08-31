@@ -3,6 +3,7 @@ import { client } from "@/sanity/lib/client";
 import {
   HOME_PAGE_QUERY,
   SanityHomePageData,
+  SanityHeroSection,
 } from "@/sanity/lib/queries";
 import { HeroSection } from "@/components/home/HeroSection";
 import { KeyProjectsSection } from "@/components/home/KeyProjectsSection";
@@ -31,15 +32,16 @@ export default async function Home() {
     aspectRatio: p.aspectRatio || undefined,
   }));
 
-  const heroData = {
+  const heroData: SanityHeroSection = sanityHomePage?.heroSection || {
     headline: sanityHomePage?.hero?.headline || "",
-    featuredArtwork: {
+    heroType: "reference",
+    projectReference: {
       title: sanityHomePage?.hero?.featuredArtwork?.title || "",
       year: sanityHomePage?.hero?.featuredArtwork?.year || "",
       medium: sanityHomePage?.hero?.featuredArtwork?.medium || "",
       dimensions: sanityHomePage?.hero?.featuredArtwork?.dimensions || "",
       location: sanityHomePage?.hero?.featuredArtwork?.location || "",
-      image:
+      imageUrl:
         sanityHomePage?.hero?.featuredArtwork?.imageUrl ||
         sanityHomePage?.hero?.featuredArtwork?.image ||
         "",
