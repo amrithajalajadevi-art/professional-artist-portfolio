@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
-import { PUBLIC_ART_QUERY, SanityPublicArt } from "@/sanity/lib/queries";
+import { INITIAL_PUBLIC_ART_QUERY, SanityPublicArt } from "@/sanity/lib/queries";
 import { PublicArtGrid } from "@/components/public-art/PublicArtGrid";
 import { FadeIn } from "@/components/ui/FadeIn";
 
@@ -12,9 +12,19 @@ export const metadata: Metadata = {
 };
 
 export default async function PublicArtPage() {
-  let projects: SanityPublicArt[] = [];
+  let initialData: { items: SanityPublicArt[]; totalCount: number } = {
+    items: [],
+    totalCount: 0,
+  };
+
   try {
-    projects = (await client.fetch(PUBLIC_ART_QUERY)) || [];
+    const fetched = await client.fetch(INITIAL_PUBLIC_ART_QUERY);
+    if (fetched) {
+      initialData = {
+        items: fetched.items || [],
+        totalCount: fetched.totalCount || 0,
+      };
+    }
   } catch (error) {
     console.error("Error fetching public art from Sanity:", error);
   }
@@ -33,7 +43,10 @@ export default async function PublicArtPage() {
           </div>
         </FadeIn>
 
-        <PublicArtGrid initialProjects={projects} />
+        <PublicArtGrid
+          initialProjects={initialData.items}
+          totalCount={initialData.totalCount}
+        />
       </section>
     </div>
   );

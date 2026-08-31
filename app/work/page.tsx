@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
-import { ALL_ARTWORKS_QUERY, SanityArtwork } from "@/sanity/lib/queries";
+import { INITIAL_ARTWORKS_QUERY, SanityArtwork } from "@/sanity/lib/queries";
 import { categoryOptions, normalizeCategorySlug } from "@/constants/workData";
 import { WorkGallery } from "@/components/work/WorkGallery";
 import { Artwork } from "@/types";
@@ -20,15 +20,25 @@ export default async function WorkPage({ searchParams }: WorkPageProps) {
   const params = await searchParams;
   const initialCategory = normalizeCategorySlug(params?.category);
 
-  let sanityArtworks: SanityArtwork[] = [];
+  let initialData: { items: SanityArtwork[]; totalCount: number } = {
+    items: [],
+    totalCount: 0,
+  };
+
   try {
-    sanityArtworks = (await client.fetch(ALL_ARTWORKS_QUERY)) || [];
+    const fetched = await client.fetch(INITIAL_ARTWORKS_QUERY);
+    if (fetched) {
+      initialData = {
+        items: fetched.items || [],
+        totalCount: fetched.totalCount || 0,
+      };
+    }
   } catch (error) {
-    console.error("Error fetching artworks from Sanity:", error);
+    console.error("Error fetching initial artworks from Sanity:", error);
   }
 
   // Map Sanity records to Artwork interface
-  const displayArtworks: Artwork[] = sanityArtworks.map((item) => ({
+  const displayArtworks: Artwork[] = initialData.items.map((item) => ({
     id: item.id || item._id,
     title: item.title,
     category: (item.category as any) || "recent",
@@ -39,6 +49,7 @@ export default async function WorkPage({ searchParams }: WorkPageProps) {
     location: item.location,
     imageUrl: item.imageUrl || undefined,
     image: item.imageUrl || "",
+    lqip: (item as any).lqip || undefined,
     aspectRatio: item.aspectRatio || undefined,
     description: item.description,
   }));
@@ -47,6 +58,7 @@ export default async function WorkPage({ searchParams }: WorkPageProps) {
     <div className="flex flex-col min-h-screen bg-gallery-bg text-gallery-text">
       <WorkGallery
         artworks={displayArtworks}
+        totalCount={initialData.totalCount}
         categories={categoryOptions}
         initialCategory={initialCategory}
       />

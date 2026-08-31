@@ -7,18 +7,20 @@ import { CategoryFilter } from "@/components/work/CategoryFilter";
 import { ArtworkCard } from "@/components/work/ArtworkCard";
 import { ArtworkModal } from "@/components/work/ArtworkModal";
 import { StudioGrid } from "@/components/work/StudioGrid";
-import { fetchMoreArtworks } from "@/actions/fetchPaginatedData";
+import { loadMoreArtworks } from "@/actions/fetchPaginatedData";
 import { normalizeCategorySlug, studioWorksData } from "@/constants/workData";
 import { Artwork, CategoryFilterOption, CategorySlug } from "@/types";
 
 interface WorkGalleryProps {
   artworks: Artwork[];
+  totalCount?: number;
   categories: CategoryFilterOption[];
   initialCategory?: CategorySlug;
 }
 
 function WorkGalleryContent({
   artworks: initialArtworks,
+  totalCount = initialArtworks.length,
   categories,
   initialCategory = "all",
 }: WorkGalleryProps) {
@@ -29,11 +31,14 @@ function WorkGalleryContent({
   const [activeCategory, setActiveCategory] = useState<CategorySlug>(initialCategory);
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [hasMore, setHasMore] = useState(initialArtworks.length >= 12);
+
+  // Dynamic hasMore check strictly comparing current artworks count against totalCount
+  const hasMore = useMemo(() => {
+    return allArtworks.length < totalCount;
+  }, [allArtworks.length, totalCount]);
 
   useEffect(() => {
     setAllArtworks(initialArtworks);
-    setHasMore(initialArtworks.length >= 12);
   }, [initialArtworks]);
 
   useEffect(() => {
@@ -55,9 +60,8 @@ function WorkGalleryContent({
     if (loadingMore || !hasMore) return;
     setLoadingMore(true);
     const start = allArtworks.length;
-    const { items, hasMore: moreAvailable } = await fetchMoreArtworks(start, 12);
+    const { items } = await loadMoreArtworks(start, 12);
     setAllArtworks((prev) => [...prev, ...items]);
-    setHasMore(moreAvailable);
     setLoadingMore(false);
   };
 
@@ -108,7 +112,7 @@ function WorkGalleryContent({
                 </div>
               </FadeInStagger>
 
-              {/* Load More Button */}
+              {/* Load More Button: Displayed strictly when allArtworks.length < totalCount */}
               {hasMore && activeCategory === "all" && (
                 <div className="flex justify-center pt-8">
                   <button

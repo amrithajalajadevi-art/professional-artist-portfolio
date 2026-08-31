@@ -6,7 +6,7 @@ import { Artwork, PublicArtProject } from "@/types";
 
 const BATCH_SIZE = 12;
 
-// GROQ query for paginated artworks with slice operator and LQIP
+// GROQ query for paginated artworks with parameterized slice operator and LQIP
 const PAGINATED_ARTWORKS_QUERY = groq`
   *[_type == "artwork"] | order(year desc) [$start...$end] {
     "_id": _id,
@@ -24,7 +24,7 @@ const PAGINATED_ARTWORKS_QUERY = groq`
   }
 `;
 
-// GROQ query for paginated public art projects with slice operator and LQIP
+// GROQ query for paginated public art projects with parameterized slice operator and LQIP
 const PAGINATED_PUBLIC_ART_QUERY = groq`
   *[_type == "publicArt"] | order(year desc) [$start...$end] {
     "_id": _id,
@@ -52,7 +52,7 @@ const PAGINATED_PUBLIC_ART_QUERY = groq`
 `;
 
 /**
- * Server Action to fetch the next batch of artworks
+ * Server Action to fetch the next batch of artworks given a start index
  */
 export async function fetchMoreArtworks(
   start: number,
@@ -91,8 +91,11 @@ export async function fetchMoreArtworks(
   }
 }
 
+// Alias for loadMoreArtworks
+export const loadMoreArtworks = fetchMoreArtworks;
+
 /**
- * Server Action to fetch the next batch of public art projects
+ * Server Action to fetch the next batch of public art projects given a start index
  */
 export async function fetchMorePublicArt(
   start: number,
@@ -132,3 +135,5 @@ export async function fetchMorePublicArt(
     return { items: [], hasMore: false };
   }
 }
+
+export const loadMorePublicArt = fetchMorePublicArt;

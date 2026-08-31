@@ -1,27 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { SanityPublicArt } from "@/sanity/lib/queries";
 import { PublicArtCard } from "./PublicArtCard";
-import { fetchMorePublicArt } from "@/actions/fetchPaginatedData";
-import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
-import { PublicArtProject } from "@/types";
+import { loadMorePublicArt } from "@/actions/fetchPaginatedData";
+import { FadeInStagger } from "@/components/ui/FadeIn";
 
 interface PublicArtGridProps {
   initialProjects: SanityPublicArt[];
+  totalCount?: number;
 }
 
-export function PublicArtGrid({ initialProjects }: PublicArtGridProps) {
+export function PublicArtGrid({
+  initialProjects,
+  totalCount = initialProjects.length,
+}: PublicArtGridProps) {
   const [projects, setProjects] = useState<SanityPublicArt[]>(initialProjects);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [hasMore, setHasMore] = useState(initialProjects.length >= 12);
+
+  useEffect(() => {
+    setProjects(initialProjects);
+  }, [initialProjects]);
+
+  // Dynamic hasMore check comparing projects.length against totalCount
+  const hasMore = useMemo(() => {
+    return projects.length < totalCount;
+  }, [projects.length, totalCount]);
 
   const handleLoadMore = async () => {
     if (loadingMore || !hasMore) return;
     setLoadingMore(true);
-    const start = projects.length;
-    const { items: newItems, hasMore: moreAvailable } = await fetchMorePublicArt(start, 12);
-    
+    const start = projects.length; // Pass current length as start index
+    const { items: newItems } = await loadMorePublicArt(start, 12);
+
     // Map PublicArtProject to SanityPublicArt shape
     const formattedItems: SanityPublicArt[] = newItems.map((item) => ({
       _id: item.id,
@@ -45,7 +56,6 @@ export function PublicArtGrid({ initialProjects }: PublicArtGridProps) {
     }));
 
     setProjects((prev) => [...prev, ...formattedItems]);
-    setHasMore(moreAvailable);
     setLoadingMore(false);
   };
 
@@ -65,7 +75,7 @@ export function PublicArtGrid({ initialProjects }: PublicArtGridProps) {
             </div>
           </FadeInStagger>
 
-          {/* Load More Button */}
+          {/* Load More Button: Displays ONLY if projects.length < totalCount */}
           {hasMore && (
             <div className="flex justify-center pt-8">
               <button

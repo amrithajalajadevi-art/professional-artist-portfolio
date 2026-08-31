@@ -165,6 +165,29 @@ export const HOME_PAGE_QUERY = groq`
 `
 
 /**
+ * Centralized GROQ Query: Initial Artworks Batch [0...12] + Total Document Count
+ */
+export const INITIAL_ARTWORKS_QUERY = groq`
+  {
+    "items": *[_type == "artwork"] | order(year desc) [0...12] {
+      "_id": _id,
+      "id": coalesce(slug.current, _id),
+      title,
+      category,
+      medium,
+      year,
+      dimensions,
+      location,
+      "imageUrl": images[0].asset->url,
+      "lqip": images[0].asset->metadata.lqip,
+      "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio,
+      description
+    },
+    "totalCount": count(*[_type == "artwork"])
+  }
+`
+
+/**
  * Centralized GROQ Query: All Artworks Gallery
  */
 export const ALL_ARTWORKS_QUERY = groq`
@@ -207,6 +230,38 @@ export interface SanityPublicArt {
     aspectRatio?: number;
   }[];
 }
+
+/**
+ * Centralized GROQ Query: Initial Public Art Projects Batch [0...12] + Total Document Count
+ */
+export const INITIAL_PUBLIC_ART_QUERY = groq`
+  {
+    "items": *[_type == "publicArt"] | order(year desc) [0...12] {
+      "_id": _id,
+      "id": coalesce(slug.current, _id),
+      title,
+      "slug": slug.current,
+      medium,
+      location,
+      city,
+      country,
+      year,
+      commissioningBody,
+      dimensions,
+      impactMetric,
+      description,
+      externalLink,
+      "images": images[] {
+        "url": asset->url,
+        "lqip": asset->metadata.lqip,
+        alt,
+        caption,
+        "aspectRatio": asset->metadata.dimensions.aspectRatio
+      }
+    },
+    "totalCount": count(*[_type == "publicArt"])
+  }
+`
 
 /**
  * Centralized GROQ Query: Public Art Projects & Murals
