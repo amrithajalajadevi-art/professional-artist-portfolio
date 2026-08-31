@@ -90,6 +90,7 @@ export function CustomImage({
           height={!fill ? height : undefined}
           fill={fill}
           priority={priority}
+          loading={priority ? "eager" : undefined}
           sizes={sizes}
           quality={quality}
           onLoad={() => setIsLoading(false)}

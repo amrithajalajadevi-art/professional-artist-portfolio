@@ -70,7 +70,8 @@ export function HeroSection({ data }: HeroSectionProps) {
                     fill
                     sizes="(max-width: 768px) 80vw, 50vw"
                     quality={95}
-                    priority
+                    priority={idx === 0}
+                    loading={idx === 0 ? "eager" : "lazy"}
                     className="object-cover block"
                   />
                 </div>
@@ -83,6 +84,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               alt={title || "Hero Image"}
               fill
               priority
+              loading="eager"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 85vw"
               quality={95}
               className="object-contain object-left block bg-[#F7F4F0] transition-transform duration-700 ease-out hover:scale-[1.01]"
