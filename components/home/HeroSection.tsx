@@ -105,7 +105,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               </h2>
             )}
             {(medium || dimensions) && (
-              <p className="text-xs text-[#8A7976] font-light">
+              <p className="text-xs text-[#5C4B48] font-normal">
                 {medium}
                 {dimensions ? ` — ${dimensions}` : ""}
               </p>

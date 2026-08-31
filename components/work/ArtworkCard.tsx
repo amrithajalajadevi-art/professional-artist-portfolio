@@ -46,12 +46,12 @@ export function ArtworkCard({ artwork }: ArtworkCardProps) {
             <h3 className="font-serif text-base text-[#4A2E35] font-light group-hover:text-[#8A7976] transition-colors truncate">
               {artwork.title}
             </h3>
-            <span className="text-[11px] text-[#A39592] font-sans font-light flex-shrink-0">
+            <span className="text-[11px] text-[#5C4B48] font-sans font-normal flex-shrink-0">
               {artwork.year}
             </span>
           </div>
 
-          <p className="text-[11px] text-[#A39592] truncate font-sans font-light">
+          <p className="text-[11px] text-[#5C4B48] truncate font-sans font-normal">
             {artwork.medium}
           </p>
         </div>

@@ -17,7 +17,7 @@ export function Sidebar() {
               AMRITHA<br />
               JALAJA DEVI
             </h1>
-            <p className="text-[11px] uppercase tracking-[0.15em] text-[#8A7976] font-sans mt-2 font-light">
+            <p className="text-[11px] uppercase tracking-[0.15em] text-[#5C4B48] font-sans mt-2 font-medium">
               Visual Artist
             </p>
           </Link>
