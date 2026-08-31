@@ -227,9 +227,9 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="hover:text-[#4A2E35] transition-colors duration-200"
+                  className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:text-[#4A2E35] transition-colors duration-200"
                 >
-                  <IconComponent className="w-3.5 h-3.5" />
+                  <IconComponent className="w-4 h-4" />
                 </a>
               );
             })}
