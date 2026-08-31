@@ -3,10 +3,15 @@
 import React, { useState, useEffect, useMemo, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
+import dynamic from "next/dynamic";
 import { CategoryFilter } from "@/components/work/CategoryFilter";
 import { ArtworkCard } from "@/components/work/ArtworkCard";
-import { ArtworkModal } from "@/components/work/ArtworkModal";
 import { StudioGrid } from "@/components/work/StudioGrid";
+
+const ArtworkModal = dynamic(
+  () => import("@/components/work/ArtworkModal").then((mod) => mod.ArtworkModal),
+  { ssr: false }
+);
 import { loadMoreArtworks } from "@/actions/fetchPaginatedData";
 import { normalizeCategorySlug, studioWorksData } from "@/constants/workData";
 import { Artwork, CategoryFilterOption, CategorySlug } from "@/types";

@@ -1,8 +1,15 @@
 "use client";
 
-import React from "react";
+import dynamic from "next/dynamic";
 import { SanityPublicArt } from "@/sanity/lib/queries";
-import { ArtworkDisplay } from "./ArtworkDisplay";
+
+const ArtworkDisplay = dynamic(
+  () => import("./ArtworkDisplay").then((mod) => mod.ArtworkDisplay),
+  {
+    ssr: false,
+    loading: () => <div className="h-[60vh] w-full bg-[#EFEAE4] animate-pulse" />,
+  }
+);
 
 interface PublicArtCardProps {
   project: SanityPublicArt;
