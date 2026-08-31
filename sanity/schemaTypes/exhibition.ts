@@ -87,36 +87,10 @@ export const exhibitionType = defineType({
       rows: 5,
     }),
     defineField({
-      name: 'installationViews',
-      title: 'Installation Views & Installation Photography',
-      type: 'array',
-      description: 'Array of installation views for the exhibition gallery.',
-      of: [
-        {
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative Text',
-            },
-            {
-              name: 'caption',
-              type: 'string',
-              title: 'Caption',
-            },
-          ],
-        },
-      ],
-    }),
-    defineField({
       name: 'images',
       title: 'Exhibition Images Gallery',
       type: 'array',
-      description: 'Array of exhibition images (first image used as cover).',
+      description: 'Upload an Exhibition image.',
       of: [
         {
           type: 'image',
@@ -137,6 +111,11 @@ export const exhibitionType = defineType({
           ],
         },
       ],
+      validation: (Rule) =>
+        Rule.required()
+          .min(1)
+          .max(1)
+          .error('You can only upload one image for exhibition.'),
     }),
     defineField({
       name: 'externalLink',

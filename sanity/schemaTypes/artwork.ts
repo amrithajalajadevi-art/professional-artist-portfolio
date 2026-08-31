@@ -85,7 +85,11 @@ export const artworkType = defineType({
           ],
         },
       ],
-      validation: (Rule) => Rule.required().min(1),
+      validation: (Rule) =>
+        Rule.required()
+          .min(1)
+          .max(1)
+          .error('You can only upload one image for a standard artwork.'),
     }),
     defineField({
       name: 'description',

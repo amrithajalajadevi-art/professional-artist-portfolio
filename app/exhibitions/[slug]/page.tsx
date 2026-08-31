@@ -120,6 +120,12 @@ export default async function ExhibitionDetailPage({
             {exhibition.title}
           </h1>
 
+          {exhibition.subtitle && (
+            <p className="text-sm sm:text-base text-[#8A7976] font-serif font-light italic">
+              {exhibition.subtitle}
+            </p>
+          )}
+
           <p className="text-xs sm:text-sm text-[#8A7976] uppercase tracking-widest font-sans font-light">
             {editorialSubheader}
           </p>
