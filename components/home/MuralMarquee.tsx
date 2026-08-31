@@ -24,7 +24,7 @@ export function MuralMarquee({ muralImages, title }: MuralMarqueeProps) {
             alt={`${title || "Public Art Mural"} - View ${idx + 1}`}
             fill
             sizes="(max-width: 768px) 80vw, 50vw"
-            quality={85}
+            quality={80}
             priority={idx === 0}
             loading={idx === 0 ? "eager" : "lazy"}
             className="object-cover block"

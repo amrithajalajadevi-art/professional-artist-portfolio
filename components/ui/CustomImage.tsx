@@ -28,7 +28,7 @@ export function CustomImage({
   hoverScale = false,
   caption,
   objectFit = "contain",
-  quality = 85,
+  quality = 75,
   loading = priority ? "eager" : undefined,
   ...rest
 }: CustomImageProps) {
@@ -65,6 +65,7 @@ export function CustomImage({
 
   return (
     <figure
+      suppressHydrationWarning
       className={`overflow-hidden bg-[#F7F4F0] ${
         fill ? "absolute inset-0 w-full h-full" : "relative w-full h-full"
       } ${aspectClass} ${containerClassName}`}
@@ -87,6 +88,7 @@ export function CustomImage({
         </div>
       ) : (
         <Image
+          suppressHydrationWarning
           src={src}
           alt={alt || "Amritha Jalaja Devi Artwork"}
           width={!fill ? width : undefined}

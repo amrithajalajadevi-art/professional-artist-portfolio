@@ -79,7 +79,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               priority
               loading="eager"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 85vw"
-              quality={85}
+              quality={80}
               className="object-contain object-left block bg-[#F7F4F0] transition-transform duration-700 ease-out hover:scale-[1.01]"
             />
           ) : (
