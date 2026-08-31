@@ -15,6 +15,9 @@ export function HeroSection({ data }: HeroSectionProps) {
 
   const isCustom = data.heroType === "custom";
 
+  const muralImages = !isCustom ? data.projectReference?.muralImages || [] : [];
+  const isMultiImageMural = muralImages.length > 1;
+
   const imageUrl = isCustom
     ? data.customImageUrl
     : data.projectReference?.imageUrl;
@@ -39,7 +42,7 @@ export function HeroSection({ data }: HeroSectionProps) {
     "Contemporary Figurative painter with an expanding public-art practice.";
 
   return (
-    <section className="relative w-full p-6 sm:p-12 xl:p-16 bg-[#F7F4F0]">
+    <section className="relative w-full p-6 sm:p-12 xl:p-16 bg-[#F7F4F0] overflow-hidden">
       {/* 1. Hero Typography Block: High-End Gallery Wall Statement */}
       <FadeIn direction="up">
         <div className="max-w-3xl mb-16 md:mb-24">
@@ -49,10 +52,31 @@ export function HeroSection({ data }: HeroSectionProps) {
         </div>
       </FadeIn>
 
-      {/* 2. Universal Image Container with Fill, Object-Contain & Object-Left */}
+      {/* 2. Universal Visual Container: Continuous Marquee for Multi-Image Mural or Static View */}
       <FadeIn direction="up" delay={0.1}>
-        <div className="relative w-full h-[65vh] sm:h-[75vh] lg:h-[80vh] min-h-[350px] sm:min-h-[480px] bg-[#F7F4F0] overflow-hidden flex items-center justify-start">
-          {imageUrl ? (
+        <div className="relative w-full h-[65vh] sm:h-[75vh] lg:h-[80vh] min-h-[350px] sm:min-h-[480px] bg-[#F7F4F0] overflow-hidden flex items-center justify-start group">
+          {isMultiImageMural ? (
+            /* Continuous Infinite Horizontal Marquee for Multi-Image Mural Projects */
+            <div className="flex w-max animate-marquee hover:[animation-play-state:paused] ease-linear">
+              {/* Duplicate muralImages array twice for seamless 100% infinite loop */}
+              {[...muralImages, ...muralImages].map((imgUrl, idx) => (
+                <div
+                  key={`${imgUrl}-${idx}`}
+                  className="relative h-[65vh] sm:h-[75vh] lg:h-[80vh] min-h-[350px] sm:min-h-[480px] aspect-[4/3] sm:aspect-[16/10] shrink-0 m-0 p-0 overflow-hidden bg-[#EFEAE4]"
+                >
+                  <Image
+                    src={imgUrl}
+                    alt={`${title || "Public Art Mural"} - View ${idx + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 80vw, 50vw"
+                    quality={95}
+                    className="object-cover block"
+                  />
+                </div>
+              ))}
+            </div>
+          ) : imageUrl ? (
+            /* Standard Static Full Image View */
             <Image
               src={imageUrl}
               alt={title || "Hero Image"}
@@ -97,7 +121,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               href={linkHref}
               className="text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4 transition-colors"
             >
-              View Gallery →
+              {isMultiImageMural ? "Explore Mural Details →" : "View Gallery →"}
             </Link>
           </div>
         </div>

@@ -40,6 +40,7 @@ export interface SanityHeroSection {
     dimensions?: string;
     location?: string;
     imageUrl?: string;
+    muralImages?: string[];
     slug?: string;
   };
 }
@@ -112,6 +113,7 @@ export const HOME_PAGE_QUERY = groq`
         dimensions,
         location,
         "imageUrl": coalesce(images[0].asset->url, coverImage.asset->url, image.asset->url),
+        "muralImages": coalesce(images[].asset->url, galleryImages[].asset->url),
         "slug": slug.current
       }
     },
