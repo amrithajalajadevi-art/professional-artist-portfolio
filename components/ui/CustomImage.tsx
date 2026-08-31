@@ -28,7 +28,7 @@ export function CustomImage({
   hoverScale = false,
   caption,
   objectFit = "contain",
-  quality = 95,
+  quality = 85,
   loading = priority ? "eager" : undefined,
   ...rest
 }: CustomImageProps) {
