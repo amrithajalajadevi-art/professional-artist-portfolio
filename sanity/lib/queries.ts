@@ -103,7 +103,7 @@ export const HOME_PAGE_QUERY = groq`
     heroSection {
       headline,
       heroType,
-      "customImageUrl": customImage.asset->url,
+      "customImageUrl": customImage.asset->url + "?w=1400&q=80&auto=format",
       customTitle,
       projectReference-> {
         _type,
@@ -112,7 +112,7 @@ export const HOME_PAGE_QUERY = groq`
         medium,
         dimensions,
         location,
-        "imageUrl": coalesce(images[0].asset->url, coverImage.asset->url, image.asset->url),
+        "imageUrl": coalesce(images[0].asset->url, coverImage.asset->url, image.asset->url) + "?w=1400&q=80&auto=format",
         "muralImages": coalesce(images[].asset->url, galleryImages[].asset->url),
         "slug": slug.current
       }
@@ -125,7 +125,7 @@ export const HOME_PAGE_QUERY = groq`
         medium,
         dimensions,
         location,
-        "imageUrl": image.asset->url
+        "imageUrl": image.asset->url + "?w=1400&q=80&auto=format"
       }
     },
     "highlightedRecognitions": *[_type == "recognition" && isHighlightedForHome == true] | order(year desc) {
@@ -147,7 +147,7 @@ export const HOME_PAGE_QUERY = groq`
       year,
       medium,
       location,
-      "imageUrl": images[0].asset->url,
+      "imageUrl": images[0].asset->url + "?w=1000&q=80&auto=format",
       "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio,
       description
     },
@@ -159,7 +159,7 @@ export const HOME_PAGE_QUERY = groq`
       date,
       "url": coalesce(externalLink, "/press"),
       excerpt,
-      "imageUrl": images[0].asset->url
+      "imageUrl": images[0].asset->url + "?w=800&q=80&auto=format"
     }
   }
 `

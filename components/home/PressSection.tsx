@@ -18,7 +18,7 @@ export function PressSection({ features }: PressSectionProps) {
       />
 
       <FadeInStagger staggerDelay={0.1}>
-        <div className="space-y-3 font-sans text-xs sm:text-sm text-[#8A7976]">
+        <div className="space-y-3 font-sans text-xs sm:text-sm text-[#5C4B48]">
           {features.map((press, idx) => {
             const isInternal = press.url && press.url.startsWith("/");
 
@@ -30,7 +30,7 @@ export function PressSection({ features }: PressSectionProps) {
                 {isInternal ? (
                   <Link
                     href={press.url}
-                    className="font-medium text-[#4A2E35] hover:text-[#8A7976] transition-colors"
+                    className="font-medium text-[#4A2E35] hover:text-[#5C4B48] transition-colors"
                   >
                     &quot;{press.title}&quot; — <span className="font-bold">{press.publication}</span>
                   </Link>
@@ -39,13 +39,13 @@ export function PressSection({ features }: PressSectionProps) {
                     href={press.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-[#4A2E35] hover:text-[#8A7976] transition-colors"
+                    className="font-medium text-[#4A2E35] hover:text-[#5C4B48] transition-colors"
                   >
                     &quot;{press.title}&quot; — <span className="font-bold">{press.publication}</span>
                   </a>
                 )}
 
-                <span className="text-xs text-[#8A7976] font-sans flex-shrink-0">
+                <span className="text-xs text-[#5C4B48] font-sans flex-shrink-0">
                   {press.date}
                 </span>
               </div>

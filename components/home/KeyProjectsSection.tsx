@@ -51,19 +51,19 @@ export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
                 </div>
 
                 {/* Minimal Caption: Title, Year, Medium only */}
-                <div className="space-y-1 font-sans text-sm text-[#8A7976]">
+                <div className="space-y-1 font-sans text-sm text-[#5C4B48]">
                   <div className="flex items-baseline justify-between gap-2">
-                    <h3 className="font-serif text-lg text-[#4A2E35] font-normal group-hover:text-[#8A7976] transition-colors">
+                    <h3 className="font-serif text-lg text-[#4A2E35] font-normal group-hover:text-[#5C4B48] transition-colors">
                       <Link href={`/work?project=${projectSlug}`}>
                         {project.title}
                       </Link>
                     </h3>
-                    <span className="text-xs text-[#8A7976] font-sans">
+                    <span className="text-xs text-[#5C4B48] font-sans font-medium">
                       {project.year}
                     </span>
                   </div>
 
-                  <p className="text-xs text-[#8A7976] font-sans">
+                  <p className="text-xs text-[#5C4B48] font-sans">
                     {project.medium}
                   </p>
                 </div>

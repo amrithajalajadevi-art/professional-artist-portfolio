@@ -45,7 +45,7 @@ export function HighlightedRecognitionsSection({
               key={item._id}
               className="bg-[#F7F4F0] space-y-3 font-sans pb-6 border-b border-[#E8E2DA] last:border-b-0"
             >
-              <div className="flex justify-between items-start text-xs uppercase tracking-[0.15em] text-[#8A7976]">
+              <div className="flex justify-between items-start text-xs uppercase tracking-[0.15em] text-[#5C4B48] font-medium">
                 <span>{item.awardingBody}</span>
                 <span>{item.year}</span>
               </div>
@@ -55,7 +55,7 @@ export function HighlightedRecognitionsSection({
               </h3>
 
               {item.description && (
-                <p className="text-xs text-[#8A7976] leading-relaxed font-light">
+                <p className="text-xs text-[#5C4B48] leading-relaxed font-normal">
                   {item.description}
                 </p>
               )}
