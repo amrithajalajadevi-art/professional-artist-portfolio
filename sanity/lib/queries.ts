@@ -600,7 +600,7 @@ export interface SanityFullCVData {
  * Fetches pdfUrl resolved file URL and nested section arrays
  */
 export const CV_PAGE_QUERY = groq`
-  *[_type == "cv"][0] {
+  coalesce(*[_type == "cv" && _id == "cv"][0], *[_type == "cv" && !(_id in path("drafts.**"))][0]) {
     "pdfUrl": cvPdf.asset->url,
     education[] {
       year,

@@ -4,6 +4,8 @@ import { client } from "@/sanity/lib/client";
 import { CV_PAGE_QUERY, SanityFullCVData } from "@/sanity/lib/queries";
 import { CVLayout } from "@/components/cv/CVLayout";
 
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Curriculum Vitae (CV) & Academic Record | Amritha Jalaja Devi",
   description:
