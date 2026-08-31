@@ -10,9 +10,14 @@ import { HighlightedRecognitionsSection } from "@/components/home/HighlightedRec
 import { PressSection } from "@/components/home/PressSection";
 import { PressItem, Project } from "@/types";
 
+// Enable Incremental Static Revalidation (ISR) every 60 seconds
+export const revalidate = 60;
+
 export default async function Home() {
   const sanityHomePage: SanityHomePageData | null = await client.fetch(
-    HOME_PAGE_QUERY
+    HOME_PAGE_QUERY,
+    {},
+    { next: { revalidate: 60 } }
   );
 
   // Key projects rendered directly from HOME_PAGE_QUERY single source of truth

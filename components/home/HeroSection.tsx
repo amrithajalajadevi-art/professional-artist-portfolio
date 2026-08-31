@@ -13,9 +13,7 @@ interface HeroSectionProps {
 export function HeroSection({ data }: HeroSectionProps) {
   if (!data || !data.featuredArtwork) return null;
 
-  const heroStatement =
-    data.headline ||
-    "Contemporary Figurative painter with an expanding public-art practice.";
+  const heroStatement = data.headline;
 
   return (
     <section className="relative w-full p-6 sm:p-12 xl:p-16 bg-[#F7F4F0]">

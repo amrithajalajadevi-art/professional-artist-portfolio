@@ -80,7 +80,7 @@ export interface SanityHomePageData {
  * Fetches hero, highlighted recognitions (where isHighlightedForHome == true), dynamically featured artworks (where featured == true), and highlighted press items
  */
 export const HOME_PAGE_QUERY = groq`
-  *[_type == "homePage"][0] {
+  *[_type == "homePage" && _id == "singleton-home-page"][0] {
     hero {
       headline,
       featuredArtwork {
