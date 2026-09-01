@@ -31,6 +31,7 @@ export interface SanityHeroSection {
   headline?: string;
   heroType?: 'reference' | 'custom';
   customImageUrl?: string;
+  customMuralImages?: string[];
   customTitle?: string;
   projectReference?: {
     _type?: string;
@@ -104,6 +105,7 @@ export const HOME_PAGE_QUERY = groq`
       headline,
       heroType,
       "customImageUrl": customImage.asset->url + "?w=1400&q=80&auto=format",
+      "customMuralImages": customMuralImages[].asset->url,
       customTitle,
       projectReference-> {
         _type,

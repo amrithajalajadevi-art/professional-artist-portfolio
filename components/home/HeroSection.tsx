@@ -27,15 +27,16 @@ export function HeroSection({ data }: HeroSectionProps) {
 
   const isCustom = data.heroType === "custom";
 
-  const muralImages = !isCustom ? data.projectReference?.muralImages || [] : [];
-  
+  const rawMuralImages = isCustom
+    ? data.customMuralImages || []
+    : data.projectReference?.muralImages || [];
+
+  const muralImages = rawMuralImages.filter((img): img is string => Boolean(img));
   const isMultiImageMural = muralImages.length > 1;
 
-  console.log(data.customImageUrl, "customImage URL")
-
   const imageUrl = isCustom
-    ? data.customImageUrl
-    : data.projectReference?.imageUrl;
+    ? data.customImageUrl || muralImages[0]
+    : data.projectReference?.imageUrl || muralImages[0];
 
   const title = isCustom
     ? data.customTitle || "Studio & Artist Profile"

@@ -45,6 +45,18 @@ export const homePageType = defineType({
           hidden: ({ parent }) => parent?.heroType !== 'custom',
         }),
         defineField({
+          name: 'customMuralImages',
+          title: 'Custom Mural Split Images (For Marquee)',
+          type: 'array',
+          description: 'Upload multiple images of a mural project to display as an infinite auto-scrolling marquee.',
+          of: [
+            {
+              type: 'image',
+              options: { hotspot: true },
+            },
+          ],
+        }),
+        defineField({
           name: 'customTitle',
           title: 'Custom Image Caption / Title',
           type: 'string',
