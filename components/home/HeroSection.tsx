@@ -13,7 +13,7 @@ const MuralMarquee = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[65vh] sm:h-[75vh] lg:h-[80vh] min-h-[350px] bg-[#EFEAE4] animate-pulse" />
+      <div className="w-full h-[40vh] sm:h-[60vh] lg:h-[75vh] min-h-[240px] bg-[#EFEAE4] animate-pulse" />
     ),
   }
 );
@@ -54,11 +54,11 @@ export function HeroSection({ data }: HeroSectionProps) {
     "Contemporary Figurative painter with an expanding public-art practice.";
 
   return (
-    <section className="relative w-full p-6 sm:p-12 xl:p-16 bg-[#F7F4F0] overflow-hidden">
+    <section className="relative w-full p-4 sm:p-10 lg:p-16 bg-[#F7F4F0] overflow-hidden">
       {/* 1. Hero Typography Block: High-End Gallery Wall Statement */}
       <FadeIn direction="up">
-        <div className="max-w-3xl mb-16 md:mb-24">
-          <h1 className="font-serif text-3xl md:text-5xl lg:text-6xl font-light leading-tight text-[#4A2E35]">
+        <div className="max-w-3xl mb-6 sm:mb-10 md:mb-16 lg:mb-20">
+          <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-tight text-[#4A2E35]">
             {headline}
           </h1>
         </div>
@@ -66,7 +66,7 @@ export function HeroSection({ data }: HeroSectionProps) {
 
       {/* 2. Universal Visual Container */}
       <FadeIn direction="up" delay={0.1}>
-        <div className="relative w-full h-[65vh] sm:h-[75vh] lg:h-[80vh] min-h-[350px] sm:min-h-[480px] bg-[#F7F4F0] overflow-hidden flex items-center justify-start group">
+        <div className="relative w-full h-[40vh] sm:h-[60vh] lg:h-[75vh] min-h-[240px] sm:min-h-[400px] bg-[#F7F4F0] overflow-hidden flex items-center justify-start group">
           {isMultiImageMural ? (
             /* Dynamically loaded infinite Marquee for Multi-Image Mural Projects */
             <MuralMarquee muralImages={muralImages} title={title} />
