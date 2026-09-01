@@ -77,6 +77,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               alt={title || "Hero Image"}
               fill
               priority={true}
+              loading="eager"
               fetchPriority="high"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               quality={75}
