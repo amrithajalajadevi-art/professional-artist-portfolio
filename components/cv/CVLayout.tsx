@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 import { CVSection } from "@/components/cv/CVSection";
 import { SanityFullCVData } from "@/sanity/lib/queries";
@@ -8,6 +10,41 @@ interface CVLayoutProps {
 }
 
 export function CVLayout({ cvData }: CVLayoutProps) {
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownload = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (!cvData?.pdfUrl || downloading) return;
+
+    setDownloading(true);
+    try {
+      // Append Sanity ?dl query param for Content-Disposition header
+      const downloadUrl = cvData.pdfUrl.includes("?")
+        ? `${cvData.pdfUrl}&dl=Amritha_Jalaja_Devi_CV.pdf`
+        : `${cvData.pdfUrl}?dl=Amritha_Jalaja_Devi_CV.pdf`;
+
+      const response = await fetch(downloadUrl);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "Amritha_Jalaja_Devi_CV.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setTimeout(() => {
+        window.URL.revokeObjectURL(blobUrl);
+      }, 1000);
+    } catch (error) {
+      console.error("Direct PDF download failed, falling back to window open:", error);
+      window.open(cvData.pdfUrl, "_blank");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <article className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
       {/* Header & Download PDF Button Bar */}
@@ -18,21 +55,19 @@ export function CVLayout({ cvData }: CVLayoutProps) {
               CURRICULUM VITAE
             </h1>
 
-            {/* Direct PDF Download Anchor Link (Rendered only if pdfUrl exists) */}
+            {/* Direct Binary PDF Download Button */}
             {cvData?.pdfUrl && (
               <a
                 href={cvData.pdfUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-                className="inline-block text-xs uppercase tracking-[0.15em] font-sans font-medium text-[#4A2E35] border border-[#4A2E35]/30 px-3.5 py-1.5 rounded hover:bg-[#4A2E35] hover:text-white transition-colors"
+                onClick={handleDownload}
+                className="inline-block text-xs uppercase tracking-[0.15em] font-sans font-medium text-[#4A2E35] border border-[#4A2E35]/30 px-3.5 py-1.5 rounded hover:bg-[#4A2E35] hover:text-white transition-colors cursor-pointer"
               >
-                Download CV (PDF) ↓
+                {downloading ? "Downloading CV..." : "Download CV (PDF) ↓"}
               </a>
             )}
           </div>
 
-          <p className="text-sm text-[#8A7976] font-sans">
+          <p className="text-sm text-[#5C4B48] font-sans">
             Amritha Jalaja Devi — Contemporary Visual Artist (UK & India)
           </p>
         </div>
@@ -61,7 +96,6 @@ export function CVLayout({ cvData }: CVLayoutProps) {
           )}
         </div>
       </FadeInStagger>
-      
     </article>
   );
 }
