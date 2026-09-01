@@ -2,14 +2,15 @@
 
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NavLinks } from "./NavLinks";
+import { NavLinks, ContactSocialData } from "./NavLinks";
 
 interface MobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  contactData?: ContactSocialData;
 }
 
-export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
+export function MobileDrawer({ isOpen, onClose, contactData }: MobileDrawerProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -44,7 +45,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             className="relative z-10 w-full bg-[#F7F4F0] max-h-[85vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] px-8 py-10"
           >
             <div className="flex flex-col space-y-6">
-              <NavLinks onItemClick={onClose} />
+              <NavLinks onItemClick={onClose} contactData={contactData} />
             </div>
           </motion.div>
         </div>

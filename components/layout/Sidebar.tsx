@@ -1,9 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import { NavLinks } from "./NavLinks";
+import { NavLinks, ContactSocialData } from "./NavLinks";
+
+interface SidebarProps {
+  contactData?: ContactSocialData;
+}
 
 // Server Component
-export function Sidebar() {
+export function Sidebar({ contactData }: SidebarProps) {
   return (
     <aside 
       className="hidden lg:flex lg:w-64 fixed left-0 top-0 h-screen bg-[#F7F4F0] flex-col justify-between p-6 xl:p-8 z-30 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
@@ -25,7 +29,7 @@ export function Sidebar() {
 
         {/* Navigation & Footer Links */}
         <div className="flex-1 flex flex-col justify-between pt-4">
-          <NavLinks />
+          <NavLinks contactData={contactData} />
         </div>
       </div>
     </aside>

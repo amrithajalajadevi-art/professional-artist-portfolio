@@ -2,20 +2,30 @@ import React from "react";
 import { Sidebar } from "./Sidebar";
 import { MobileNav } from "./MobileNav";
 import { Footer } from "./Footer";
+import { client } from "@/sanity/lib/client";
+import { CONTACT_PAGE_QUERY } from "@/sanity/lib/queries";
 
 interface GlobalLayoutProps {
   children: React.ReactNode;
 }
 
-// 100% Server Component - No client bundle or JS execution on main layout
-export function GlobalLayout({ children }: GlobalLayoutProps) {
+// Server Component - Dynamically fetches Contact schema data from Sanity
+export async function GlobalLayout({ children }: GlobalLayoutProps) {
+  let contactData = null;
+
+  try {
+    contactData = await client.fetch(CONTACT_PAGE_QUERY);
+  } catch (error) {
+    console.error("Error fetching contact data for sidebar in GlobalLayout:", error);
+  }
+
   return (
     <div className="min-h-screen bg-[#F7F4F0] text-[#4A2E35] selection:bg-[#4A2E35] selection:text-white flex flex-col lg:flex-row relative font-sans">
       {/* Fixed Left Sidebar */}
-      <Sidebar />
+      <Sidebar contactData={contactData} />
 
       {/* Mobile Top Navbar & Slide-out Drawer */}
-      <MobileNav />
+      <MobileNav contactData={contactData} />
 
       {/* Scrollable Right Content Area */}
       <main className="w-full lg:w-[calc(100%-16rem)] lg:ml-64 min-h-screen bg-[#F7F4F0] flex flex-col justify-between transition-all">

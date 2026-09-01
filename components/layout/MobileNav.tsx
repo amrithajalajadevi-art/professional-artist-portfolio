@@ -3,8 +3,13 @@
 import React, { useState } from "react";
 import { MobileHeader } from "./MobileHeader";
 import { MobileDrawer } from "./MobileDrawer";
+import { ContactSocialData } from "./NavLinks";
 
-export function MobileNav() {
+interface MobileNavProps {
+  contactData?: ContactSocialData;
+}
+
+export function MobileNav({ contactData }: MobileNavProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -16,6 +21,7 @@ export function MobileNav() {
       <MobileDrawer
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
+        contactData={contactData}
       />
     </>
   );

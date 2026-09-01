@@ -71,21 +71,57 @@ export function MailIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export const socialLinks = [
-  { name: "Instagram", href: "https://instagram.com", icon: InstagramIcon },
-  { name: "LinkedIn", href: "https://linkedin.com", icon: LinkedInIcon },
-  { name: "Twitter / X", href: "https://x.com", icon: TwitterIcon },
-  { name: "Email", href: "mailto:contact@amrithajalajadevi.art", icon: MailIcon },
-];
+export interface ContactSocialData {
+  email?: string;
+  instagram?: string;
+  linkedin?: string;
+  twitter?: string;
+}
 
 interface NavLinksProps {
   onItemClick?: () => void;
+  contactData?: ContactSocialData;
 }
 
-function NavLinksContent({ onItemClick }: NavLinksProps) {
+function NavLinksContent({ onItemClick, contactData }: NavLinksProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [workOpen, setWorkOpen] = useState(true);
+
+  // Strictly build social links from actual Sanity contact data (no fake fallbacks)
+  const dynamicSocialLinks: { name: string; href: string; icon: React.ComponentType<React.SVGProps<SVGSVGElement>> }[] = [];
+
+  if (contactData?.instagram) {
+    dynamicSocialLinks.push({
+      name: "Instagram",
+      href: contactData.instagram,
+      icon: InstagramIcon,
+    });
+  }
+
+  if (contactData?.linkedin) {
+    dynamicSocialLinks.push({
+      name: "LinkedIn",
+      href: contactData.linkedin,
+      icon: LinkedInIcon,
+    });
+  }
+
+  if (contactData?.twitter) {
+    dynamicSocialLinks.push({
+      name: "Twitter / X",
+      href: contactData.twitter,
+      icon: TwitterIcon,
+    });
+  }
+
+  if (contactData?.email) {
+    dynamicSocialLinks.push({
+      name: "Email",
+      href: `mailto:${contactData.email}`,
+      icon: MailIcon,
+    });
+  }
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -219,7 +255,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
         {/* Social Icons & Copyright */}
         <div className="space-y-3 pt-2">
           <div className="flex items-center gap-3 text-[#5C4B48]">
-            {socialLinks.map((social) => {
+            {dynamicSocialLinks.map((social) => {
               const IconComponent = social.icon;
               return (
                 <a
