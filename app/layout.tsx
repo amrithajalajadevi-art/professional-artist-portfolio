@@ -3,7 +3,9 @@ import { Cormorant_Garamond, Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { GlobalLayout } from "@/components/layout/GlobalLayout";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amrithajalajadevi.art";
+const siteUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : process.env.NEXT_PUBLIC_SITE_URL || "https://amrithajalajadevi.art";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
