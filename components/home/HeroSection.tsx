@@ -28,7 +28,10 @@ export function HeroSection({ data }: HeroSectionProps) {
   const isCustom = data.heroType === "custom";
 
   const muralImages = !isCustom ? data.projectReference?.muralImages || [] : [];
+  
   const isMultiImageMural = muralImages.length > 1;
+
+  console.log(data.customImageUrl, "customImage URL")
 
   const imageUrl = isCustom
     ? data.customImageUrl
