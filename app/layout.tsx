@@ -80,8 +80,7 @@ export const metadata: Metadata = {
     title: "Amritha Jalaja Devi | Contemporary Artist",
     description:
       "Official portfolio of Amritha Jalaja Devi featuring contemporary figurative paintings, public murals, UK commissions, printmaking, and gallery exhibitions.",
-    images: ["/og-image.jpg"],
-    creator: "@amrithajalaja",
+    images: ["/og-image.jpg"]
   },
   robots: {
     index: true,
