@@ -28,7 +28,10 @@ export const structure: StructureResolver = (S) =>
       // 3. Artwork (Collection/List)
       S.documentTypeListItem('artwork').title('Artwork'),
 
-      // 4. Exhibition (Collection/List)
+      // 4. Printmaking (Collection/List)
+      S.documentTypeListItem('printmaking').title('Printmaking'),
+
+      // 5. Exhibition (Collection/List)
       S.documentTypeListItem('exhibition').title('Exhibition'),
 
       // 5. Public Art Project (Collection/List)

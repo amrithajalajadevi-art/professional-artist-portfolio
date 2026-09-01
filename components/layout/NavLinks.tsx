@@ -23,6 +23,7 @@ export const mainNavItems: NavItem[] = [
       { label: "UK Commissions", href: "/work?category=commissions", category: "commissions" },
       { label: "Public Murals", href: "/public-art", category: "public-art" },
       { label: "Studio Practice & Drawings", href: "/work?category=studio", category: "studio" },
+      { label: "Printmaking", href: "/printmaking", category: "printmaking" },
     ],
   },
   { label: "Exhibitions & Projects", href: "/exhibitions" },

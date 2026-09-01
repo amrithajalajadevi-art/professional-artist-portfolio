@@ -11,7 +11,7 @@ const cspHeader = `
   form-action 'self';
   frame-ancestors 'self';
   frame-src 'self' https://challenges.cloudflare.com;
-  connect-src 'self' https://*.sanity.io https://cdn.sanity.io https://challenges.cloudflare.com;
+  connect-src 'self' https://*.sanity.io https://cdn.sanity.io https://registry.npmjs.org https://ping.sanity.io https://challenges.cloudflare.com;
   upgrade-insecure-requests;
 `.replace(/\s{2,}/g, " ").trim();
 

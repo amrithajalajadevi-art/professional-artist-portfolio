@@ -783,6 +783,42 @@ export const WORKSHOP_PAGE_QUERY = groq`
   }
 `
 
+// Response TypeScript interface for Printmaking Document
+export interface SanityPrintmaking {
+  _id: string;
+  id: string;
+  title: string;
+  slug?: string;
+  year?: string;
+  medium?: string;
+  dimensions?: string;
+  edition?: string;
+  imageUrl: string | null;
+  lqip: string | null;
+  aspectRatio: number | null;
+}
+
+/**
+ * Centralized GROQ Query: Printmaking Gallery
+ * Fetches printmaking documents with imageUrl, lqip metadata, and aspect ratio
+ */
+export const PRINTMAKING_QUERY = groq`
+  *[_type == "printmaking"] | order(order asc, year desc) {
+    "_id": _id,
+    "id": coalesce(slug.current, _id),
+    title,
+    "slug": slug.current,
+    year,
+    medium,
+    dimensions,
+    edition,
+    "imageUrl": image.asset->url + "?w=1200&q=80&auto=format",
+    "lqip": image.asset->metadata.lqip,
+    "aspectRatio": image.asset->metadata.dimensions.aspectRatio
+  }
+`
+
+
 
 
 

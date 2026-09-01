@@ -11,6 +11,7 @@ import { recognitionType } from './recognition'
 import { servicesType } from './services'
 import { commissionPageType } from './commissionPage'
 import { workshopPageType } from './workshopPage'
+import { printmakingType } from './printmaking'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -26,5 +27,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     servicesType,
     commissionPageType,
     workshopPageType,
+    printmakingType,
   ],
 }
