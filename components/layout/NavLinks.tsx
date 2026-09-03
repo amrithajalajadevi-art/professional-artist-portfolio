@@ -86,7 +86,7 @@ interface NavLinksProps {
 function NavLinksContent({ onItemClick, contactData }: NavLinksProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [workOpen, setWorkOpen] = useState(true);
+  const [workOpen, setWorkOpen] = useState(false);
 
   // Strictly build social links from actual Sanity contact data (no fake fallbacks)
   const dynamicSocialLinks: { name: string; href: string; icon: React.ComponentType<React.SVGProps<SVGSVGElement>> }[] = [];
@@ -156,12 +156,13 @@ function NavLinksContent({ onItemClick, contactData }: NavLinksProps) {
 
                   <button
                     type="button"
-                    onClick={() => setWorkOpen(!workOpen)}
+                    onClick={() => setWorkOpen((prev) => !prev)}
                     className="p-1 text-[#8A7976] hover:text-[#4A2E35] transition-colors focus:outline-none cursor-pointer"
                     aria-label={`Toggle ${item.label} sub-items`}
+                    aria-expanded={workOpen}
                   >
                     <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                      className={`w-3.5 h-3.5 transition-transform duration-300 ease-in-out ${
                         workOpen ? "rotate-180 text-[#4A2E35]" : "rotate-0 text-[#8A7976]"
                       }`}
                     />
