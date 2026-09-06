@@ -18,6 +18,15 @@ export default async function ContactPage() {
     console.error("Error fetching contact page data from Sanity:", error);
   }
 
+  const envEmail =
+    process.env.CONTACT_EMAIL;
+  if (envEmail) {
+    contactPageData = {
+      ...(contactPageData || {}),
+      email: envEmail,
+    };
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gallery-bg text-gallery-text">
       <ContactLayout

@@ -95,14 +95,16 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
             </div>
 
             {/* Inquire Action Link */}
-            <div className="pt-4 border-t border-[#E8E2DA]">
-              <a
-                href={`mailto:contact@amrithajalajadevi.art?subject=Inquiry%20regarding%20${encodeURIComponent(artwork.title)}`}
-                className="inline-block text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4"
-              >
-                Inquire About This Artwork →
-              </a>
-            </div>
+            {process.env.CONTACT_EMAIL && (
+              <div className="pt-4 border-t border-[#E8E2DA]">
+                <a
+                  href={`mailto:${process.env.CONTACT_EMAIL}?subject=Inquiry%20regarding%20${encodeURIComponent(artwork.title)}`}
+                  className="inline-block text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4"
+                >
+                  Inquire About This Artwork →
+                </a>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

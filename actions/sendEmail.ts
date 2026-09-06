@@ -68,11 +68,15 @@ export async function sendEmail(
   const safeName = sanitizeHtml(name);
   const safeMessage = sanitizeHtml(message);
 
+  console.log("Client Email:", email);
+
   try {
     const data = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
+      from: "Contact Form <hello@amrithajalajadevi.com>",
       to: [recipientEmail],
-      replyTo: email,
+      // @ts-ignore
+      reply_to: [email],
+      replyTo: [email],
       subject: `New Portfolio Inquiry from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `

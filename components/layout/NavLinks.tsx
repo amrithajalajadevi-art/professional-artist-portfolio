@@ -115,10 +115,12 @@ function NavLinksContent({ onItemClick, contactData }: NavLinksProps) {
     });
   }
 
-  if (contactData?.email) {
+  const emailAddress = contactData?.email;
+
+  if (emailAddress) {
     dynamicSocialLinks.push({
       name: "Email",
-      href: `mailto:${contactData.email}`,
+      href: `mailto:${emailAddress}`,
       icon: MailIcon,
     });
   }

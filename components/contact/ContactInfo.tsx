@@ -7,6 +7,8 @@ interface ContactInfoProps {
 }
 
 export function ContactInfo({ contactInfo }: ContactInfoProps) {
+  const email = contactInfo.email;
+
   return (
     <div className="space-y-6 font-sans text-xs sm:text-sm">
       {contactInfo.studioLocation && (
@@ -20,20 +22,22 @@ export function ContactInfo({ contactInfo }: ContactInfoProps) {
         </div>
       )}
 
-      <div className="space-y-2">
-        <h3 className="font-serif text-lg text-[#4A2E35] font-normal uppercase tracking-wide">
-          Direct Studio Correspondence
-        </h3>
-        <p className="text-[#8A7976] font-light leading-relaxed">
-          For gallery acquisition inquiries, exhibition requests, and press interviews, please write to us directly:
-        </p>
-        <a
-          href={`mailto:${contactInfo.email}`}
-          className="text-[#4A2E35] font-semibold hover:underline block pt-1 text-base sm:text-lg"
-        >
-          {contactInfo.email}
-        </a>
-      </div>
+      {email && (
+        <div className="space-y-2">
+          <h3 className="font-serif text-lg text-[#4A2E35] font-normal uppercase tracking-wide">
+            Direct Studio Correspondence
+          </h3>
+          <p className="text-[#8A7976] font-light leading-relaxed">
+            For gallery acquisition inquiries, exhibition requests, and press interviews, please write to us directly:
+          </p>
+          <a
+            href={`mailto:${email}`}
+            className="text-[#4A2E35] font-semibold hover:underline block pt-1 text-base sm:text-lg"
+          >
+            {email}
+          </a>
+        </div>
+      )}
 
       {/* Social Network Links */}
       <div className="space-y-2 pt-2 border-t border-[#E8E2DA]">
