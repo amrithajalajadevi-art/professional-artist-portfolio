@@ -13,7 +13,7 @@ export function CommissionsView({ data }: CommissionsViewProps) {
   const introText =
     data?.introText ||
     "Creating custom, site-specific public murals, architectural heritage artworks, and private figurative canvases tailored for cultural, civic, and residential spaces.";
-  const heroImageUrl = data?.heroImage;
+  const heroImageUrl = data?.heroImage || data?.heroImageUrl;
   const steps = data?.processSteps || [];
 
   return (

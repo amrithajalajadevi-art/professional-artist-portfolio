@@ -2,8 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import dynamic from "next/dynamic";
+import { CustomImage } from "@/components/ui/CustomImage";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SanityHeroSection } from "@/sanity/lib/queries";
 
@@ -34,9 +34,9 @@ export function HeroSection({ data }: HeroSectionProps) {
   const muralImages = rawMuralImages.filter((img): img is string => Boolean(img));
   const isMultiImageMural = muralImages.length > 1;
 
-  const imageUrl = isCustom
-    ? data.customImageUrl || muralImages[0]
-    : data.projectReference?.imageUrl || muralImages[0];
+  const imageSource = isCustom
+    ? data.customImage || data.customImageUrl || muralImages[0]
+    : data.projectReference?.image || data.projectReference?.imageUrl || muralImages[0];
 
   const title = isCustom
     ? data.customTitle || "Studio & Artist Profile"
@@ -74,18 +74,18 @@ export function HeroSection({ data }: HeroSectionProps) {
           {isMultiImageMural ? (
             /* Dynamically loaded infinite Marquee for Multi-Image Mural Projects */
             <MuralMarquee muralImages={muralImages} title={title} />
-          ) : imageUrl ? (
+          ) : imageSource ? (
             /* Standard Static Full Image View */
-            <Image
-              src={imageUrl}
+            <CustomImage
+              src={imageSource}
               alt={title || "Hero Image"}
               fill
               priority={true}
-              loading="eager"
-              fetchPriority="high"
+              objectFit="contain"
+              aspectRatio="auto"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              quality={75}
-              className="object-contain object-left block bg-[#F7F4F0] transition-transform duration-700 ease-out hover:scale-[1.01]"
+              quality={80}
+              className="object-left block bg-[#F7F4F0] transition-transform duration-700 ease-out hover:scale-[1.01]"
             />
           ) : (
             <div className="w-full h-80 bg-[#EFEAE4] flex items-center justify-center text-xs text-[#8A7976] font-sans">

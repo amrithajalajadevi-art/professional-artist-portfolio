@@ -22,7 +22,7 @@ export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
       <FadeInStagger staggerDelay={0.15}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
           {projects.map((project, idx) => {
-            const projectSrc = project.imageUrl || project.image || "";
+            const projectSrc = project.image || project.imageUrl || "";
             const projectSlug = project.slug || project.id;
 
             return (

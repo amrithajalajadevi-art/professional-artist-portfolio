@@ -59,7 +59,7 @@ export default async function PrintmakingPage() {
                     }
                   >
                     <CustomImage
-                      src={item.imageUrl}
+                      src={item.image || item.imageUrl}
                       lqip={item.lqip}
                       alt={item.title || "Printmaking Artwork"}
                       fill

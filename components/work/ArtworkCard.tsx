@@ -13,7 +13,7 @@ interface ArtworkCardProps {
 export function ArtworkCard({ artwork }: ArtworkCardProps) {
   if (!artwork) return null;
 
-  const imageSrc = artwork.image || "";
+  const imageSrc = artwork.image || artwork.imageUrl || "";
   const artworkId = artwork.id;
 
   return (

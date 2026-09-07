@@ -17,6 +17,11 @@ const PAGINATED_ARTWORKS_QUERY = groq`
     year,
     dimensions,
     location,
+    "image": images[0] {
+      asset,
+      crop,
+      hotspot
+    },
     "imageUrl": images[0].asset->url,
     "lqip": images[0].asset->metadata.lqip,
     "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio,
@@ -42,6 +47,9 @@ const PAGINATED_PUBLIC_ART_QUERY = groq`
     description,
     externalLink,
     "images": images[] {
+      asset,
+      crop,
+      hotspot,
       "url": asset->url,
       "lqip": asset->metadata.lqip,
       alt,
@@ -75,7 +83,7 @@ export async function fetchMoreArtworks(
       dimensions: item.dimensions,
       location: item.location,
       imageUrl: item.imageUrl || undefined,
-      image: item.imageUrl || "",
+      image: item.image || item.imageUrl || "",
       lqip: item.lqip || undefined,
       aspectRatio: item.aspectRatio || undefined,
       description: item.description,
@@ -122,7 +130,7 @@ export async function fetchMorePublicArt(
       impactMetric: item.impactMetric,
       description: item.description,
       externalLink: item.externalLink,
-      coverImage: item.images?.[0]?.url || "",
+      coverImage: item.images?.[0] || item.images?.[0]?.url || "",
       galleryImages: (item.images || []).map((img: any) => img.url),
     }));
 

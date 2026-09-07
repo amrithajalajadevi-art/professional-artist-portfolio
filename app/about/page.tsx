@@ -20,7 +20,7 @@ export default async function AboutPage() {
   // Render strictly using live Sanity data
   const biographyData = {
     heading: sanityAboutData?.biography?.heading || "",
-    portraitImage: sanityAboutData?.biography?.portraitUrl || "",
+    portraitImage: sanityAboutData?.biography?.portraitImage || sanityAboutData?.biography?.portraitUrl || "",
     portraitAlt: sanityAboutData?.biography?.portraitAlt || "",
     portraitCaption: sanityAboutData?.biography?.portraitCaption || "",
     aspectRatio: sanityAboutData?.biography?.aspectRatio || undefined,

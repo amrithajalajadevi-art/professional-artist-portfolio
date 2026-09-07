@@ -8,6 +8,7 @@ export interface SanityFeaturedArtwork {
   slug: string | null;
   medium: string;
   year: string;
+  image?: any;
   imageUrl: string | null;
   aspectRatio: number | null;
 }
@@ -22,7 +23,9 @@ export interface SanityArtwork {
   year: string;
   dimensions?: string;
   location?: string;
+  image?: any;
   imageUrl: string | null;
+  lqip?: string | null;
   aspectRatio: number | null;
   description?: string;
 }
@@ -30,6 +33,7 @@ export interface SanityArtwork {
 export interface SanityHeroSection {
   headline?: string;
   heroType?: 'reference' | 'custom';
+  customImage?: any;
   customImageUrl?: string;
   customMuralImages?: string[];
   customTitle?: string;
@@ -40,6 +44,7 @@ export interface SanityHeroSection {
     medium?: string;
     dimensions?: string;
     location?: string;
+    image?: any;
     imageUrl?: string;
     muralImages?: string[];
     slug?: string;
@@ -56,8 +61,8 @@ export interface SanityHomePageData {
       medium: string;
       dimensions?: string;
       location?: string;
+      image?: any;
       imageUrl?: string;
-      image?: string;
     };
   };
   highlightedRecognitions?: {
@@ -78,8 +83,8 @@ export interface SanityHomePageData {
     year: string;
     medium: string;
     location?: string;
+    image?: any;
     imageUrl?: string;
-    image?: string;
     aspectRatio?: number;
     description?: string;
   }[];
@@ -91,6 +96,7 @@ export interface SanityHomePageData {
     date: string;
     url: string;
     excerpt?: string;
+    image?: any;
     imageUrl?: string;
   }[];
 }
@@ -104,6 +110,11 @@ export const HOME_PAGE_QUERY = groq`
     heroSection {
       headline,
       heroType,
+      "customImage": customImage {
+        asset,
+        crop,
+        hotspot
+      },
       "customImageUrl": customImage.asset->url + "?w=1400&q=80&auto=format",
       "customMuralImages": customMuralImages[].asset->url,
       customTitle,
@@ -114,6 +125,11 @@ export const HOME_PAGE_QUERY = groq`
         medium,
         dimensions,
         location,
+        "image": coalesce(images[0], coverImage, image) {
+          asset,
+          crop,
+          hotspot
+        },
         "imageUrl": coalesce(images[0].asset->url, coverImage.asset->url, image.asset->url) + "?w=1400&q=80&auto=format",
         "muralImages": coalesce(images[].asset->url, galleryImages[].asset->url),
         "slug": slug.current
@@ -127,6 +143,11 @@ export const HOME_PAGE_QUERY = groq`
         medium,
         dimensions,
         location,
+        "image": image {
+          asset,
+          crop,
+          hotspot
+        },
         "imageUrl": image.asset->url + "?w=1400&q=80&auto=format"
       }
     },
@@ -149,6 +170,11 @@ export const HOME_PAGE_QUERY = groq`
       year,
       medium,
       location,
+      "image": images[0] {
+        asset,
+        crop,
+        hotspot
+      },
       "imageUrl": images[0].asset->url + "?w=1000&q=80&auto=format",
       "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio,
       description
@@ -161,6 +187,11 @@ export const HOME_PAGE_QUERY = groq`
       date,
       "url": coalesce(externalLink, "/press"),
       excerpt,
+      "image": images[0] {
+        asset,
+        crop,
+        hotspot
+      },
       "imageUrl": images[0].asset->url + "?w=800&q=80&auto=format"
     }
   }
@@ -180,6 +211,11 @@ export const INITIAL_ARTWORKS_QUERY = groq`
       year,
       dimensions,
       location,
+      "image": images[0] {
+        asset,
+        crop,
+        hotspot
+      },
       "imageUrl": images[0].asset->url,
       "lqip": images[0].asset->metadata.lqip,
       "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio,
@@ -202,6 +238,11 @@ export const ALL_ARTWORKS_QUERY = groq`
     year,
     dimensions,
     location,
+    "image": images[0] {
+      asset,
+      crop,
+      hotspot
+    },
     "imageUrl": images[0].asset->url,
     "lqip": images[0].asset->metadata.lqip,
     "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio,
@@ -226,6 +267,9 @@ export interface SanityPublicArt {
   description?: string;
   externalLink?: string;
   images?: {
+    asset?: any;
+    crop?: any;
+    hotspot?: any;
     url: string;
     alt?: string;
     caption?: string;
@@ -254,6 +298,9 @@ export const INITIAL_PUBLIC_ART_QUERY = groq`
       description,
       externalLink,
       "images": images[] {
+        asset,
+        crop,
+        hotspot,
         "url": asset->url,
         "lqip": asset->metadata.lqip,
         alt,
@@ -285,6 +332,9 @@ export const PUBLIC_ART_QUERY = groq`
     description,
     externalLink,
     "images": images[] {
+      asset,
+      crop,
+      hotspot,
       "url": asset->url,
       "lqip": asset->metadata.lqip,
       alt,
@@ -309,7 +359,12 @@ export const PUBLIC_ART_PROJECTS_QUERY = groq`
     year,
     commissioningBody,
     description,
-    "coverImage": images[0].asset->url,
+    "coverImage": images[0] {
+      asset,
+      crop,
+      hotspot
+    },
+    "coverImageUrl": images[0].asset->url,
     "galleryImages": images[].asset->url,
     dimensions,
     impactMetric,
@@ -333,7 +388,8 @@ export interface SanityExhibition {
   role?: string;
   curator?: string;
   description?: string;
-  coverImage?: string;
+  coverImage?: any;
+  coverImageUrl?: string;
   galleryImages?: string[];
   externalLink?: string;
   highlights?: string[];
@@ -358,7 +414,12 @@ export const EXHIBITIONS_QUERY = groq`
     role,
     curator,
     description,
-    "coverImage": images[0].asset->url,
+    "coverImage": images[0] {
+      asset,
+      crop,
+      hotspot
+    },
+    "coverImageUrl": images[0].asset->url,
     "galleryImages": images[].asset->url,
     externalLink,
     highlights
@@ -382,6 +443,9 @@ export interface SanityExhibitionDetail {
   description?: string;
   externalLink?: string;
   images?: {
+    asset?: any;
+    crop?: any;
+    hotspot?: any;
     url: string;
     alt?: string;
     caption?: string;
@@ -410,6 +474,9 @@ export const EXHIBITION_BY_SLUG_QUERY = groq`
     description,
     externalLink,
     "images": images[] {
+      asset,
+      crop,
+      hotspot,
       "url": asset->url,
       alt,
       caption,
@@ -433,11 +500,15 @@ export interface SanityPressArticle {
   url?: string;
   linkText?: string;
   image?: {
+    asset?: any;
+    crop?: any;
+    hotspot?: any;
     url: string;
     alt?: string;
     aspectRatio?: number;
   };
-  coverImage?: string;
+  coverImage?: any;
+  coverImageUrl?: string;
 }
 
 /**
@@ -458,8 +529,16 @@ export const PRESS_QUERY = groq`
     "externalLink": externalLink,
     "url": externalLink,
     "linkText": coalesce(publicationName, "Read Article"),
-    "coverImage": images[0].asset->url,
+    "coverImage": images[0] {
+      asset,
+      crop,
+      hotspot
+    },
+    "coverImageUrl": images[0].asset->url,
     "image": {
+      "asset": images[0].asset,
+      "crop": images[0].crop,
+      "hotspot": images[0].hotspot,
       "url": images[0].asset->url,
       "alt": images[0].alt,
       "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio
@@ -524,6 +603,7 @@ export const PRESS_ARTICLES_QUERY = groq`
 export interface SanityAboutPage {
   biography?: {
     heading?: string;
+    portraitImage?: any;
     portraitUrl?: string;
     portraitAlt?: string;
     portraitCaption?: string;
@@ -560,6 +640,11 @@ export const ABOUT_PAGE_QUERY = groq`
   *[_type == "about"][0] {
     biography {
       heading,
+      "portraitImage": portraitImage {
+        asset,
+        crop,
+        hotspot
+      },
       "portraitUrl": portraitImage.asset->url,
       "portraitAlt": portraitImage.alt,
       "portraitCaption": portraitImage.caption,
@@ -661,6 +746,9 @@ export interface SanityArtworkDetail {
   location?: string;
   description?: string;
   images?: {
+    asset?: any;
+    crop?: any;
+    hotspot?: any;
     url: string;
     aspectRatio?: number;
   }[];
@@ -682,6 +770,9 @@ export const ARTWORK_BY_SLUG_QUERY = groq`
     location,
     description,
     "images": images[] {
+      asset,
+      crop,
+      hotspot,
       "url": asset->url,
       "aspectRatio": asset->metadata.dimensions.aspectRatio
     }
@@ -695,7 +786,8 @@ export interface SanityContactPage {
   instagram?: string;
   linkedin?: string;
   twitter?: string;
-  profileImage?: string;
+  profileImage?: any;
+  profileImageUrl?: string;
   aspectRatio?: number;
 }
 
@@ -710,7 +802,12 @@ export const CONTACT_PAGE_QUERY = groq`
     instagram,
     linkedin,
     twitter,  
-    "profileImage": coalesce(profileImage.asset->url, studioImageData.image.asset->url),
+    "profileImage": coalesce(profileImage, studioImageData.image) {
+      asset,
+      crop,
+      hotspot
+    },
+    "profileImageUrl": coalesce(profileImage.asset->url, studioImageData.image.asset->url),
     "aspectRatio": coalesce(profileImage.asset->metadata.dimensions.aspectRatio, studioImageData.image.asset->metadata.dimensions.aspectRatio)
   }
 `
@@ -727,7 +824,8 @@ export interface ProcessStep {
 export interface CommissionPageData {
   title?: string;
   introText?: string;
-  heroImage?: string;
+  heroImage?: any;
+  heroImageUrl?: string;
   processSteps?: ProcessStep[];
 }
 
@@ -739,7 +837,8 @@ export const COMMISSION_PAGE_QUERY = groq`
   *[_type == "commissionPage"][0] {
     title,
     introText,
-    "heroImage": coalesce(heroImage.asset->url, heroImage),
+    "heroImage": coalesce(heroImage { asset, crop, hotspot }, heroImage.asset->url, heroImage),
+    "heroImageUrl": coalesce(heroImage.asset->url, heroImage),
     processSteps[] {
       stepNumber,
       title,
@@ -795,6 +894,7 @@ export interface SanityPrintmaking {
   medium?: string;
   dimensions?: string;
   edition?: string;
+  image?: any;
   imageUrl: string | null;
   lqip: string | null;
   aspectRatio: number | null;
@@ -814,6 +914,11 @@ export const PRINTMAKING_QUERY = groq`
     medium,
     dimensions,
     edition,
+    "image": image {
+      asset,
+      crop,
+      hotspot
+    },
     "imageUrl": image.asset->url + "?w=1200&q=80&auto=format",
     "lqip": image.asset->metadata.lqip,
     "aspectRatio": image.asset->metadata.dimensions.aspectRatio

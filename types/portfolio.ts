@@ -74,7 +74,7 @@ export interface AffiliationItem {
 
 export interface BiographyData {
   heading: string;
-  portraitImage: string;
+  portraitImage: string | any;
   portraitAlt: string;
   portraitCaption: string;
   aspectRatio?: number | string;
@@ -113,7 +113,7 @@ export interface Artwork {
   year: string;
   dimensions?: string;
   location?: string;
-  image: string;
+  image: string | any;
   imageUrl?: string;
   lqip?: string;
   slug?: string;
@@ -127,7 +127,7 @@ export interface StudioWorkItem {
   title: string;
   caption: string;
   year: string;
-  image: string;
+  image: string | any;
   aspectRatio?: "square" | "portrait" | "landscape";
 }
 
@@ -144,7 +144,7 @@ export interface ExhibitionProject {
   city: string;
   role: string;
   description: string;
-  coverImage: string;
+  coverImage: string | any;
   galleryImages?: string[];
   externalLink?: string;
   curator?: string;
@@ -162,7 +162,7 @@ export interface PublicArtProject {
   year: string;
   commissioningBody: string;
   description: string;
-  coverImage?: string;
+  coverImage?: string | any;
   galleryImages?: string[];
   dimensions?: string;
   impactMetric?: string;

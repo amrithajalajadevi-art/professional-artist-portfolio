@@ -25,8 +25,8 @@ export function PressCard({ article }: PressCardProps) {
     (article as SanityPressArticle).url ||
     (article as PressArticle).externalLink ||
     "#";
-  const imageUrl =
-    (article as SanityPressArticle).image?.url ||
+  const imageSource =
+    (article as SanityPressArticle).image ||
     (article as SanityPressArticle).coverImage ||
     (article as PressArticle).coverImage;
   const aspectRatio = (article as SanityPressArticle).image?.aspectRatio;
@@ -37,9 +37,9 @@ export function PressCard({ article }: PressCardProps) {
     <>
       {/* Thumbnail/Cover Image View - Uniform Fixed Aspect Ratio */}
       <div className="relative w-full aspect-square overflow-hidden bg-[#EFEAE4]">
-        {imageUrl ? (
+        {imageSource ? (
           <CustomImage
-            src={imageUrl}
+            src={imageSource}
             alt={`${publicationName || "Publication"} - ${articleTitle || "Press Feature"}`}
             fill
             hoverScale

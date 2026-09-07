@@ -173,7 +173,7 @@ export default async function ExhibitionDetailPage({
                     }
                   >
                     <CustomImage
-                      src={img.url}
+                      src={img}
                       alt={img.alt || `${exhibition.title} image ${idx + 1}`}
                       fill
                       priority={idx === 0}

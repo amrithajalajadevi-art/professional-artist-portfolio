@@ -27,6 +27,7 @@ export default async function Home() {
     title: p.title,
     year: p.year,
     medium: p.medium,
+    image: p.image || p.imageUrl || undefined,
     imageUrl: p.imageUrl || p.image || undefined,
     slug: p.slug || undefined,
     aspectRatio: p.aspectRatio || undefined,

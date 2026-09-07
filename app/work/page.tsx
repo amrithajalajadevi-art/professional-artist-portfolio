@@ -48,7 +48,7 @@ export default async function WorkPage({ searchParams }: WorkPageProps) {
     dimensions: item.dimensions,
     location: item.location,
     imageUrl: item.imageUrl || undefined,
-    image: item.imageUrl || "",
+    image: item.image || item.imageUrl || "",
     lqip: (item as any).lqip || undefined,
     aspectRatio: item.aspectRatio || undefined,
     description: item.description,

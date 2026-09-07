@@ -10,7 +10,7 @@ import { ContactInfoData } from "@/types";
 
 export interface ContactLayoutProps {
   contactInfo?: SanityContactPage | null;
-  profileImage?: string;
+  profileImage?: any;
 }
 
 export function ContactLayout({ contactInfo, profileImage }: ContactLayoutProps) {
@@ -22,7 +22,7 @@ export function ContactLayout({ contactInfo, profileImage }: ContactLayoutProps)
     twitter: contactInfo?.twitter,
   };
 
-  const imageUrl = profileImage || contactInfo?.profileImage;
+  const imageSource = profileImage || contactInfo?.profileImage || (contactInfo as any)?.profileImageUrl;
 
   return (
     <article className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
@@ -40,9 +40,9 @@ export function ContactLayout({ contactInfo, profileImage }: ContactLayoutProps)
         {/* Left Column: Personal / Studio Photograph (No Captions / Metadata) */}
         <FadeIn direction="up" delay={0.2}>
           <div className="relative w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden bg-[#F7F4F0]">
-            {imageUrl && (
+            {imageSource && (
               <CustomImage
-                src={imageUrl}
+                src={imageSource}
                 alt="Amritha Jalaja Devi — Studio & Artist Profile"
                 fill
                 priority

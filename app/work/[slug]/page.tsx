@@ -81,7 +81,7 @@ export default async function ArtworkDetailPage({
               }
             >
               <CustomImage
-                src={mainImage?.url}
+                src={mainImage}
                 alt={artwork.title}
                 fill
                 priority
@@ -107,7 +107,7 @@ export default async function ArtworkDetailPage({
                   }
                 >
                   <CustomImage
-                    src={img.url}
+                    src={img}
                     alt={`${artwork.title} detail view ${idx + 2}`}
                     fill
                     hoverScale
