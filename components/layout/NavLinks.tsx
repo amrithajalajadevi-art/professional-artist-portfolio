@@ -19,10 +19,11 @@ export const mainNavItems: NavItem[] = [
     label: "Work",
     href: "/work",
     subItems: [
-      { label: "Paintings & Sculptures", href: "/work?category=series", category: "series" },
+      { label: "Figurative Paintings", href: "/work?category=series", category: "series" },
       { label: "UK Commissions", href: "/work?category=commissions", category: "commissions" },
-      { label: "Biennale Series", href: "/work?category=series", category: "series" },
-      { label: "Studio Setup & In-Progress", href: "/work?category=studio", category: "studio" },
+      { label: "Public Murals", href: "/public-art", category: "public-art" },
+      { label: "Studio Practice & Drawings", href: "/work?category=studio", category: "studio" },
+      { label: "Printmaking", href: "/printmaking", category: "printmaking" },
     ],
   },
   { label: "Exhibitions & Projects", href: "/exhibitions" },
@@ -70,21 +71,59 @@ export function MailIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export const socialLinks = [
-  { name: "Instagram", href: "https://instagram.com", icon: InstagramIcon },
-  { name: "LinkedIn", href: "https://linkedin.com", icon: LinkedInIcon },
-  { name: "Twitter / X", href: "https://x.com", icon: TwitterIcon },
-  { name: "Email", href: "mailto:contact@amrithajalajadevi.art", icon: MailIcon },
-];
+export interface ContactSocialData {
+  email?: string;
+  instagram?: string;
+  linkedin?: string;
+  twitter?: string;
+}
 
 interface NavLinksProps {
   onItemClick?: () => void;
+  contactData?: ContactSocialData;
 }
 
-function NavLinksContent({ onItemClick }: NavLinksProps) {
+function NavLinksContent({ onItemClick, contactData }: NavLinksProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [workOpen, setWorkOpen] = useState(true);
+  const [workOpen, setWorkOpen] = useState(false);
+
+  // Strictly build social links from actual Sanity contact data (no fake fallbacks)
+  const dynamicSocialLinks: { name: string; href: string; icon: React.ComponentType<React.SVGProps<SVGSVGElement>> }[] = [];
+
+  if (contactData?.instagram) {
+    dynamicSocialLinks.push({
+      name: "Instagram",
+      href: contactData.instagram,
+      icon: InstagramIcon,
+    });
+  }
+
+  if (contactData?.linkedin) {
+    dynamicSocialLinks.push({
+      name: "LinkedIn",
+      href: contactData.linkedin,
+      icon: LinkedInIcon,
+    });
+  }
+
+  if (contactData?.twitter) {
+    dynamicSocialLinks.push({
+      name: "Twitter / X",
+      href: contactData.twitter,
+      icon: TwitterIcon,
+    });
+  }
+
+  const emailAddress = contactData?.email;
+
+  if (emailAddress) {
+    dynamicSocialLinks.push({
+      name: "Email",
+      href: `mailto:${emailAddress}`,
+      icon: MailIcon,
+    });
+  }
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -111,7 +150,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                     className={`text-[13px] tracking-wide transition-colors ${
                       active
                         ? "text-[#4A2E35] font-semibold"
-                        : "text-[#8A7976] hover:text-[#4A2E35]"
+                        : "text-[#5C4B48] hover:text-[#4A2E35]"
                     }`}
                   >
                     {item.label}
@@ -119,12 +158,13 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
 
                   <button
                     type="button"
-                    onClick={() => setWorkOpen(!workOpen)}
+                    onClick={() => setWorkOpen((prev) => !prev)}
                     className="p-1 text-[#8A7976] hover:text-[#4A2E35] transition-colors focus:outline-none cursor-pointer"
                     aria-label={`Toggle ${item.label} sub-items`}
+                    aria-expanded={workOpen}
                   >
                     <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                      className={`w-3.5 h-3.5 transition-transform duration-300 ease-in-out ${
                         workOpen ? "rotate-180 text-[#4A2E35]" : "rotate-0 text-[#8A7976]"
                       }`}
                     />
@@ -154,7 +194,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                               className={`text-[12px] font-normal transition-colors block py-0.5 tracking-wide ${
                                 isSubActive
                                   ? "text-[#4A2E35] font-medium"
-                                  : "text-[#8A7976] hover:text-[#4A2E35]"
+                                  : "text-[#5C4B48] hover:text-[#4A2E35]"
                               }`}
                             >
                               {sub.label}
@@ -177,7 +217,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                 className={`text-[13px] tracking-wide transition-colors block py-1 ${
                   active
                     ? "text-[#4A2E35] font-semibold"
-                    : "text-[#8A7976] hover:text-[#4A2E35]"
+                    : "text-[#5C4B48] hover:text-[#4A2E35]"
                 }`}
               >
                 {item.label}
@@ -196,7 +236,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
             className={`block text-[12px] tracking-wide transition-colors ${
               isActive("/commissions")
                 ? "text-[#4A2E35] font-semibold"
-                : "text-[#8A7976] hover:text-[#4A2E35]"
+                : "text-[#5C4B48] hover:text-[#4A2E35]"
             }`}
           >
             Commissions
@@ -208,7 +248,7 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
             className={`block text-[12px] tracking-wide transition-colors ${
               isActive("/workshops")
                 ? "text-[#4A2E35] font-semibold"
-                : "text-[#8A7976] hover:text-[#4A2E35]"
+                : "text-[#5C4B48] hover:text-[#4A2E35]"
             }`}
           >
             Art Classes & Workshops
@@ -217,8 +257,8 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
 
         {/* Social Icons & Copyright */}
         <div className="space-y-3 pt-2">
-          <div className="flex items-center gap-3 text-[#8A7976]">
-            {socialLinks.map((social) => {
+          <div className="flex items-center gap-3 text-[#5C4B48]">
+            {dynamicSocialLinks.map((social) => {
               const IconComponent = social.icon;
               return (
                 <a
@@ -227,15 +267,15 @@ function NavLinksContent({ onItemClick }: NavLinksProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
-                  className="hover:text-[#4A2E35] transition-colors duration-200"
+                  className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:text-[#4A2E35] transition-colors duration-200"
                 >
-                  <IconComponent className="w-3.5 h-3.5" />
+                  <IconComponent className="w-4 h-4" />
                 </a>
               );
             })}
           </div>
 
-          <p className="text-[10px] text-[#8A7976] tracking-wider leading-relaxed">
+          <p className="text-[10px] text-[#5C4B48] tracking-wider leading-relaxed">
             © {new Date().getFullYear()} Amritha Jalaja Devi
           </p>
         </div>

@@ -27,23 +27,23 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8">
-        {/* Backdrop Overlay */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6">
+        {/* Dark Immersive Backdrop Overlay */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-[#000]/85 backdrop-blur-xs"
+          className="fixed inset-0 bg-[#140C0E]/90 backdrop-blur-md"
         />
 
-        {/* Modal Container */}
+        {/* Maximize Size Lightbox Container */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
+          exit={{ opacity: 0, scale: 0.97 }}
           transition={{ duration: 0.2 }}
-          className="relative z-10 w-full max-w-4xl max-h-[90vh] bg-[#F7F4F0] overflow-y-auto flex flex-col md:flex-row shadow-none"
+          className="relative z-10 w-[96vw] max-w-7xl max-h-[94vh] bg-[#F7F4F0] overflow-y-auto flex flex-col md:flex-row shadow-none border border-[#4A2E35]/15"
         >
           {/* Close Button */}
           <button
@@ -55,8 +55,8 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
             <X className="w-6 h-6" />
           </button>
 
-          {/* Left: Artwork Image View */}
-          <div className="relative w-full h-[50vh] md:h-auto md:w-3/5 min-h-[320px] md:min-h-[500px] bg-[#F7F4F0] flex-shrink-0">
+          {/* Main Artwork View (Maximum Possible Screen Size) */}
+          <div className="relative w-full md:w-3/4 h-[60vh] md:h-[84vh] min-h-[350px] bg-[#F7F4F0] flex items-center justify-center p-4">
             <CustomImage
               src={artwork.image}
               alt={artwork.title}
@@ -64,44 +64,47 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
               priority={true}
               objectFit="contain"
               aspectRatio="auto"
-              sizes="(max-width: 768px) 100vw, 60vw"
+              quality={95}
+              sizes="(max-width: 768px) 100vw, 80vw"
             />
           </div>
 
-          {/* Right: Artwork Metadata */}
-          <div className="w-full md:w-2/5 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-[#F7F4F0] font-sans">
-            <div className="space-y-4">
-              <h2 className="font-serif text-2xl sm:text-3xl text-[#4A2E35] font-normal uppercase tracking-tight">
+          {/* Right: De-emphasized Minimalist Metadata Sidebar */}
+          <div className="w-full md:w-1/4 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-[#F7F4F0] border-t md:border-t-0 md:border-l border-[#E8E2DA] font-sans">
+            <div className="space-y-4 pt-2">
+              <h2 className="font-serif text-xl sm:text-2xl text-[#4A2E35] font-light uppercase tracking-tight">
                 {artwork.title}
               </h2>
 
-              <div className="space-y-1 text-xs text-[#8A7976] font-sans">
-                <p><span className="font-medium text-[#4A2E35]">Year:</span> {artwork.year}</p>
-                <p><span className="font-medium text-[#4A2E35]">Medium:</span> {artwork.medium}</p>
+              <div className="space-y-1.5 text-xs text-[#8A7976] font-sans font-light">
+                <p><span className="font-normal text-[#4A2E35]">Year:</span> {artwork.year}</p>
+                <p><span className="font-normal text-[#4A2E35]">Medium:</span> {artwork.medium}</p>
                 {artwork.dimensions && (
-                  <p><span className="font-medium text-[#4A2E35]">Dimensions:</span> {artwork.dimensions}</p>
+                  <p><span className="font-normal text-[#4A2E35]">Dimensions:</span> {artwork.dimensions}</p>
                 )}
                 {artwork.location && (
-                  <p><span className="font-medium text-[#4A2E35]">Collection:</span> {artwork.location}</p>
+                  <p><span className="font-normal text-[#4A2E35]">Collection:</span> {artwork.location}</p>
                 )}
               </div>
 
               {artwork.description && (
-                <p className="text-xs text-[#8A7976] font-sans leading-relaxed pt-2">
+                <p className="text-xs text-[#8A7976] font-sans font-light leading-relaxed pt-2 border-t border-[#E8E2DA]">
                   {artwork.description}
                 </p>
               )}
             </div>
 
             {/* Inquire Action Link */}
-            <div className="pt-4">
-              <a
-                href={`mailto:contact@amrithajalajadevi.art?subject=Inquiry%20regarding%20${encodeURIComponent(artwork.title)}`}
-                className="inline-block text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4"
-              >
-                Inquire About This Artwork →
-              </a>
-            </div>
+            {process.env.CONTACT_EMAIL && (
+              <div className="pt-4 border-t border-[#E8E2DA]">
+                <a
+                  href={`mailto:${process.env.CONTACT_EMAIL}?subject=Inquiry%20regarding%20${encodeURIComponent(artwork.title)}`}
+                  className="inline-block text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4"
+                >
+                  Inquire About This Artwork →
+                </a>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

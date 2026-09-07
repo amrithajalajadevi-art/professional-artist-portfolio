@@ -2,14 +2,28 @@ import React from "react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { CustomImage } from "@/components/ui/CustomImage";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { ContactInfoData, ArtworkMeta } from "@/types";
+import { ContactInfo } from "@/components/contact/ContactInfo";
+import { SanityContactPage } from "@/sanity/lib/queries";
+import { ContactInfoData } from "@/types";
 
-interface ContactLayoutProps {
-  contactInfo: ContactInfoData;
-  studioImage: ArtworkMeta;
+
+
+export interface ContactLayoutProps {
+  contactInfo?: SanityContactPage | null;
+  profileImage?: any;
 }
 
-export function ContactLayout({ contactInfo, studioImage }: ContactLayoutProps) {
+export function ContactLayout({ contactInfo, profileImage }: ContactLayoutProps) {
+  const resolvedContactData: SanityContactPage = {
+    email: contactInfo?.email,
+    studioLocation: contactInfo?.studioLocation,
+    instagram: contactInfo?.instagram,
+    linkedin: contactInfo?.linkedin,
+    twitter: contactInfo?.twitter,
+  };
+
+  const imageSource = profileImage || contactInfo?.profileImage || (contactInfo as any)?.profileImageUrl;
+
   return (
     <article className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
       {/* Header */}
@@ -23,37 +37,33 @@ export function ContactLayout({ contactInfo, studioImage }: ContactLayoutProps) 
 
       {/* Clean 2-Column Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-        {/* Left Column: Studio/Artist Photo with strict aspect ratio */}
+        {/* Left Column: Personal / Studio Photograph (No Captions / Metadata) */}
         <FadeIn direction="up" delay={0.2}>
           <div className="relative w-full aspect-[4/5] lg:aspect-[3/4] overflow-hidden bg-[#F7F4F0]">
-            <CustomImage
-              src={studioImage.image}
-              alt={studioImage.title}
-              fill
-              priority
-              objectFit="cover"
-              aspectRatio="auto"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
+            {imageSource && (
+              <CustomImage
+                src={imageSource}
+                alt="Amritha Jalaja Devi — Studio & Artist Profile"
+                fill
+                priority
+                objectFit="cover"
+                aspectRatio="auto"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            )}
           </div>
         </FadeIn>
 
-        {/* Right Column: De-cluttered Single Line & Minimalist Form */}
+        {/* Right Column: Contact Info, Location, Socials & Prominent Contact Form */}
         <FadeIn direction="up" delay={0.3}>
           <div className="space-y-8 font-sans">
-            {/* Single Elegant Line */}
-            <p className="text-sm sm:text-base text-[#8A7976] leading-relaxed">
-              For all inquiries regarding exhibitions and sales, please contact{" "}
-              <a
-                href={`mailto:${contactInfo.email}`}
-                className="text-[#4A2E35] font-semibold hover:underline underline-offset-4"
-              >
-                {contactInfo.email}
-              </a>
-            </p>
+            {/* Direct Contact Details Block */}
+            <ContactInfo contactInfo={resolvedContactData} />
 
-            {/* Form */}
-            <ContactForm />
+            {/* Prominent Integrated Contact Form */}
+            <div className="pt-4">
+              <ContactForm />
+            </div>
           </div>
         </FadeIn>
       </div>

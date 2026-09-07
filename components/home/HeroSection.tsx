@@ -1,49 +1,128 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { FadeIn } from "@/components/ui/FadeIn";
+import dynamic from "next/dynamic";
 import { CustomImage } from "@/components/ui/CustomImage";
-import { HeroContent } from "@/types";
+import { FadeIn } from "@/components/ui/FadeIn";
+import { SanityHeroSection } from "@/sanity/lib/queries";
+
+// Dynamically lazy-load the multi-image mural marquee to eliminate main-thread blocking
+const MuralMarquee = dynamic(
+  () => import("./MuralMarquee").then((mod) => mod.MuralMarquee),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[40vh] sm:h-[60vh] lg:h-[75vh] min-h-[240px] bg-[#EFEAE4] animate-pulse" />
+    ),
+  }
+);
 
 interface HeroSectionProps {
-  data: HeroContent;
+  data?: SanityHeroSection | null;
 }
 
 export function HeroSection({ data }: HeroSectionProps) {
+  if (!data) return null;
+
+  const isCustom = data.heroType === "custom";
+
+  const rawMuralImages = isCustom
+    ? data.customMuralImages || []
+    : data.projectReference?.muralImages || [];
+
+  const muralImages = rawMuralImages.filter((img): img is string => Boolean(img));
+  const isMultiImageMural = muralImages.length > 1;
+
+  const imageSource = isCustom
+    ? data.customImage || data.customImageUrl || muralImages[0]
+    : data.projectReference?.image || data.projectReference?.imageUrl || muralImages[0];
+
+  const title = isCustom
+    ? data.customTitle || "Studio & Artist Profile"
+    : data.projectReference?.title;
+
+  const year = isCustom ? undefined : data.projectReference?.year;
+  const medium = isCustom ? undefined : data.projectReference?.medium;
+  const dimensions = isCustom ? undefined : data.projectReference?.dimensions;
+
+  const linkHref =
+    !isCustom && data.projectReference?.slug
+      ? data.projectReference._type === "publicArt"
+        ? `/public-art`
+        : `/work/${data.projectReference.slug}`
+      : "/work";
+
+  const headline =
+    data.headline ||
+    "Contemporary Figurative painter with an expanding public-art practice.";
+
   return (
-    <section className="relative w-full p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-6">
-      {/* 1. Massive High-Impact Hero Artwork */}
+    <section className="relative w-full p-4 sm:p-10 lg:p-16 bg-[#F7F4F0] overflow-hidden">
+      {/* 1. Hero Typography Block: High-End Gallery Wall Statement */}
       <FadeIn direction="up">
-        <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/9] min-h-[50vh] sm:min-h-[70vh] overflow-hidden bg-[#F7F4F0]">
-          <CustomImage
-            src={data.featuredArtwork.image}
-            alt={data.featuredArtwork.title}
-            fill
-            priority
-            objectFit="cover"
-            aspectRatio="auto"
-            sizes="100vw"
-          />
+        <div className="max-w-3xl mb-6 sm:mb-10 md:mb-16 lg:mb-20">
+          <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-tight text-[#4A2E35]">
+            {headline}
+          </h1>
         </div>
       </FadeIn>
 
-      {/* 2. Minimalist Caption below image */}
+      {/* 2. Universal Visual Container */}
+      <FadeIn direction="up" delay={0.1}>
+        <div className="relative w-full h-[40vh] sm:h-[60vh] lg:h-[75vh] min-h-[240px] sm:min-h-[400px] bg-[#F7F4F0] overflow-hidden flex items-center justify-start group">
+          {isMultiImageMural ? (
+            /* Dynamically loaded infinite Marquee for Multi-Image Mural Projects */
+            <MuralMarquee muralImages={muralImages} title={title} />
+          ) : imageSource ? (
+            /* Standard Static Full Image View */
+            <CustomImage
+              src={imageSource}
+              alt={title || "Hero Image"}
+              fill
+              priority={true}
+              objectFit="contain"
+              aspectRatio="auto"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              quality={80}
+              className="object-left block bg-[#F7F4F0] transition-transform duration-700 ease-out hover:scale-[1.01]"
+            />
+          ) : (
+            <div className="w-full h-80 bg-[#EFEAE4] flex items-center justify-center text-xs text-[#8A7976] font-sans">
+              {title || "Hero Image Placeholder"}
+            </div>
+          )}
+        </div>
+      </FadeIn>
+
+      {/* 3. Caption Text Container */}
       <FadeIn direction="up" delay={0.2}>
-        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pt-2 font-sans text-xs text-[#8A7976]">
-          <div>
-            <h2 className="font-serif text-lg text-[#4A2E35] font-normal italic">
-              {data.featuredArtwork.title}, <span className="not-italic font-sans text-xs text-[#8A7976]">{data.featuredArtwork.year}</span>
-            </h2>
-            <p className="text-xs text-[#8A7976]">
-              {data.featuredArtwork.medium} {data.featuredArtwork.dimensions ? `— ${data.featuredArtwork.dimensions}` : ""}
-            </p>
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pt-6 font-sans text-xs text-[#8A7976]">
+          <div className="text-left">
+            {title && (
+              <h2 className="font-serif text-lg sm:text-xl text-[#4A2E35] font-light italic">
+                {title}
+                {year && (
+                  <span className="not-italic font-sans text-xs text-[#8A7976] font-light ml-1.5">
+                    {year}
+                  </span>
+                )}
+              </h2>
+            )}
+            {(medium || dimensions) && (
+              <p className="text-xs text-[#5C4B48] font-normal">
+                {medium}
+                {dimensions ? ` — ${dimensions}` : ""}
+              </p>
+            )}
           </div>
 
           <div className="flex items-center gap-6">
             <Link
-              href="/work"
-              className="text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4"
+              href={linkHref}
+              className="text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4 transition-colors"
             >
-              View Full Gallery →
+              {isMultiImageMural ? "Explore Mural Details →" : "View Gallery →"}
             </Link>
           </div>
         </div>

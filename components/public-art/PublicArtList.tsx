@@ -1,16 +1,16 @@
 import React from "react";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 import { PublicArtCard } from "@/components/public-art/PublicArtCard";
-import { PublicArtProject } from "@/types";
+import { SanityPublicArt } from "@/sanity/lib/queries";
 
 interface PublicArtListProps {
-  projects: PublicArtProject[];
+  projects: SanityPublicArt[];
 }
 
 export function PublicArtList({ projects }: PublicArtListProps) {
   return (
     <section className="p-6 sm:p-10 xl:p-16 border-b border-gallery-border bg-white space-y-12">
-      {/* Header Eyebrow & Title */}
+      {/* Header & Title */}
       <FadeIn direction="up">
         <div className="space-y-4 border-b border-zinc-200 pb-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -26,7 +26,7 @@ export function PublicArtList({ projects }: PublicArtListProps) {
             Public Art & Site-Specific UK Commissions
           </h1>
           <p className="text-sm text-zinc-600 font-light max-w-2xl">
-            Large-scale permanent sculptures, architectural ceramic murals, and community civic commissions created for public plazas, botanical gardens, and urban regeneration sites across the UK.
+            Collaborative public murals, community art projects, and architectural heritage commissions created for public plazas, cultural spaces, and urban regeneration sites across the UK and India.
           </p>
         </div>
       </FadeIn>

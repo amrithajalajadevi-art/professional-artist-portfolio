@@ -2,9 +2,20 @@ import React from "react";
 import Link from "next/link";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 import { CustomImage } from "@/components/ui/CustomImage";
-import { commissionStepsData } from "@/constants/servicesData";
+import { CommissionPageData } from "@/sanity/lib/queries";
 
-export function CommissionsView() {
+interface CommissionsViewProps {
+  data?: CommissionPageData | null;
+}
+
+export function CommissionsView({ data }: CommissionsViewProps) {
+  const titleText = data?.title || "COMMISSIONS";
+  const introText =
+    data?.introText ||
+    "Creating custom, site-specific public murals, architectural heritage artworks, and private figurative canvases tailored for cultural, civic, and residential spaces.";
+  const heroImageUrl = data?.heroImage || data?.heroImageUrl;
+  const steps = data?.processSteps || [];
+
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35]">
       <section className="p-8 sm:p-12 xl:p-16 bg-[#F7F4F0] space-y-10">
@@ -12,60 +23,70 @@ export function CommissionsView() {
         <FadeIn direction="up">
           <div className="space-y-4">
             <h1 className="font-serif text-3xl sm:text-5xl font-normal uppercase text-[#4A2E35] tracking-tight">
-              COMMISSIONS
+              {titleText}
             </h1>
             <p className="text-sm text-[#8A7976] font-sans max-w-2xl leading-relaxed">
-              Creating custom, site-specific bronze sculptures, architectural terracotta friezes, and private gallery monuments tailored for residential, corporate, and civic environments.
+              {introText}
             </p>
           </div>
         </FadeIn>
 
         {/* Hero Spotlight Image Banner */}
-        <FadeIn direction="up" delay={0.2}>
-          <div className="relative w-full aspect-[16/9] overflow-hidden bg-[#F7F4F0]">
-            <CustomImage
-              src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop"
-              alt="Bespoke bronze commission in a contemporary architectural interior"
-              fill
-              priority
-              objectFit="cover"
-              aspectRatio="auto"
-              sizes="100vw"
-            />
-          </div>
-        </FadeIn>
+        {heroImageUrl && (
+          <FadeIn direction="up" delay={0.2}>
+            <div className="relative w-full aspect-[16/9] overflow-hidden bg-[#F7F4F0]">
+              <CustomImage
+                src={heroImageUrl}
+                alt={`${titleText} architectural mural commission`}
+                fill
+                priority
+                objectFit="cover"
+                aspectRatio="auto"
+                sizes="100vw"
+              />
+            </div>
+          </FadeIn>
+        )}
 
         {/* Step-by-Step Commission Process */}
-        <div className="space-y-8 pt-4">
-          <FadeIn direction="up">
-            <h2 className="font-serif text-2xl sm:text-3xl font-normal uppercase text-[#4A2E35] tracking-tight">
-              THE COMMISSION PROCESS
-            </h2>
-          </FadeIn>
+        {steps.length > 0 && (
+          <div className="space-y-8 pt-4">
+            <FadeIn direction="up">
+              <h2 className="font-serif text-2xl sm:text-3xl font-normal uppercase text-[#4A2E35] tracking-tight">
+                THE COMMISSION PROCESS
+              </h2>
+            </FadeIn>
 
-          <FadeInStagger staggerDelay={0.1}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {commissionStepsData.map((step) => (
-                <div
-                  key={step.stepNumber}
-                  className="bg-[#F7F4F0] space-y-3 font-sans"
-                >
-                  <span className="font-sans text-xl font-bold text-[#4A2E35]">
-                    {step.stepNumber}
-                  </span>
+            <FadeInStagger staggerDelay={0.1}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {steps.map((step, idx) => (
+                  <div
+                    key={step.stepNumber || step.title || idx}
+                    className="bg-[#F7F4F0] space-y-3 font-sans"
+                  >
+                    {step.stepNumber && (
+                      <span className="font-sans text-xl font-bold text-[#4A2E35]">
+                        {step.stepNumber}
+                      </span>
+                    )}
 
-                  <h3 className="font-serif text-lg text-[#4A2E35] font-normal">
-                    {step.title}
-                  </h3>
+                    {step.title && (
+                      <h3 className="font-serif text-lg text-[#4A2E35] font-normal">
+                        {step.title}
+                      </h3>
+                    )}
 
-                  <p className="text-xs text-[#8A7976] leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </FadeInStagger>
-        </div>
+                    {step.description && (
+                      <p className="text-xs text-[#8A7976] leading-relaxed">
+                        {step.description}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </FadeInStagger>
+          </div>
+        )}
 
         {/* CTA */}
         <FadeIn direction="up">
@@ -82,3 +103,5 @@ export function CommissionsView() {
     </div>
   );
 }
+
+

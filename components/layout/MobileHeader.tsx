@@ -21,7 +21,7 @@ export function MobileHeader({ isOpen, onToggle }: MobileHeaderProps) {
       <button
         type="button"
         onClick={onToggle}
-        className="p-2 text-[#4A2E35] hover:text-[#8A7976] transition-colors focus:outline-none cursor-pointer"
+        className="p-2 min-h-[48px] min-w-[48px] flex items-center justify-center text-[#4A2E35] hover:text-[#8A7976] transition-colors focus:outline-none cursor-pointer"
         aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

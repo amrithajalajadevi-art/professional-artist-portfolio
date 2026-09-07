@@ -1,0 +1,55 @@
+'use client'
+
+import { useEffect } from 'react'
+import { NextStudio } from 'next-sanity/studio'
+import config from '../../../sanity.config'
+
+export function StudioWrapper() {
+  useEffect(() => {
+    // 1. Intercept network fetch to npm registry / ping.sanity.io to return valid 200 mock
+    const originalFetch = window.fetch
+    window.fetch = async function (input: RequestInfo | URL, init?: RequestInit) {
+      const urlStr =
+        typeof input === 'string'
+          ? input
+          : input instanceof URL
+          ? input.toString()
+          : input.url
+
+      if (urlStr.includes('registry.npmjs.org') || urlStr.includes('ping.sanity.io')) {
+        return new Response(
+          JSON.stringify({
+            name: 'sanity',
+            'dist-tags': { latest: '3.0.0' },
+            versions: { '3.0.0': {} },
+          }),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        )
+      }
+      return originalFetch.call(this, input, init)
+    }
+
+    // 2. Intercept console.error to suppress package version status logs
+    const originalConsoleError = console.error
+    console.error = (...args: any[]) => {
+      if (
+        typeof args[0] === 'string' &&
+        (args[0].includes('Failed to fetch version for package') ||
+         args[0].includes('fetchLatestAvailableVersionForPackage'))
+      ) {
+        return
+      }
+      originalConsoleError.apply(console, args)
+    }
+
+    return () => {
+      window.fetch = originalFetch
+      console.error = originalConsoleError
+    }
+  }, [])
+
+  return <NextStudio config={config} />
+}

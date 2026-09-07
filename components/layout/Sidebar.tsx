@@ -1,13 +1,16 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { NavLinks } from "./NavLinks";
+import { NavLinks, ContactSocialData } from "./NavLinks";
 
-export function Sidebar() {
+interface SidebarProps {
+  contactData?: ContactSocialData;
+}
+
+// Server Component
+export function Sidebar({ contactData }: SidebarProps) {
   return (
     <aside 
-      className="hidden lg:flex lg:w-1/4 fixed left-0 top-0 h-screen bg-[#F7F4F0] flex-col justify-between p-8 xl:p-12 z-30 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      className="hidden lg:flex lg:w-64 fixed left-0 top-0 h-screen bg-[#F7F4F0] flex-col justify-between p-6 xl:p-8 z-30 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       aria-label="Sidebar Navigation"
     >
       <div className="flex flex-col h-full justify-between space-y-8">
@@ -18,15 +21,15 @@ export function Sidebar() {
               AMRITHA<br />
               JALAJA DEVI
             </h1>
-            <p className="text-[11px] uppercase tracking-[0.15em] text-[#8A7976] font-sans mt-2 font-light">
-              Visual Artist & Sculptor
+            <p className="text-[11px] uppercase tracking-[0.15em] text-[#5C4B48] font-sans mt-2 font-medium">
+              Visual Artist
             </p>
           </Link>
         </div>
 
         {/* Navigation & Footer Links */}
         <div className="flex-1 flex flex-col justify-between pt-4">
-          <NavLinks />
+          <NavLinks contactData={contactData} />
         </div>
       </div>
     </aside>

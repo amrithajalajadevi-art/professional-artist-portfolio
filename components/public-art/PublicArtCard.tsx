@@ -1,45 +1,91 @@
-import React from "react";
-import { CustomImage } from "@/components/ui/CustomImage";
-import { PublicArtProject } from "@/types";
+"use client";
+
+import dynamic from "next/dynamic";
+import { SanityPublicArt } from "@/sanity/lib/queries";
+
+const ArtworkDisplay = dynamic(
+  () => import("./ArtworkDisplay").then((mod) => mod.ArtworkDisplay),
+  {
+    ssr: false,
+    loading: () => <div className="h-[60vh] w-full bg-[#EFEAE4] animate-pulse" />,
+  }
+);
 
 interface PublicArtCardProps {
-  project: PublicArtProject;
-  index: number;
+  project: SanityPublicArt;
+  index?: number;
 }
 
 export function PublicArtCard({ project }: PublicArtCardProps) {
+  if (!project) return null;
+
+  const displayImages =
+    project.images && project.images.length > 0
+      ? project.images.map((img) => ({
+          src: img.url,
+          alt: img.alt || project.title,
+          caption: img.caption,
+        }))
+      : [];
+
   return (
-    <div className="bg-[#F7F4F0] space-y-4 py-6 border-b border-[#E8E2DA] last:border-b-0">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-        {/* Cover Image Container */}
-        <div className="md:col-span-6 relative w-full aspect-[4/3] overflow-hidden bg-[#F7F4F0]">
-          <CustomImage
-            src={project.coverImage}
-            alt={project.title}
-            fill
-            hoverScale
-            aspectRatio="auto"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
+    <article className="py-16 sm:py-24 border-b border-[#E8E2DA] last:border-b-0 space-y-12 bg-[#F7F4F0]">
+      {/* 1 & 2. Artwork Display Component */}
+      <ArtworkDisplay images={displayImages} title={project.title} />
+
+      {/* Text Placement Below Image in a Clean Multi-Column Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-14 pt-2 font-sans text-xs sm:text-sm">
+        {/* Left Sub-Column: Title & Key Metadata */}
+        <div className="md:col-span-5 space-y-4">
+          <h2 className="font-serif text-2xl sm:text-4xl text-[#4A2E35] font-light uppercase tracking-tight leading-tight">
+            {project.title}
+          </h2>
+
+          <div className="space-y-1.5 text-xs text-[#8A7976] font-light">
+            {project.year && (
+              <p>
+                <span className="font-medium text-[#4A2E35]">Year:</span> {project.year}
+              </p>
+            )}
+            {project.commissioningBody && (
+              <p>
+                <span className="font-medium text-[#4A2E35]">Commissioned by:</span> {project.commissioningBody}
+              </p>
+            )}
+            {(project.location || project.city || project.country) && (
+              <p>
+                <span className="font-medium text-[#4A2E35]">Location:</span> {project.location}{" "}
+                {[project.city, project.country].filter(Boolean).length > 0
+                  ? `(${[project.city, project.country].filter(Boolean).join(", ")})`
+                  : ""}
+              </p>
+            )}
+            {project.medium && (
+              <p>
+                <span className="font-medium text-[#4A2E35]">Medium:</span> {project.medium}
+              </p>
+            )}
+            {project.dimensions && (
+              <p>
+                <span className="font-medium text-[#4A2E35]">Scale / Dimensions:</span> {project.dimensions}
+              </p>
+            )}
+          </div>
         </div>
 
-        {/* Details Container */}
-        <div className="md:col-span-6 space-y-3 font-sans text-sm">
-          <h3 className="font-serif text-2xl text-[#4A2E35] font-normal uppercase tracking-tight">
-            {project.title}
-          </h3>
+        {/* Right Sub-Column: Description, Impact Metric & Link */}
+        <div className="md:col-span-7 space-y-5 flex flex-col justify-between">
+          {project.description && (
+            <p className="text-sm sm:text-base text-[#8A7976] leading-relaxed font-light whitespace-pre-wrap">
+              {project.description}
+            </p>
+          )}
 
-          <p className="text-xs text-[#8A7976] font-sans">
-            <span className="font-semibold text-[#4A2E35]">{project.year}</span> — Commissioned by {project.commissioningBody} ({project.city}, {project.country})
-          </p>
-
-          <p className="text-xs text-[#8A7976]">
-            Medium: {project.medium} {project.dimensions ? `| Scale: ${project.dimensions}` : ""}
-          </p>
-
-          <p className="text-xs text-[#8A7976] leading-relaxed pt-1">
-            {project.description}
-          </p>
+          {project.impactMetric && (
+            <div className="border-l-2 border-[#4A2E35]/40 pl-4 py-1 text-xs text-[#4A2E35] font-medium tracking-wide">
+              {project.impactMetric}
+            </div>
+          )}
 
           {project.externalLink && (
             <div className="pt-2">
@@ -47,7 +93,7 @@ export function PublicArtCard({ project }: PublicArtCardProps) {
                 href={project.externalLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4"
+                className="inline-block text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4 transition-colors"
               >
                 Official Commission Registry ↗
               </a>
@@ -55,6 +101,6 @@ export function PublicArtCard({ project }: PublicArtCardProps) {
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 }

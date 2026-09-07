@@ -37,6 +37,12 @@ export function ExhibitionCard({ exhibition }: ExhibitionCardProps) {
             ,&quot; {exhibition.venue} ({exhibition.city}, {exhibition.country})
           </p>
 
+          {exhibition.subtitle && (
+            <p className="text-xs text-[#8A7976] font-sans font-light italic tracking-wide">
+              {exhibition.subtitle}
+            </p>
+          )}
+
           <p className="text-xs text-[#8A7976] italic">
             Role: {exhibition.role}
           </p>
