@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import Image, { ImageProps } from "next/image";
 import { urlForImage, getHotspotPosition } from "@/sanity/lib/image";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import type { SanityImageSource } from "@sanity/image-url";
 
 export interface SanityCropData {
   top?: number;
