@@ -135,7 +135,6 @@ NEXT_PUBLIC_SANITY_API_VERSION="2026-08-22"
 # Resend Email Configuration (Contact Form)
 # -----------------------------------------------------------------------------
 RESEND_API_KEY="re_your_resend_api_key_here"
-CONTACT_EMAIL="artist@amrithajalajadevi.com"
 
 # -----------------------------------------------------------------------------
 # General App Configuration
@@ -146,7 +145,7 @@ NEXT_PUBLIC_SITE_URL="http://localhost:3000"
 > **Note:**
 > - `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` can be found in your [Sanity Management Dashboard](https://www.sanity.io/manage).
 > - `RESEND_API_KEY` can be generated under the API Keys tab in your [Resend Console](https://resend.com).
-> - `CONTACT_EMAIL` is the destination email address where studio inquiries submitted via the website contact form will be delivered.
+> - Contact inquiry emails are dynamically routed to the artist's email configured in the Sanity Studio **Contact** singleton document.
 
 ### 4. Run the Development Server
 
@@ -199,7 +198,6 @@ The application is architected for zero-configuration, production deployment on 
      - `NEXT_PUBLIC_SANITY_DATASET`
      - `NEXT_PUBLIC_SANITY_API_VERSION`
      - `RESEND_API_KEY`
-     - `CONTACT_EMAIL`
      - `NEXT_PUBLIC_SITE_URL` (set to your production domain, e.g., `https://amrithajalajadevi.com`)
 
 4. **Deploy**:

@@ -2,6 +2,8 @@
 
 import { Resend } from "resend";
 import { contactSchema } from "@/lib/validations/contactSchema";
+import { client } from "@/sanity/lib/client";
+import { CONTACT_PAGE_QUERY, SanityContactPage } from "@/sanity/lib/queries";
 
 export interface FormState {
   success: boolean;
@@ -55,28 +57,49 @@ export async function sendEmail(
   }
 
   const { name, email, message } = validationResult.data;
-  const recipientEmail = process.env.CONTACT_EMAIL;
+
+  // 3. FETCH RECIPIENT EMAIL DYNAMICALLY FROM SANITY (SINGLETON CONTACT SCHEMA)
+  let recipientEmail: string | undefined;
+  try {
+    const rawContactData = await client.fetch<SanityContactPage | SanityContactPage[] | null>(
+      CONTACT_PAGE_QUERY,
+      {},
+      { cache: "no-store" }
+    );
+    const contactData = Array.isArray(rawContactData) ? rawContactData[0] : rawContactData;
+    recipientEmail = contactData?.email?.trim();
+
+    // Fallback: If CONTACT_PAGE_QUERY returned a record without an email, attempt defined email query
+    if (!recipientEmail) {
+      const fallbackData = await client.fetch<{ email?: string } | null>(
+        `*[_type == "contact" && defined(email)][0] { email }`,
+        {},
+        { cache: "no-store" }
+      );
+      recipientEmail = fallbackData?.email?.trim();
+    }
+  } catch (sanityError) {
+    console.error("Error fetching recipient email from Sanity:", sanityError);
+  }
 
   if (!recipientEmail) {
-    console.error("CONTACT_EMAIL environment variable is not defined.");
+    console.error("Recipient email could not be retrieved from Sanity contact document.");
     return {
       success: false,
-      message: "Server configuration error: Recipient email is not configured.",
+      message: "Server configuration error: Recipient email is not configured in Sanity.",
     };
   }
 
   const safeName = sanitizeHtml(name);
   const safeMessage = sanitizeHtml(message);
 
-  console.log("Client Email:", email);
+  const fromEmail = "Contact Form <hello@amrithajalajadevi.com>";
 
   try {
     const data = await resend.emails.send({
-      from: "Contact Form <hello@amrithajalajadevi.com>",
+      from: fromEmail,
       to: [recipientEmail],
-      // @ts-ignore
-      reply_to: [email],
-      replyTo: [email],
+      replyTo: `${safeName} <${email}>`,
       subject: `New Portfolio Inquiry from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
@@ -112,6 +135,7 @@ export async function sendEmail(
     });
 
     if (data.error) {
+      console.error("Resend API error:", data.error);
       return {
         success: false,
         message: data.error.message || "Failed to send email via Resend API.",

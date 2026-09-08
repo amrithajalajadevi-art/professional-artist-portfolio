@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import Link from "next/link";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CustomImage } from "@/components/ui/CustomImage";
@@ -95,16 +96,14 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
             </div>
 
             {/* Inquire Action Link */}
-            {process.env.CONTACT_EMAIL && (
-              <div className="pt-4 border-t border-[#E8E2DA]">
-                <a
-                  href={`mailto:${process.env.CONTACT_EMAIL}?subject=Inquiry%20regarding%20${encodeURIComponent(artwork.title)}`}
-                  className="inline-block text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4"
-                >
-                  Inquire About This Artwork →
-                </a>
-              </div>
-            )}
+            <div className="pt-4 border-t border-[#E8E2DA]">
+              <Link
+                href="/contact"
+                className="inline-block text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4"
+              >
+                Inquire About This Artwork →
+              </Link>
+            </div>
           </div>
         </motion.div>
       </div>

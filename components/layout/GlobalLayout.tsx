@@ -19,13 +19,6 @@ export async function GlobalLayout({ children }: GlobalLayoutProps) {
     console.error("Error fetching contact data for sidebar in GlobalLayout:", error);
   }
 
-  const envEmail = process.env.CONTACT_EMAIL;
-  if (envEmail) {
-    contactData = {
-      ...(contactData || {}),
-      email: envEmail,
-    };
-  }
 
   return (
     <div className="min-h-screen bg-[#F7F4F0] text-[#4A2E35] selection:bg-[#4A2E35] selection:text-white flex flex-col lg:flex-row relative font-sans">
