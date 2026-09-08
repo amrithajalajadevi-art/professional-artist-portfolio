@@ -4,19 +4,19 @@ export const categoryOptions: CategoryFilterOption[] = [
   { id: "all", label: "All Curated Works", count: 8 },
   { id: "series", label: "Rest & Quietude Series", count: 4 },
   { id: "recent", label: "Recent Figurative Paintings", count: 3 },
-  { id: "commissions", label: "Public & UK Murals", count: 3 },
-  { id: "public-art", label: "Public Art Projects", count: 2 },
-  { id: "studio", label: "Studio Practice & Drawings", count: 6 },
+  { id: "commissions", label: "Commission Works", count: 3 },
+  { id: "drawings", label: "Drawings & Paper Works", count: 6 },
+  { id: "studio", label: "Studio Practice", count: 6 },
 ];
 
 export function normalizeCategorySlug(param?: string): CategorySlug {
   if (!param) return "all";
   const slug = param.toLowerCase().trim();
   if (slug === "studio" || slug === "in-progress" || slug === "studio-setup") return "studio";
-  if (slug === "commissions" || slug === "uk-commissions") return "commissions";
+  if (slug === "commissions" || slug === "commissions") return "commissions";
   if (slug === "series" || slug === "paintings" || slug === "biennale" || slug === "paintings-sculptures") return "series";
   if (slug === "recent" || slug === "recent-works") return "recent";
-  if (slug === "public-art" || slug === "public") return "public-art";
+  if (slug === "drawings" || slug === "public") return "drawings";
   return "all";
 }
 

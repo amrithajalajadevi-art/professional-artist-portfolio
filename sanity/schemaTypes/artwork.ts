@@ -30,9 +30,9 @@ export const artworkType = defineType({
         list: [
           { title: 'Rest & Quietude Series', value: 'series' },
           { title: 'Recent Figurative Paintings', value: 'recent' },
-          { title: 'Public & UK Murals', value: 'commissions' },
-          { title: 'Public Art Projects', value: 'public-art' },
-          { title: 'Studio Practice & Drawings', value: 'studio' },
+          { title: 'Commission works', value: 'commissions' },
+          { title: 'Studio Practice', value: 'studio' },
+          { title: 'Drawings & Paper Works', value: 'drawings' },
         ],
         layout: 'dropdown',
       },

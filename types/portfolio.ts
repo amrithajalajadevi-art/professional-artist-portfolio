@@ -96,7 +96,7 @@ export interface AboutData {
   affiliations: AffiliationItem[];
 }
 
-export type CategorySlug = "all" | "series" | "recent" | "commissions" | "public-art" | "studio";
+export type CategorySlug = "all" | "series" | "recent" | "commissions" | "drawings" | "studio";
 
 export interface CategoryFilterOption {
   id: CategorySlug;
