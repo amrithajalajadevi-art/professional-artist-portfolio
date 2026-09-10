@@ -18,57 +18,66 @@ export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
         linkText="View All Works"
       />
 
-      {/* 2-Column Large Image Grid */}
+      {/* True Masonry Layout via CSS Columns */}
       <FadeInStagger staggerDelay={0.15}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
+        <div className="columns-1 md:columns-2 gap-12 sm:gap-16 [column-fill:_balance]">
           {projects.map((project, idx) => {
             const projectSrc = project.image || project.imageUrl || "";
             const projectSlug = project.slug || project.id;
+            const projectHref = projectSlug ? `/work/${projectSlug}` : "/work";
 
             return (
-              <div
+              <article
                 key={projectSlug || idx}
-                className="group space-y-4 bg-[#F7F4F0]"
+                className="break-inside-avoid [break-inside:avoid] inline-block w-full mb-12 sm:mb-16 group bg-[#F7F4F0]"
               >
-                {/* Dynamic Aspect Ratio Container */}
-                <div
-                  className="relative w-full overflow-hidden bg-[#F7F4F0]"
-                  style={
-                    project.aspectRatio
-                      ? { aspectRatio: project.aspectRatio }
-                      : { aspectRatio: "4/3" }
-                  }
-                >
-                  <CustomImage
-                    src={projectSrc}
-                    alt={project.title}
-                    fill
-                    priority={idx === 0}
-                    hoverScale
-                    objectFit="cover"
-                    aspectRatio="auto"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-
-                {/* Minimal Caption: Title, Year, Medium only */}
-                <div className="space-y-1 font-sans text-sm text-[#5C4B48]">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <h3 className="font-serif text-lg text-[#4A2E35] font-normal group-hover:text-[#5C4B48] transition-colors">
-                      <Link href={`/work?project=${projectSlug}`}>
-                        {project.title}
-                      </Link>
-                    </h3>
-                    <span className="text-xs text-[#5C4B48] font-sans font-medium">
-                      {project.year}
-                    </span>
+                <div className="space-y-4">
+                  {/* Dynamic Aspect Ratio Container — Preserves Natural Proportions */}
+                  <div
+                    className="relative w-full overflow-hidden bg-[#EFEAE4]"
+                    style={
+                      project.aspectRatio
+                        ? { aspectRatio: project.aspectRatio }
+                        : { aspectRatio: "4/3" }
+                    }
+                  >
+                    <Link href={projectHref} className="block w-full h-full">
+                      <CustomImage
+                        src={projectSrc}
+                        alt={project.title}
+                        fill
+                        priority={idx === 0}
+                        hoverScale
+                        objectFit="cover"
+                        aspectRatio="auto"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </Link>
                   </div>
 
-                  <p className="text-xs text-[#5C4B48] font-sans">
-                    {project.medium}
-                  </p>
+                  {/* Minimal Caption: Title, Year, Medium strictly aligned underneath */}
+                  <div className="space-y-1 font-sans text-sm text-[#5C4B48] pt-1">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <h3 className="font-serif text-lg text-[#4A2E35] font-normal group-hover:text-[#5C4B48] transition-colors">
+                        <Link href={projectHref}>
+                          {project.title}
+                        </Link>
+                      </h3>
+                      {project.year && (
+                        <span className="text-xs text-[#5C4B48] font-sans font-medium flex-shrink-0">
+                          {project.year}
+                        </span>
+                      )}
+                    </div>
+
+                    {project.medium && (
+                      <p className="text-xs text-[#5C4B48] font-sans">
+                        {project.medium}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
