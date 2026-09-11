@@ -47,6 +47,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
   async headers() {
     return [
       {

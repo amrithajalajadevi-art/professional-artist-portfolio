@@ -58,35 +58,41 @@ export function HeroSection({ data }: HeroSectionProps) {
     "Contemporary Figurative painter with an expanding public-art practice.";
 
   return (
-    <section className="relative w-full p-4 sm:p-10 lg:p-16 bg-[#F7F4F0] overflow-hidden">
+    <section className="relative w-full p-4 sm:p-8 lg:p-12 xl:p-16 bg-[#F7F4F0] overflow-hidden">
       {/* 1. Hero Typography Block: High-End Gallery Wall Statement */}
       <FadeIn direction="up">
-        <div className="max-w-3xl mb-6 sm:mb-10 md:mb-16 lg:mb-20">
+        <div className="max-w-4xl mb-6 sm:mb-8 lg:mb-10">
           <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-tight text-[#4A2E35]">
             {headline}
           </h1>
         </div>
       </FadeIn>
 
-      {/* 2. Universal Visual Container */}
+      {/* 2. Universal Visual Container: Dynamic Full-Width Scaling */}
       <FadeIn direction="up" delay={0.1}>
-        <div className="relative w-full h-[40vh] sm:h-[60vh] lg:h-[75vh] min-h-[240px] sm:min-h-[400px] bg-[#F7F4F0] overflow-hidden flex items-center justify-start group">
+        <div className="relative w-full h-[45vh] sm:h-[60vh] md:h-[70vh] lg:h-[78vh] min-h-[280px] sm:min-h-[420px] bg-[#EFEAE4] overflow-hidden group">
           {isMultiImageMural ? (
             /* Dynamically loaded infinite Marquee for Multi-Image Mural Projects */
             <MuralMarquee muralImages={muralImages} title={title} />
           ) : imageSource ? (
-            /* Standard Static Full Image View */
-            <CustomImage
-              src={imageSource}
-              alt={title || "Hero Image"}
-              fill
-              priority={true}
-              objectFit="contain"
-              aspectRatio="auto"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              quality={80}
-              className="object-left block bg-[#F7F4F0] transition-transform duration-700 ease-out hover:scale-[1.01]"
-            />
+            /* Dynamic High-Resolution Full-Cover Image View */
+            <Link
+              href={linkHref}
+              className="block w-full h-full relative cursor-pointer"
+              aria-label={title || "View Artwork Details"}
+            >
+              <CustomImage
+                src={imageSource}
+                alt={title || "Hero Artwork"}
+                fill
+                priority={true}
+                objectFit="cover"
+                aspectRatio="auto"
+                sizes="(max-width: 1024px) 100vw, (max-width: 1536px) 85vw, 1600px"
+                quality={90}
+                className="w-full h-full object-cover block transition-transform duration-700 ease-out group-hover:scale-[1.01]"
+              />
+            </Link>
           ) : (
             <div className="w-full h-80 bg-[#EFEAE4] flex items-center justify-center text-xs text-[#8A7976] font-sans">
               {title || "Hero Image Placeholder"}

@@ -2,7 +2,11 @@
 
 import { useEffect } from 'react'
 import { NextStudio } from 'next-sanity/studio'
+import { StyleSheetManager } from 'styled-components'
+import isPropValid from '@emotion/is-prop-valid'
 import config from '../../../sanity.config'
+
+const shouldForwardProp = (prop: string) => isPropValid(prop) && prop !== 'ratio'
 
 export function StudioWrapper() {
   useEffect(() => {
@@ -32,13 +36,15 @@ export function StudioWrapper() {
       return originalFetch.call(this, input, init)
     }
 
-    // 2. Intercept console.error to suppress package version status logs
+    // 2. Intercept console.error to suppress package version status and styled-components prop logs
     const originalConsoleError = console.error
     console.error = (...args: any[]) => {
       if (
         typeof args[0] === 'string' &&
         (args[0].includes('Failed to fetch version for package') ||
-         args[0].includes('fetchLatestAvailableVersionForPackage'))
+         args[0].includes('fetchLatestAvailableVersionForPackage') ||
+         args[0].includes('unknown prop "ratio"') ||
+         args[0].includes('styled-components: it looks like an unknown prop'))
       ) {
         return
       }
@@ -51,5 +57,9 @@ export function StudioWrapper() {
     }
   }, [])
 
-  return <NextStudio config={config} />
+  return (
+    <StyleSheetManager shouldForwardProp={shouldForwardProp}>
+      <NextStudio config={config} />
+    </StyleSheetManager>
+  )
 }
