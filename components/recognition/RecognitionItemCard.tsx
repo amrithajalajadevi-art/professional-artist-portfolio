@@ -41,7 +41,7 @@ export function RecognitionItemCard({ item }: RecognitionItemCardProps) {
             rel="noopener noreferrer"
             className="text-xs uppercase tracking-[0.15em] font-medium text-[#4A2E35] hover:underline underline-offset-4 transition-colors"
           >
-            Official Announcement ↗
+          View Resource ↗
           </a>
         </div>
       )}
