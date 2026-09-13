@@ -133,6 +133,36 @@ export function CustomImage({
     return undefined;
   }, [activeHotspot, rawSource]);
 
+  // Extract intrinsic dimensions from Sanity asset metadata or URL if custom width/height are not provided
+  const intrinsicDimensions = useMemo(() => {
+    if (typeof width === "number" && width !== 1200 && typeof height === "number" && height !== 1200) {
+      return { width, height };
+    }
+    const meta =
+      rawSource?.asset?.metadata?.dimensions ||
+      rawSource?.metadata?.dimensions ||
+      (typeof image === "object" && image !== null ? image?.asset?.metadata?.dimensions : undefined);
+    if (meta?.width && meta?.height) {
+      return { width: meta.width, height: meta.height };
+    }
+    const urlStr =
+      typeof rawSource === "string"
+        ? rawSource
+        : rawSource?.asset?.url || rawSource?.url || (typeof src === "string" ? src : "");
+    const match = urlStr.match(/-(\d+)x(\d+)(?:\.[a-z0-9]+)?(?:\?|$)/i);
+    if (match) {
+      const parsedWidth = parseInt(match[1], 10);
+      const parsedHeight = parseInt(match[2], 10);
+      if (parsedWidth > 0 && parsedHeight > 0) {
+        return { width: parsedWidth, height: parsedHeight };
+      }
+    }
+    return {
+      width: typeof width === "number" ? width : 1200,
+      height: typeof height === "number" ? height : 1200,
+    };
+  }, [rawSource, image, src, width, height]);
+
   // Strict null check for image URL
   if (!resolvedUrl) {
     return (
@@ -169,11 +199,15 @@ export function CustomImage({
     ...(hotspotPosition ? { objectPosition: hotspotPosition } : {}),
   };
 
+  const isFixedBox = fill || (aspectRatio && aspectRatio !== "auto");
+
   return (
     <figure
       suppressHydrationWarning
-      className={`overflow-hidden bg-[#F7F4F0] ${
-        fill ? "absolute inset-0 w-full h-full" : "relative w-full h-full"
+      className={`bg-[#F7F4F0] ${
+        isFixedBox
+          ? `overflow-hidden ${fill ? "absolute inset-0 w-full h-full" : "relative w-full h-full"}`
+          : "relative w-full"
       } ${aspectClass} ${containerClassName}`}
     >
       {/* Soft Minimal Loading Placeholder */}
@@ -209,8 +243,8 @@ export function CustomImage({
           suppressHydrationWarning
           src={resolvedUrl}
           alt={alt || "Amritha Jalaja Devi Artwork"}
-          width={!fill ? width : undefined}
-          height={!fill ? height : undefined}
+          width={!fill ? intrinsicDimensions.width : undefined}
+          height={!fill ? intrinsicDimensions.height : undefined}
           fill={fill}
           priority={priority}
           loading={loading}

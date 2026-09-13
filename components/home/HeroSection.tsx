@@ -57,6 +57,37 @@ export function HeroSection({ data }: HeroSectionProps) {
     data.headline ||
     "Contemporary Figurative painter with an expanding public-art practice.";
 
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const [canScroll, setCanScroll] = React.useState(false);
+  const [hasScrolled, setHasScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const checkScroll = () => {
+      if (el) {
+        setCanScroll(el.scrollHeight > el.clientHeight + 10);
+      }
+    };
+
+    checkScroll();
+
+    const resizeObserver = new ResizeObserver(checkScroll);
+    resizeObserver.observe(el);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [imageSource]);
+
+  const handleScroll = () => {
+    const el = scrollContainerRef.current;
+    if (el && el.scrollTop > 20) {
+      setHasScrolled(true);
+    }
+  };
+
   return (
     <section className="relative w-full p-4 sm:p-10 lg:p-16 bg-[#F7F4F0] overflow-hidden">
       {/* 1. Hero Typography Block: High-End Gallery Wall Statement */}
@@ -70,26 +101,44 @@ export function HeroSection({ data }: HeroSectionProps) {
 
       {/* 2. Universal Visual Container */}
       <FadeIn direction="up" delay={0.1}>
-        <div className="relative w-full h-[40vh] sm:h-[60vh] lg:h-[75vh] min-h-[240px] sm:min-h-[400px] bg-[#F7F4F0] overflow-hidden flex items-center justify-start group">
+        <div
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
+          className="relative w-full h-[40vh] sm:h-[60vh] lg:h-[75vh] min-h-[240px] sm:min-h-[400px] bg-[#F7F4F0] overflow-y-auto overflow-x-hidden [scrollbar-width:thin] [scrollbar-color:#E8E2DA_#F7F4F0] flex flex-col justify-start items-start group select-none scroll-smooth"
+        >
           {isMultiImageMural ? (
             /* Dynamically loaded infinite Marquee for Multi-Image Mural Projects */
             <MuralMarquee muralImages={muralImages} title={title} />
           ) : imageSource ? (
-            /* Standard Static Full Image View */
-            <CustomImage
-              src={imageSource}
-              alt={title || "Hero Image"}
-              fill
-              priority={true}
-              objectFit="contain"
-              aspectRatio="auto"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              quality={80}
-              className="object-left block bg-[#F7F4F0] transition-transform duration-700 ease-out hover:scale-[1.01]"
-            />
+            /* Standard Static Full Image View with internal Y-direction scrolling */
+            <div className="w-full relative shrink-0">
+              <CustomImage
+                src={imageSource}
+                alt={title || "Hero Image"}
+                fill={false}
+                priority={true}
+                objectFit="contain"
+                aspectRatio="auto"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+                quality={85}
+                containerClassName="w-full"
+                className="w-full max-w-full h-auto object-contain object-top block bg-[#F7F4F0]"
+              />
+            </div>
           ) : (
             <div className="w-full h-80 bg-[#EFEAE4] flex items-center justify-center text-xs text-[#8A7976] font-sans">
               {title || "Hero Image Placeholder"}
+            </div>
+          )}
+
+          {/* Subtle scroll indicator for overflowing images */}
+          {canScroll && !hasScrolled && !isMultiImageMural && (
+            <div
+              className="pointer-events-none sticky bottom-3 ml-auto mr-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#4A2E35]/75 backdrop-blur-sm text-[10px] tracking-widest uppercase text-[#F7F4F0] shadow-sm transition-opacity duration-300 font-sans"
+              aria-hidden="true"
+            >
+              <span className="inline-block animate-bounce">↓</span>
+              <span>Scroll Artwork</span>
             </div>
           )}
         </div>
