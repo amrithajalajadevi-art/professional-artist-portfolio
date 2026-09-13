@@ -72,7 +72,10 @@ function WorkGalleryContent({
 
   const filteredArtworks = useMemo(() => {
     if (activeCategory === "all") return allArtworks;
-    return allArtworks.filter((item) => item.category === activeCategory);
+    return allArtworks.filter((item) => {
+      const normalizedItemCat = normalizeCategorySlug(item.category);
+      return normalizedItemCat === activeCategory || item.category === activeCategory;
+    });
   }, [allArtworks, activeCategory]);
 
   return (

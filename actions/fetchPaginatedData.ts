@@ -4,27 +4,37 @@ import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import { Artwork, PublicArtProject } from "@/types";
 
+import { normalizeCategorySlug } from "@/constants/workData";
+
 const BATCH_SIZE = 12;
 
 // GROQ query for paginated artworks with parameterized slice operator and LQIP
 const PAGINATED_ARTWORKS_QUERY = groq`
-  *[_type == "artwork"] | order(year desc) [$start...$end] {
+  *[_type in ["artwork", "drawing", "drawings", "paperWork"]] | order(year desc) [$start...$end] {
     "_id": _id,
     "id": coalesce(slug.current, _id),
     title,
-    category,
+    "category": select(
+      _type in ["drawing", "drawings"] => "drawings",
+      category == "drawings" || lower(category) match "*drawing*" || lower(category) match "*paper*" || lower(category->title) match "*drawing*" || category->slug.current match "*drawing*" => "drawings",
+      category == "series" || lower(category) match "*series*" || lower(category) match "*quietude*" || lower(category->title) match "*series*" => "series",
+      category == "recent" || lower(category) match "*recent*" || lower(category) match "*figurative*" || lower(category->title) match "*recent*" => "recent",
+      category == "commissions" || lower(category) match "*commission*" || lower(category->title) match "*commission*" => "commissions",
+      category == "studio" || lower(category) match "*studio*" || lower(category->title) match "*studio*" => "studio",
+      coalesce(category->slug.current, category->title, category.value, category, "recent")
+    ),
     medium,
     year,
     dimensions,
     location,
-    "image": images[0] {
+    "image": coalesce(images[0], image, coverImage) {
       asset,
       crop,
       hotspot
     },
-    "imageUrl": images[0].asset->url,
-    "lqip": images[0].asset->metadata.lqip,
-    "aspectRatio": images[0].asset->metadata.dimensions.aspectRatio,
+    "imageUrl": coalesce(images[0].asset->url, image.asset->url, coverImage.asset->url),
+    "lqip": coalesce(images[0].asset->metadata.lqip, image.asset->metadata.lqip, coverImage.asset->metadata.lqip),
+    "aspectRatio": coalesce(images[0].asset->metadata.dimensions.aspectRatio, image.asset->metadata.dimensions.aspectRatio, coverImage.asset->metadata.dimensions.aspectRatio),
     description
   }
 `;
@@ -73,21 +83,32 @@ export async function fetchMoreArtworks(
       end,
     });
 
-    const items: Artwork[] = (rawItems || []).map((item) => ({
-      id: item.id || item._id,
-      title: item.title,
-      category: item.category || "recent",
-      categoryLabel: item.category || "Selected Work",
-      medium: item.medium,
-      year: item.year,
-      dimensions: item.dimensions,
-      location: item.location,
-      imageUrl: item.imageUrl || undefined,
-      image: item.image || item.imageUrl || "",
-      lqip: item.lqip || undefined,
-      aspectRatio: item.aspectRatio || undefined,
-      description: item.description,
-    }));
+    const items: Artwork[] = (rawItems || []).map((item) => {
+      const rawCategory =
+        typeof item.category === "string"
+          ? item.category
+          : (item.category as any)?.slug?.current ||
+            (item.category as any)?.title ||
+            (item.category as any)?.value ||
+            "";
+      const normalizedCategory = normalizeCategorySlug(rawCategory);
+
+      return {
+        id: item.id || item._id,
+        title: item.title,
+        category: normalizedCategory !== "all" ? normalizedCategory : "recent",
+        categoryLabel: rawCategory || "Selected Work",
+        medium: item.medium,
+        year: item.year,
+        dimensions: item.dimensions,
+        location: item.location,
+        imageUrl: item.imageUrl || undefined,
+        image: item.image || item.imageUrl || "",
+        lqip: item.lqip || undefined,
+        aspectRatio: item.aspectRatio || undefined,
+        description: item.description,
+      };
+    });
 
     return {
       items,
