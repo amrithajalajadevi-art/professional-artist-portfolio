@@ -24,7 +24,7 @@ export const mainNavItems: NavItem[] = [
       { label: "Commission Works", href: "/work?category=commissions", category: "commissions" },
       { label: "Studio Practice", href: "/work?category=studio", category: "studio" },
       { label: "Drawings & Paper Works", href: "/work?category=drawings", category: "drawings" },
-      { label: "Printmaking", href: "/printmaking", category: "printmaking" },
+      { label: "Printmaking & Graphics", href: "/printmaking", category: "printmaking" },
     ],
   },
   { label: "Exhibitions & Projects", href: "/exhibitions" },

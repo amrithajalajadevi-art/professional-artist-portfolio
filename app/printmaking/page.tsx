@@ -32,7 +32,7 @@ export default async function PrintmakingPage() {
         <FadeIn direction="up">
           <div className="space-y-6 pb-8 border-b border-[#E8E2DA] max-w-4xl">
             <h1 className="font-serif text-3xl sm:text-5xl font-light uppercase text-[#4A2E35] tracking-tight">
-              PRINTMAKING
+              PRINTMAKING & GRAPHICS
             </h1>
             <p className="text-sm sm:text-base text-[#5C4B48] font-sans font-light leading-relaxed">
               Alongside my painting practice, printmaking has been an important part of my artistic development. Working across etching, aquatint, drypoint and woodcut, I explored line, texture, tonal contrast and the human figure. These works reflect an early interest in quiet domestic moments, solitary figures and everyday human experience—concerns that continue to inform my contemporary figurative practice.
