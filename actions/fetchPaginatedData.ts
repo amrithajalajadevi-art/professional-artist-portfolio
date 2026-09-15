@@ -10,13 +10,11 @@ const BATCH_SIZE = 12;
 
 // GROQ query for paginated artworks with parameterized slice operator and LQIP
 const PAGINATED_ARTWORKS_QUERY = groq`
-  *[_type in ["artwork", "drawing", "drawings", "paperWork"]] | order(year desc) [$start...$end] {
+  *[_type == "artwork" && category != "drawings" && category != "Drawings" && category != "Drawings & Paper Works" && !(lower(category) match "*drawing*") && !(lower(category) match "*paper*")] | order(year desc) [$start...$end] {
     "_id": _id,
     "id": coalesce(slug.current, _id),
     title,
     "category": select(
-      _type in ["drawing", "drawings"] => "drawings",
-      category == "drawings" || lower(category) match "*drawing*" || lower(category) match "*paper*" || lower(category->title) match "*drawing*" || category->slug.current match "*drawing*" => "drawings",
       category == "series" || lower(category) match "*series*" || lower(category) match "*quietude*" || lower(category->title) match "*series*" => "series",
       category == "recent" || lower(category) match "*recent*" || lower(category) match "*figurative*" || lower(category->title) match "*recent*" => "recent",
       category == "commissions" || lower(category) match "*commission*" || lower(category->title) match "*commission*" => "commissions",

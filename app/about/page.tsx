@@ -42,10 +42,12 @@ export default async function AboutPage() {
     <div className="flex flex-col min-h-screen bg-[#F7F4F0] text-[#4A2E35]">
       <BiographySection data={biographyData} />
       <ArtistStatement data={statementData} />
-      <EducationSection
-        education={educationList}
-        affiliations={affiliationsList}
-      />
+      {(educationList.length > 0 || affiliationsList.length > 0) && (
+        <EducationSection
+          education={educationList}
+          affiliations={affiliationsList}
+        />
+      )}
     </div>
   );
 }

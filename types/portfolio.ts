@@ -106,7 +106,7 @@ export interface CategoryFilterOption {
 
 export interface Artwork {
   id: string;
-  title: string;
+  title?: string;
   category: CategorySlug | string;
   categoryLabel?: string;
   medium: string;

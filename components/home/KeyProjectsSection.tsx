@@ -44,7 +44,7 @@ export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
                     <Link href={projectHref} className="block w-full h-full">
                       <CustomImage
                         src={projectSrc}
-                        alt={project.title}
+                        alt={project.title?.trim() || "Artwork Project"}
                         fill
                         priority={idx === 0}
                         hoverScale
@@ -60,7 +60,11 @@ export function KeyProjectsSection({ projects }: KeyProjectsSectionProps) {
                     <div className="flex items-baseline justify-between gap-3">
                       <h3 className="font-serif text-lg text-[#4A2E35] font-normal group-hover:text-[#5C4B48] transition-colors">
                         <Link href={projectHref}>
-                          {project.title}
+                          {project.title?.trim() ? (
+                            project.title
+                          ) : (
+                            <span className="italic text-[#8A7976]">Untitled</span>
+                          )}
                         </Link>
                       </h3>
                       {project.year && (

@@ -12,10 +12,12 @@ import { servicesType } from './services'
 import { commissionPageType } from './commissionPage'
 import { workshopPageType } from './workshopPage'
 import { printmakingType } from './printmaking'
+import { drawingsType } from './drawings'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     artworkType,
+    drawingsType,
     publicArtType,
     exhibitionType,
     pressType,

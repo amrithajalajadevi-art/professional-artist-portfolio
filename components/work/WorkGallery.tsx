@@ -71,8 +71,21 @@ function WorkGalleryContent({
   };
 
   const filteredArtworks = useMemo(() => {
-    if (activeCategory === "all") return allArtworks;
-    return allArtworks.filter((item) => {
+    const withoutDrawings = allArtworks.filter((item) => {
+      const cat = (item.category || "").toLowerCase();
+      const label = (item.categoryLabel || "").toLowerCase();
+      return (
+        cat !== "drawings" &&
+        cat !== "drawing" &&
+        !cat.includes("drawing") &&
+        !cat.includes("paper") &&
+        !label.includes("drawing") &&
+        !label.includes("paper")
+      );
+    });
+
+    if (activeCategory === "all") return withoutDrawings;
+    return withoutDrawings.filter((item) => {
       const normalizedItemCat = normalizeCategorySlug(item.category);
       return normalizedItemCat === activeCategory || item.category === activeCategory;
     });

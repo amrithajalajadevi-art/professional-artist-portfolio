@@ -23,7 +23,7 @@ export const mainNavItems: NavItem[] = [
       { label: "Figurative Paintings", href: "/work?category=recent", category: "recent" },
       { label: "Commission Works", href: "/work?category=commissions", category: "commissions" },
       { label: "Studio Practice", href: "/work?category=studio", category: "studio" },
-      { label: "Drawings & Paper Works", href: "/work?category=drawings", category: "drawings" },
+      { label: "Drawings & Paper Works", href: "/drawings", category: "drawings" },
       { label: "Printmaking & Graphics", href: "/printmaking", category: "printmaking" },
     ],
   },
@@ -128,10 +128,27 @@ function NavLinksContent({ onItemClick, contactData }: NavLinksProps) {
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
+    if (href === "/work") {
+      return (
+        pathname.startsWith("/work") ||
+        pathname.startsWith("/drawings") ||
+        pathname.startsWith("/printmaking")
+      );
+    }
     return pathname.startsWith(href);
   };
 
   const currentCategory = searchParams ? searchParams.get("category") : null;
+
+  React.useEffect(() => {
+    if (
+      pathname.startsWith("/work") ||
+      pathname.startsWith("/drawings") ||
+      pathname.startsWith("/printmaking")
+    ) {
+      setWorkOpen(true);
+    }
+  }, [pathname]);
 
   return (
     <div className="flex flex-col h-full justify-between space-y-8 font-sans">
@@ -182,10 +199,11 @@ function NavLinksContent({ onItemClick, contactData }: NavLinksProps) {
                       className="pl-3.5 space-y-1 overflow-hidden"
                     >
                       {item.subItems.map((sub) => {
-                        const isSubActive =
-                          active &&
-                          (currentCategory === sub.category ||
-                            (!currentCategory && sub.category === "series"));
+                        const isSubActive = sub.href.startsWith("/work")
+                          ? pathname.startsWith("/work") &&
+                            (currentCategory === sub.category ||
+                              (!currentCategory && sub.category === "series"))
+                          : pathname.startsWith(sub.href);
 
                         return (
                           <li key={sub.label}>

@@ -5,7 +5,7 @@ export const categoryOptions: CategoryFilterOption[] = [
   { id: "series", label: "Rest & Quietude Series", count: 4 },
   { id: "recent", label: "Recent Figurative Paintings", count: 3 },
   { id: "commissions", label: "Commission Works", count: 3 },
-  { id: "drawings", label: "Drawings & Paper Works", count: 6 },
+  // { id: "drawings", label: "Drawings & Paper Works", count: 6 },
   { id: "studio", label: "Studio Practice", count: 6 },
 ];
 
@@ -16,7 +16,7 @@ export function normalizeCategorySlug(param?: string): CategorySlug {
   if (slug === "commissions" || slug === "commission" || slug.includes("commission")) return "commissions";
   if (slug === "series" || slug === "paintings" || slug === "biennale" || slug === "paintings-sculptures" || slug.includes("quietude") || slug.includes("series")) return "series";
   if (slug === "recent" || slug === "recent-works" || slug.includes("recent") || slug.includes("figurative")) return "recent";
-  if (slug === "drawings" || slug === "drawing" || slug.includes("drawing") || slug.includes("paper") || slug === "public") return "drawings";
+  // if (slug === "drawings" || slug === "drawing" || slug.includes("drawing") || slug.includes("paper") || slug === "public") return "drawings";
   return "all";
 }
 

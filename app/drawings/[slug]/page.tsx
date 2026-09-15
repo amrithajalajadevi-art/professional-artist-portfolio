@@ -4,63 +4,65 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import {
-  ARTWORK_BY_SLUG_QUERY,
+  DRAWING_BY_SLUG_QUERY,
   SanityArtworkDetail,
 } from "@/sanity/lib/queries";
 import { CustomImage } from "@/components/ui/CustomImage";
 import { FadeIn } from "@/components/ui/FadeIn";
 
-interface DynamicArtworkPageProps {
+interface DynamicDrawingPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 60;
+
 export async function generateMetadata({
   params,
-}: DynamicArtworkPageProps): Promise<Metadata> {
+}: DynamicDrawingPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const artwork: SanityArtworkDetail | null = await client.fetch(
-    ARTWORK_BY_SLUG_QUERY,
+  const drawing: SanityArtworkDetail | null = await client.fetch(
+    DRAWING_BY_SLUG_QUERY,
     { slug }
   );
 
-  if (!artwork) {
+  if (!drawing) {
     return {
-      title: "Artwork Not Found",
+      title: "Drawing Not Found",
     };
   }
 
-  const displayTitle = artwork.title?.trim() || "Untitled";
-  const yearSuffix = artwork.year ? ` (${artwork.year})` : "";
+  const displayTitle = drawing.title?.trim() || "Untitled";
+  const yearSuffix = drawing.year ? ` (${drawing.year})` : "";
 
   return {
-    title: `${displayTitle}${yearSuffix} | Amritha Jalaja Devi`,
+    title: `${displayTitle}${yearSuffix} | Drawings & Paper Works | Amritha Jalaja Devi`,
     description:
-      artwork.description ||
-      `${displayTitle}${artwork.medium ? ` - ${artwork.medium}` : ""}${artwork.year ? `, ${artwork.year}` : ""} by visual artist Amritha Jalaja Devi.`,
+      drawing.description ||
+      `${displayTitle}${drawing.medium ? ` - ${drawing.medium}` : ""}${drawing.year ? `, ${drawing.year}` : ""} by visual artist Amritha Jalaja Devi.`,
   };
 }
 
-export default async function ArtworkDetailPage({
+export default async function DrawingDetailPage({
   params,
-}: DynamicArtworkPageProps) {
+}: DynamicDrawingPageProps) {
   const { slug } = await params;
 
-  // 1. Data Fetching via Centralized GROQ Query
-  const artwork: SanityArtworkDetail | null = await client.fetch(
-    ARTWORK_BY_SLUG_QUERY,
+  // Data Fetching via Centralized GROQ Query
+  const drawing: SanityArtworkDetail | null = await client.fetch(
+    DRAWING_BY_SLUG_QUERY,
     { slug }
   );
 
   // 404 Handling
-  if (!artwork) {
+  if (!drawing) {
     notFound();
   }
 
-  const hasTitle = Boolean(artwork.title?.trim());
-  const displayTitle = hasTitle ? artwork.title! : "Untitled";
-  const mainImage = artwork.images?.[0];
+  const hasTitle = Boolean(drawing.title?.trim());
+  const displayTitle = hasTitle ? drawing.title! : "Untitled";
+  const mainImage = drawing.images?.[0];
   const inquirySubject = encodeURIComponent(
-    `Inquiry: ${hasTitle ? artwork.title : `Untitled (${artwork.medium || "Artwork"}, ${artwork.year || ""})`}`
+    `Inquiry: ${hasTitle ? drawing.title : `Untitled (${drawing.medium || "Drawing"}, ${drawing.year || ""})`}`
   );
 
   return (
@@ -68,15 +70,15 @@ export default async function ArtworkDetailPage({
       {/* Navigation Back Link */}
       <FadeIn direction="up">
         <Link
-          href="/work"
+          href="/drawings"
           className="inline-flex items-center gap-2 text-xs font-sans text-[#8A7976] hover:text-[#4A2E35] transition-colors tracking-widest uppercase"
         >
-          &larr; Back to Selected Works
+          &larr; Back to Drawings & Paper Works
         </Link>
       </FadeIn>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-        {/* Left Side: 3. Dynamic Main Image preserving original aspect ratio */}
+        {/* Left Side: Dynamic Main Image preserving original aspect ratio */}
         <div className="lg:col-span-7 space-y-6">
           <FadeIn direction="up" delay={0.1}>
             <div
@@ -101,9 +103,9 @@ export default async function ArtworkDetailPage({
           </FadeIn>
 
           {/* Additional Gallery Detail Views */}
-          {artwork.images && artwork.images.length > 1 && (
+          {drawing.images && drawing.images.length > 1 && (
             <div className="grid grid-cols-2 gap-4 pt-4">
-              {artwork.images.slice(1).map((img, idx) => (
+              {drawing.images.slice(1).map((img, idx) => (
                 <div
                   key={idx}
                   className="relative w-full overflow-hidden bg-[#EFEAE4]"
@@ -115,7 +117,7 @@ export default async function ArtworkDetailPage({
                 >
                   <CustomImage
                     src={img}
-                    alt={`${artwork.title} detail view ${idx + 2}`}
+                    alt={`${displayTitle} detail view ${idx + 2}`}
                     fill
                     hoverScale
                     objectFit="cover"
@@ -128,18 +130,18 @@ export default async function ArtworkDetailPage({
           )}
         </div>
 
-        {/* Right Side: 2. Aesthetic Typography & Artwork Details */}
+        {/* Right Side: Typography & Artwork Details */}
         <div className="lg:col-span-5 space-y-8 lg:pl-4">
           {/* Header Title */}
           <FadeIn direction="up" delay={0.2}>
             <div className="space-y-3 border-b border-[#EFEAE4] pb-6">
               <span className="text-[11px] uppercase tracking-[0.2em] text-[#8A7976] font-sans font-light">
-                {artwork.category || "Artwork"}
+                Drawings & Paper Works
               </span>
 
               <h1 className="font-serif text-3xl sm:text-4xl text-[#4A2E35] font-light tracking-tight leading-snug">
                 {hasTitle ? (
-                  artwork.title
+                  drawing.title
                 ) : (
                   <span className="italic text-[#6B5559]">Untitled</span>
                 )}
@@ -150,47 +152,51 @@ export default async function ArtworkDetailPage({
           {/* Minimalist Specs List */}
           <FadeIn direction="up" delay={0.3}>
             <dl className="space-y-1 text-xs sm:text-sm font-sans font-light tracking-wide text-[#8A7976]">
-              <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
-                <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Year</dt>
-                <dd className="text-[#8A7976] text-right break-words">{artwork.year}</dd>
-              </div>
-
-              <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
-                <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Medium</dt>
-                <dd className="text-[#8A7976] text-right break-words">{artwork.medium}</dd>
-              </div>
-
-              {artwork.dimensions && (
+              {drawing.year && (
                 <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
-                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Dimensions</dt>
-                  <dd className="text-[#8A7976] text-right break-words">{artwork.dimensions}</dd>
+                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Year</dt>
+                  <dd className="text-[#8A7976] text-right break-words">{drawing.year}</dd>
                 </div>
               )}
 
-              {artwork.location && (
+              {drawing.medium && (
+                <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
+                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Medium</dt>
+                  <dd className="text-[#8A7976] text-right break-words">{drawing.medium}</dd>
+                </div>
+              )}
+
+              {drawing.dimensions && (
+                <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
+                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Dimensions</dt>
+                  <dd className="text-[#8A7976] text-right break-words">{drawing.dimensions}</dd>
+                </div>
+              )}
+
+              {drawing.location && (
                 <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
                   <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Collection</dt>
-                  <dd className="text-[#8A7976] text-right break-words">{artwork.location}</dd>
+                  <dd className="text-[#8A7976] text-right break-words">{drawing.location}</dd>
                 </div>
               )}
             </dl>
           </FadeIn>
 
           {/* Description Paragraph */}
-          {artwork.description && (
+          {drawing.description && (
             <FadeIn direction="up" delay={0.4}>
               <div className="space-y-2">
                 <h3 className="text-[11px] uppercase tracking-[0.2em] text-[#4A2E35] font-sans font-normal">
                   About the Work
                 </h3>
                 <p className="text-xs sm:text-sm text-[#8A7976] font-sans font-light leading-relaxed tracking-wide whitespace-pre-wrap">
-                  {artwork.description}
+                  {drawing.description}
                 </p>
               </div>
             </FadeIn>
           )}
 
-          {/* 4. Elegant Inquiry Link */}
+          {/* Elegant Inquiry Link */}
           <FadeIn direction="up" delay={0.5}>
             <div className="pt-6 border-t border-[#EFEAE4]">
               <Link

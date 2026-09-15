@@ -2,28 +2,28 @@ import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
-import { PRINTMAKING_QUERY, SanityPrintmaking } from "@/sanity/lib/queries";
+import { DRAWINGS_ARTWORKS_QUERY, SanityDrawing } from "@/sanity/lib/queries";
 import { CustomImage } from "@/components/ui/CustomImage";
 import { FadeIn, FadeInStagger } from "@/components/ui/FadeIn";
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Printmaking | Amritha Jalaja Devi",
+  title: "Drawings & Paper Works | Amritha Jalaja Devi",
   description:
-    "Etching, aquatint, drypoint, and woodcut prints exploring line, texture, tonal contrast, and the human figure by visual artist Amritha Jalaja Devi.",
+    "Intimate studies in charcoal, graphite, ink, and works on paper exploring gesture, human vulnerability, and domestic quietude by visual artist Amritha Jalaja Devi.",
 };
 
-export default async function PrintmakingPage() {
-  let prints: SanityPrintmaking[] = [];
+export default async function DrawingsPage() {
+  let drawings: SanityDrawing[] = [];
 
   try {
-    const data = await client.fetch<SanityPrintmaking[]>(PRINTMAKING_QUERY);
+    const data = await client.fetch<SanityDrawing[]>(DRAWINGS_ARTWORKS_QUERY);
     if (data) {
-      prints = data;
+      drawings = data;
     }
   } catch (error) {
-    console.error("Error fetching printmaking works from Sanity:", error);
+    console.error("Error fetching drawings & paper works from Sanity:", error);
   }
 
   return (
@@ -33,19 +33,19 @@ export default async function PrintmakingPage() {
         <FadeIn direction="up">
           <div className="space-y-6 pb-8 border-b border-[#E8E2DA] max-w-4xl">
             <h1 className="font-serif text-3xl sm:text-5xl font-light uppercase text-[#4A2E35] tracking-tight">
-              PRINTMAKING & GRAPHICS
+              DRAWINGS & PAPER WORKS
             </h1>
             <p className="text-sm sm:text-base text-[#5C4B48] font-sans font-light leading-relaxed">
-              Alongside my painting practice, printmaking has been an important part of my artistic development. Working across etching, aquatint, drypoint and woodcut, I explored line, texture, tonal contrast and the human figure. These works reflect an early interest in quiet domestic moments, solitary figures and everyday human experience—concerns that continue to inform my contemporary figurative practice.
+              Alongside large-scale canvas works, drawing and paper works form an intimate and foundational part of my visual practice. Working across charcoal, graphite, ink, and wash on paper, these works capture fleeting gestures, delicate line work, and atmospheric studies of the human figure—exploring vulnerability, silence, and domestic quietude.
             </p>
           </div>
         </FadeIn>
 
-        {/* Printmaking Gallery Grid */}
+        {/* Drawings Gallery Grid */}
         <FadeInStagger staggerDelay={0.1}>
-          {prints.length > 0 ? (
+          {drawings.length > 0 ? (
             <div className="columns-1 sm:columns-2 lg:columns-3 gap-10 lg:gap-12">
-              {prints.map((item) => {
+              {drawings.map((item) => {
                 const itemSlug = item.slug || item.id || item._id;
                 const hasTitle = Boolean(item.title?.trim());
 
@@ -55,7 +55,7 @@ export default async function PrintmakingPage() {
                     className="break-inside-avoid mb-10 sm:mb-14 group relative bg-[#F7F4F0] flex flex-col space-y-3"
                   >
                     <Link
-                      href={`/printmaking/${itemSlug}`}
+                      href={`/drawings/${itemSlug}`}
                       className="block space-y-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4A2E35]"
                     >
                       {/* Dynamic Aspect Ratio Container */}
@@ -70,7 +70,7 @@ export default async function PrintmakingPage() {
                         <CustomImage
                           src={item.image || item.imageUrl}
                           lqip={item.lqip}
-                          alt={hasTitle ? item.title! : "Printmaking Artwork"}
+                          alt={hasTitle ? item.title! : "Drawing & Paper Work"}
                           fill
                           hoverScale
                           objectFit="cover"
@@ -100,7 +100,6 @@ export default async function PrintmakingPage() {
                         {item.medium && (
                           <p className="text-[11px] text-[#5C4B48] truncate font-sans font-normal">
                             {item.medium}
-                            {item.edition ? ` — ${item.edition}` : ""}
                           </p>
                         )}
 
@@ -118,7 +117,7 @@ export default async function PrintmakingPage() {
           ) : (
             <div className="text-center py-20 bg-[#EFEAE4]/50 border border-[#E8E2DA] p-8">
               <p className="font-serif text-lg text-[#4A2E35] italic">
-                Printmaking gallery items will appear here once published.
+                Drawings & paper works gallery items will appear here once published.
               </p>
             </div>
           )}

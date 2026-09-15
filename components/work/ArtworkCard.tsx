@@ -31,7 +31,7 @@ export function ArtworkCard({ artwork }: ArtworkCardProps) {
           <CustomImage
             src={imageSrc}
             lqip={artwork.lqip}
-            alt={artwork.title || "Artwork Image"}
+            alt={artwork.title?.trim() || "Artwork Image"}
             fill
             hoverScale
             objectFit="cover"
@@ -44,11 +44,17 @@ export function ArtworkCard({ artwork }: ArtworkCardProps) {
         <div className="space-y-0.5 font-sans pt-1">
           <div className="flex items-baseline justify-between gap-3">
             <h3 className="font-serif text-base text-[#4A2E35] font-light group-hover:text-[#8A7976] transition-colors truncate">
-              {artwork.title}
+              {artwork.title?.trim() ? (
+                artwork.title
+              ) : (
+                <span className="italic text-[#8A7976]">Untitled</span>
+              )}
             </h3>
-            <span className="text-[11px] text-[#5C4B48] font-sans font-normal flex-shrink-0">
-              {artwork.year}
-            </span>
+            {artwork.year && (
+              <span className="text-[11px] text-[#5C4B48] font-sans font-normal flex-shrink-0">
+                {artwork.year}
+              </span>
+            )}
           </div>
 
           <p className="text-[11px] text-[#5C4B48] truncate font-sans font-normal">

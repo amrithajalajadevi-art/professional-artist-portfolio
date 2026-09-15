@@ -44,21 +44,40 @@ export default async function WorkPage({ searchParams }: WorkPageProps) {
     console.error("Error fetching initial artworks from Sanity:", error);
   }
 
-  // Map Sanity records to Artwork interface with robust category normalization
-  const displayArtworks: Artwork[] = initialData.items.map((item) => {
-    const rawCategory =
-      typeof item.category === "string"
-        ? item.category
-        : (item.category as any)?.slug?.current ||
-          (item.category as any)?.title ||
-          (item.category as any)?.value ||
-          "";
-    const normalizedCategory = normalizeCategorySlug(rawCategory);
+  // Map Sanity records to Artwork interface with robust category normalization, strictly excluding drawings & paper works
+  const displayArtworks: Artwork[] = initialData.items
+    .filter((item) => {
+      const raw = (
+        typeof item.category === "string"
+          ? item.category
+          : (item.category as any)?.slug?.current ||
+            (item.category as any)?.title ||
+            (item.category as any)?.value ||
+            ""
+      ).toLowerCase();
+      return (
+        raw !== "drawings" &&
+        raw !== "drawing" &&
+        raw !== "drawings & paper works" &&
+        raw !== "drawings-and-paper-works" &&
+        !raw.includes("drawing") &&
+        !raw.includes("paper")
+      );
+    })
+    .map((item) => {
+      const rawCategory =
+        typeof item.category === "string"
+          ? item.category
+          : (item.category as any)?.slug?.current ||
+            (item.category as any)?.title ||
+            (item.category as any)?.value ||
+            "";
+      const normalizedCategory = normalizeCategorySlug(rawCategory);
 
-    return {
-      id: item.id || item._id,
-      title: item.title,
-      category: normalizedCategory !== "all" ? normalizedCategory : "recent",
+      return {
+        id: item.id || item._id,
+        title: item.title,
+        category: normalizedCategory !== "all" ? normalizedCategory : "recent",
       categoryLabel: rawCategory || "Selected Work",
       medium: item.medium,
       year: item.year,

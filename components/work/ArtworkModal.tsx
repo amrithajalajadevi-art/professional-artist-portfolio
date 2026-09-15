@@ -60,7 +60,7 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
           <div className="relative w-full md:w-3/4 h-[60vh] md:h-[84vh] min-h-[350px] bg-[#F7F4F0] flex items-center justify-center p-4">
             <CustomImage
               src={artwork.image}
-              alt={artwork.title}
+              alt={artwork.title?.trim() || "Artwork"}
               fill={true}
               priority={true}
               objectFit="contain"
@@ -74,7 +74,11 @@ export function ArtworkModal({ artwork, onClose }: ArtworkModalProps) {
           <div className="w-full md:w-1/4 p-6 sm:p-8 flex flex-col justify-between space-y-6 bg-[#F7F4F0] border-t md:border-t-0 md:border-l border-[#E8E2DA] font-sans">
             <div className="space-y-4 pt-2">
               <h2 className="font-serif text-xl sm:text-2xl text-[#4A2E35] font-light uppercase tracking-tight">
-                {artwork.title}
+                {artwork.title?.trim() ? (
+                  artwork.title
+                ) : (
+                  <span className="italic text-[#8A7976]">Untitled</span>
+                )}
               </h2>
 
               <div className="space-y-1.5 text-xs text-[#8A7976] font-sans font-light">

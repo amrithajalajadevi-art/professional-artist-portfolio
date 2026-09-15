@@ -4,63 +4,65 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import {
-  ARTWORK_BY_SLUG_QUERY,
-  SanityArtworkDetail,
+  PRINTMAKING_BY_SLUG_QUERY,
+  SanityPrintmaking,
 } from "@/sanity/lib/queries";
 import { CustomImage } from "@/components/ui/CustomImage";
 import { FadeIn } from "@/components/ui/FadeIn";
 
-interface DynamicArtworkPageProps {
+interface DynamicPrintmakingPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 60;
+
 export async function generateMetadata({
   params,
-}: DynamicArtworkPageProps): Promise<Metadata> {
+}: DynamicPrintmakingPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const artwork: SanityArtworkDetail | null = await client.fetch(
-    ARTWORK_BY_SLUG_QUERY,
+  const printItem: SanityPrintmaking | null = await client.fetch(
+    PRINTMAKING_BY_SLUG_QUERY,
     { slug }
   );
 
-  if (!artwork) {
+  if (!printItem) {
     return {
-      title: "Artwork Not Found",
+      title: "Print Not Found",
     };
   }
 
-  const displayTitle = artwork.title?.trim() || "Untitled";
-  const yearSuffix = artwork.year ? ` (${artwork.year})` : "";
+  const displayTitle = printItem.title?.trim() || "Untitled Print";
+  const yearSuffix = printItem.year ? ` (${printItem.year})` : "";
 
   return {
-    title: `${displayTitle}${yearSuffix} | Amritha Jalaja Devi`,
+    title: `${displayTitle}${yearSuffix} | Printmaking | Amritha Jalaja Devi`,
     description:
-      artwork.description ||
-      `${displayTitle}${artwork.medium ? ` - ${artwork.medium}` : ""}${artwork.year ? `, ${artwork.year}` : ""} by visual artist Amritha Jalaja Devi.`,
+      printItem.description ||
+      `${displayTitle}${printItem.medium ? ` - ${printItem.medium}` : ""}${printItem.year ? `, ${printItem.year}` : ""} by visual artist Amritha Jalaja Devi.`,
   };
 }
 
-export default async function ArtworkDetailPage({
+export default async function PrintmakingDetailPage({
   params,
-}: DynamicArtworkPageProps) {
+}: DynamicPrintmakingPageProps) {
   const { slug } = await params;
 
-  // 1. Data Fetching via Centralized GROQ Query
-  const artwork: SanityArtworkDetail | null = await client.fetch(
-    ARTWORK_BY_SLUG_QUERY,
+  // Fetch printmaking document
+  const printItem: SanityPrintmaking | null = await client.fetch(
+    PRINTMAKING_BY_SLUG_QUERY,
     { slug }
   );
 
   // 404 Handling
-  if (!artwork) {
+  if (!printItem) {
     notFound();
   }
 
-  const hasTitle = Boolean(artwork.title?.trim());
-  const displayTitle = hasTitle ? artwork.title! : "Untitled";
-  const mainImage = artwork.images?.[0];
+  const hasTitle = Boolean(printItem.title?.trim());
+  const displayTitle = hasTitle ? printItem.title! : "Untitled Print";
+  const mainImage = printItem.image || printItem.imageUrl;
   const inquirySubject = encodeURIComponent(
-    `Inquiry: ${hasTitle ? artwork.title : `Untitled (${artwork.medium || "Artwork"}, ${artwork.year || ""})`}`
+    `Inquiry: ${hasTitle ? printItem.title : `Untitled (${printItem.medium || "Print"}, ${printItem.year || ""})`}`
   );
 
   return (
@@ -68,27 +70,28 @@ export default async function ArtworkDetailPage({
       {/* Navigation Back Link */}
       <FadeIn direction="up">
         <Link
-          href="/work"
+          href="/printmaking"
           className="inline-flex items-center gap-2 text-xs font-sans text-[#8A7976] hover:text-[#4A2E35] transition-colors tracking-widest uppercase"
         >
-          &larr; Back to Selected Works
+          &larr; Back to Printmaking & Graphics
         </Link>
       </FadeIn>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-        {/* Left Side: 3. Dynamic Main Image preserving original aspect ratio */}
+        {/* Left Side: Dynamic Main Image preserving original aspect ratio */}
         <div className="lg:col-span-7 space-y-6">
           <FadeIn direction="up" delay={0.1}>
             <div
               className="relative w-full overflow-hidden bg-[#EFEAE4]"
               style={
-                mainImage?.aspectRatio
-                  ? { aspectRatio: mainImage.aspectRatio }
+                printItem.aspectRatio
+                  ? { aspectRatio: printItem.aspectRatio }
                   : { aspectRatio: "4/3" }
               }
             >
               <CustomImage
                 src={mainImage}
+                lqip={printItem.lqip}
                 alt={displayTitle}
                 fill
                 priority
@@ -99,47 +102,20 @@ export default async function ArtworkDetailPage({
               />
             </div>
           </FadeIn>
-
-          {/* Additional Gallery Detail Views */}
-          {artwork.images && artwork.images.length > 1 && (
-            <div className="grid grid-cols-2 gap-4 pt-4">
-              {artwork.images.slice(1).map((img, idx) => (
-                <div
-                  key={idx}
-                  className="relative w-full overflow-hidden bg-[#EFEAE4]"
-                  style={
-                    img.aspectRatio
-                      ? { aspectRatio: img.aspectRatio }
-                      : { aspectRatio: "4/3" }
-                  }
-                >
-                  <CustomImage
-                    src={img}
-                    alt={`${artwork.title} detail view ${idx + 2}`}
-                    fill
-                    hoverScale
-                    objectFit="cover"
-                    aspectRatio="auto"
-                    sizes="33vw"
-                  />
-                </div>
-              ))}
-            </div>
-          )}
         </div>
 
-        {/* Right Side: 2. Aesthetic Typography & Artwork Details */}
+        {/* Right Side: Typography & Specs */}
         <div className="lg:col-span-5 space-y-8 lg:pl-4">
           {/* Header Title */}
           <FadeIn direction="up" delay={0.2}>
             <div className="space-y-3 border-b border-[#EFEAE4] pb-6">
               <span className="text-[11px] uppercase tracking-[0.2em] text-[#8A7976] font-sans font-light">
-                {artwork.category || "Artwork"}
+                Printmaking & Graphics
               </span>
 
               <h1 className="font-serif text-3xl sm:text-4xl text-[#4A2E35] font-light tracking-tight leading-snug">
                 {hasTitle ? (
-                  artwork.title
+                  printItem.title
                 ) : (
                   <span className="italic text-[#6B5559]">Untitled</span>
                 )}
@@ -150,54 +126,58 @@ export default async function ArtworkDetailPage({
           {/* Minimalist Specs List */}
           <FadeIn direction="up" delay={0.3}>
             <dl className="space-y-1 text-xs sm:text-sm font-sans font-light tracking-wide text-[#8A7976]">
-              <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
-                <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Year</dt>
-                <dd className="text-[#8A7976] text-right break-words">{artwork.year}</dd>
-              </div>
-
-              <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
-                <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Medium</dt>
-                <dd className="text-[#8A7976] text-right break-words">{artwork.medium}</dd>
-              </div>
-
-              {artwork.dimensions && (
+              {printItem.year && (
                 <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
-                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Dimensions</dt>
-                  <dd className="text-[#8A7976] text-right break-words">{artwork.dimensions}</dd>
+                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Year</dt>
+                  <dd className="text-[#8A7976] text-right break-words">{printItem.year}</dd>
                 </div>
               )}
 
-              {artwork.location && (
+              {printItem.medium && (
                 <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
-                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Collection</dt>
-                  <dd className="text-[#8A7976] text-right break-words">{artwork.location}</dd>
+                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Medium / Technique</dt>
+                  <dd className="text-[#8A7976] text-right break-words">{printItem.medium}</dd>
+                </div>
+              )}
+
+              {printItem.edition && (
+                <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
+                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Edition</dt>
+                  <dd className="text-[#8A7976] text-right break-words">{printItem.edition}</dd>
+                </div>
+              )}
+
+              {printItem.dimensions && (
+                <div className="grid grid-cols-[120px_1fr] gap-4 items-baseline py-2.5 border-b border-[#EFEAE4]">
+                  <dt className="text-[#4A2E35] font-normal uppercase text-[11px] tracking-widest">Dimensions</dt>
+                  <dd className="text-[#8A7976] text-right break-words">{printItem.dimensions}</dd>
                 </div>
               )}
             </dl>
           </FadeIn>
 
           {/* Description Paragraph */}
-          {artwork.description && (
+          {printItem.description && (
             <FadeIn direction="up" delay={0.4}>
               <div className="space-y-2">
                 <h3 className="text-[11px] uppercase tracking-[0.2em] text-[#4A2E35] font-sans font-normal">
                   About the Work
                 </h3>
                 <p className="text-xs sm:text-sm text-[#8A7976] font-sans font-light leading-relaxed tracking-wide whitespace-pre-wrap">
-                  {artwork.description}
+                  {printItem.description}
                 </p>
               </div>
             </FadeIn>
           )}
 
-          {/* 4. Elegant Inquiry Link */}
+          {/* Elegant Inquiry Link */}
           <FadeIn direction="up" delay={0.5}>
             <div className="pt-6 border-t border-[#EFEAE4]">
               <Link
                 href={`/contact?subject=${inquirySubject}`}
                 className="inline-block text-xs uppercase tracking-[0.2em] text-[#4A2E35] font-sans font-light border-b border-[#4A2E35] pb-1 hover:text-[#8A7976] hover:border-[#8A7976] transition-colors"
               >
-                Inquire about this work &rarr;
+                Inquire about this print &rarr;
               </Link>
             </div>
           </FadeIn>

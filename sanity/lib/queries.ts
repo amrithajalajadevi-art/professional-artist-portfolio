@@ -17,10 +17,29 @@ export interface SanityFeaturedArtwork {
 export interface SanityArtwork {
   _id: string;
   id: string;
-  title: string;
+  title?: string;
+  slug?: string;
   category: string;
   medium: string;
   year: string;
+  dimensions?: string;
+  location?: string;
+  image?: any;
+  imageUrl: string | null;
+  lqip?: string | null;
+  aspectRatio: number | null;
+  description?: string;
+}
+
+// Response TypeScript interface for Drawings & Paper Works Query
+export interface SanityDrawing {
+  _id: string;
+  id: string;
+  title?: string;
+  slug?: string;
+  category?: string;
+  medium?: string;
+  year?: string;
   dimensions?: string;
   location?: string;
   image?: any;
@@ -202,13 +221,11 @@ export const HOME_PAGE_QUERY = groq`
  */
 export const INITIAL_ARTWORKS_QUERY = groq`
   {
-    "items": *[_type in ["artwork", "drawing", "drawings", "paperWork"]] | order(year desc) [0...100] {
+    "items": *[_type == "artwork" && category != "drawings" && category != "Drawings" && category != "Drawings & Paper Works" && !(lower(category) match "*drawing*") && !(lower(category) match "*paper*")] | order(year desc) [0...100] {
       "_id": _id,
       "id": coalesce(slug.current, _id),
       title,
       "category": select(
-        _type in ["drawing", "drawings"] => "drawings",
-        category == "drawings" || lower(category) match "*drawing*" || lower(category) match "*paper*" || lower(category->title) match "*drawing*" || category->slug.current match "*drawing*" => "drawings",
         category == "series" || lower(category) match "*series*" || lower(category) match "*quietude*" || lower(category->title) match "*series*" => "series",
         category == "recent" || lower(category) match "*recent*" || lower(category) match "*figurative*" || lower(category->title) match "*recent*" => "recent",
         category == "commissions" || lower(category) match "*commission*" || lower(category->title) match "*commission*" => "commissions",
@@ -229,7 +246,7 @@ export const INITIAL_ARTWORKS_QUERY = groq`
       "aspectRatio": coalesce(images[0].asset->metadata.dimensions.aspectRatio, image.asset->metadata.dimensions.aspectRatio, coverImage.asset->metadata.dimensions.aspectRatio),
       description
     },
-    "totalCount": count(*[_type in ["artwork", "drawing", "drawings", "paperWork"]])
+    "totalCount": count(*[_type == "artwork" && category != "drawings" && category != "Drawings" && category != "Drawings & Paper Works" && !(lower(category) match "*drawing*") && !(lower(category) match "*paper*")])
   }
 `
 
@@ -237,13 +254,11 @@ export const INITIAL_ARTWORKS_QUERY = groq`
  * Centralized GROQ Query: All Artworks Gallery
  */
 export const ALL_ARTWORKS_QUERY = groq`
-  *[_type in ["artwork", "drawing", "drawings", "paperWork"]] | order(year desc) {
+  *[_type == "artwork" && category != "drawings" && category != "Drawings" && category != "Drawings & Paper Works" && !(lower(category) match "*drawing*") && !(lower(category) match "*paper*")] | order(year desc) {
     "_id": _id,
     "id": coalesce(slug.current, _id),
     title,
     "category": select(
-      _type in ["drawing", "drawings"] => "drawings",
-      category == "drawings" || lower(category) match "*drawing*" || lower(category) match "*paper*" || lower(category->title) match "*drawing*" || category->slug.current match "*drawing*" => "drawings",
       category == "series" || lower(category) match "*series*" || lower(category) match "*quietude*" || lower(category->title) match "*series*" => "series",
       category == "recent" || lower(category) match "*recent*" || lower(category) match "*figurative*" || lower(category->title) match "*recent*" => "recent",
       category == "commissions" || lower(category) match "*commission*" || lower(category->title) match "*commission*" => "commissions",
@@ -270,8 +285,8 @@ export const ALL_ARTWORKS_QUERY = groq`
  * Centralized GROQ Query: Dedicated Drawings Category Query
  */
 export const DRAWINGS_ARTWORKS_QUERY = groq`
-  *[_type in ["artwork", "drawing", "drawings", "paperWork"] && (
-    _type in ["drawing", "drawings"] ||
+  *[_type in ["drawings", "drawing", "artwork", "paperWork"] && (
+    _type in ["drawings", "drawing", "paperWork"] ||
     category == "drawings" ||
     category == "Drawings" ||
     category == "Drawings & Paper Works" ||
@@ -281,24 +296,67 @@ export const DRAWINGS_ARTWORKS_QUERY = groq`
     lower(category->title) match "*drawing*" ||
     category.value == "drawings" ||
     category.slug.current == "drawings"
-  )] | order(year desc) {
+  )] | order(order asc, year desc) {
     "_id": _id,
     "id": coalesce(slug.current, _id),
     title,
+    "slug": slug.current,
     "category": "drawings",
     medium,
     year,
     dimensions,
     location,
-    "image": coalesce(images[0], image, coverImage) {
+    "image": coalesce(image, images[0], coverImage) {
       asset,
       crop,
       hotspot
     },
-    "imageUrl": coalesce(images[0].asset->url, image.asset->url, coverImage.asset->url),
-    "lqip": coalesce(images[0].asset->metadata.lqip, image.asset->metadata.lqip, coverImage.asset->metadata.lqip),
-    "aspectRatio": coalesce(images[0].asset->metadata.dimensions.aspectRatio, image.asset->metadata.dimensions.aspectRatio, coverImage.asset->metadata.dimensions.aspectRatio),
+    "imageUrl": coalesce(image.asset->url, images[0].asset->url, coverImage.asset->url) + "?w=1200&q=80&auto=format",
+    "lqip": coalesce(image.asset->metadata.lqip, images[0].asset->metadata.lqip, coverImage.asset->metadata.lqip),
+    "aspectRatio": coalesce(image.asset->metadata.dimensions.aspectRatio, images[0].asset->metadata.dimensions.aspectRatio, coverImage.asset->metadata.dimensions.aspectRatio),
     description
+  }
+`
+
+/**
+ * Centralized GROQ Query: Single Drawing by Slug or ID
+ */
+export const DRAWING_BY_SLUG_QUERY = groq`
+  *[_type in ["drawings", "drawing", "paperWork", "artwork"] && (slug.current == $slug || _id == $slug)][0] {
+    "_id": _id,
+    "id": coalesce(slug.current, _id),
+    title,
+    "slug": slug.current,
+    "category": "drawings",
+    medium,
+    year,
+    dimensions,
+    location,
+    description,
+    "images": coalesce(
+      [image {
+        asset,
+        crop,
+        hotspot,
+        "url": asset->url,
+        "aspectRatio": asset->metadata.dimensions.aspectRatio
+      }],
+      images[] {
+        asset,
+        crop,
+        hotspot,
+        "url": asset->url,
+        "aspectRatio": asset->metadata.dimensions.aspectRatio
+      },
+      [coverImage {
+        asset,
+        crop,
+        hotspot,
+        "url": asset->url,
+        "aspectRatio": asset->metadata.dimensions.aspectRatio
+      }],
+      []
+    )
   }
 `
 
@@ -306,19 +364,8 @@ export const DRAWINGS_ARTWORKS_QUERY = groq`
  * Centralized GROQ Query: Artworks Filtered by Parameterized Category
  */
 export const ARTWORKS_BY_CATEGORY_QUERY = groq`
-  *[_type in ["artwork", "drawing", "drawings", "paperWork"] && (
+  *[_type == "artwork" && category != "drawings" && category != "Drawings" && category != "Drawings & Paper Works" && !(lower(category) match "*drawing*") && !(lower(category) match "*paper*") && (
     $category == "all" ||
-    ($category == "drawings" && (
-      _type in ["drawing", "drawings"] ||
-      category == "drawings" ||
-      category == "Drawings" ||
-      category == "Drawings & Paper Works" ||
-      lower(category) match "*drawing*" ||
-      lower(category) match "*paper*" ||
-      category->slug.current == "drawings" ||
-      lower(category->title) match "*drawing*" ||
-      category.value == "drawings"
-    )) ||
     ($category == "series" && (
       category == "series" ||
       lower(category) match "*series*" ||
@@ -348,8 +395,6 @@ export const ARTWORKS_BY_CATEGORY_QUERY = groq`
     "id": coalesce(slug.current, _id),
     title,
     "category": select(
-      _type in ["drawing", "drawings"] => "drawings",
-      category == "drawings" || lower(category) match "*drawing*" || lower(category) match "*paper*" || lower(category->title) match "*drawing*" || category->slug.current match "*drawing*" => "drawings",
       category == "series" || lower(category) match "*series*" || lower(category) match "*quietude*" || lower(category->title) match "*series*" => "series",
       category == "recent" || lower(category) match "*recent*" || lower(category) match "*figurative*" || lower(category->title) match "*recent*" => "recent",
       category == "commissions" || lower(category) match "*commission*" || lower(category->title) match "*commission*" => "commissions",
@@ -881,13 +926,11 @@ export interface SanityArtworkDetail {
  * Accepts $slug parameter and fetches single artwork document with mapped images array containing asset URL and metadata aspect ratio
  */
 export const ARTWORK_BY_SLUG_QUERY = groq`
-  *[_type in ["artwork", "drawing", "drawings", "paperWork"] && (slug.current == $slug || _id == $slug)][0] {
+  *[_type in ["artwork"] && (slug.current == $slug || _id == $slug)][0] {
     "_id": _id,
     "id": coalesce(slug.current, _id),
     title,
     "category": select(
-      _type in ["drawing", "drawings"] => "drawings",
-      category == "drawings" || lower(category) match "*drawing*" || lower(category) match "*paper*" || lower(category->title) match "*drawing*" || category->slug.current match "*drawing*" => "drawings",
       category == "series" || lower(category) match "*series*" || lower(category) match "*quietude*" || lower(category->title) match "*series*" => "series",
       category == "recent" || lower(category) match "*recent*" || lower(category) match "*figurative*" || lower(category->title) match "*recent*" => "recent",
       category == "commissions" || lower(category) match "*commission*" || lower(category->title) match "*commission*" => "commissions",
@@ -1035,7 +1078,7 @@ export const WORKSHOP_PAGE_QUERY = groq`
 export interface SanityPrintmaking {
   _id: string;
   id: string;
-  title: string;
+  title?: string;
   slug?: string;
   year?: string;
   medium?: string;
@@ -1045,6 +1088,7 @@ export interface SanityPrintmaking {
   imageUrl: string | null;
   lqip: string | null;
   aspectRatio: number | null;
+  description?: string;
 }
 
 /**
@@ -1067,6 +1111,31 @@ export const PRINTMAKING_QUERY = groq`
       hotspot
     },
     "imageUrl": image.asset->url + "?w=1200&q=80&auto=format",
+    "lqip": image.asset->metadata.lqip,
+    "aspectRatio": image.asset->metadata.dimensions.aspectRatio
+  }
+`
+
+/**
+ * Centralized GROQ Query: Single Printmaking Item by Slug
+ */
+export const PRINTMAKING_BY_SLUG_QUERY = groq`
+  *[_type == "printmaking" && (slug.current == $slug || _id == $slug)][0] {
+    "_id": _id,
+    "id": coalesce(slug.current, _id),
+    title,
+    "slug": slug.current,
+    year,
+    medium,
+    dimensions,
+    edition,
+    description,
+    "image": image {
+      asset,
+      crop,
+      hotspot
+    },
+    "imageUrl": image.asset->url + "?w=1600&q=85&auto=format",
     "lqip": image.asset->metadata.lqip,
     "aspectRatio": image.asset->metadata.dimensions.aspectRatio
   }

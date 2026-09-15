@@ -28,6 +28,9 @@ export const structure: StructureResolver = (S) =>
       // 3. Artwork (Collection/List)
       S.documentTypeListItem('artwork').title('Artwork'),
 
+      // 3.5. Drawings (Collection/List)
+      S.documentTypeListItem('drawings').title('Drawings'),
+
       // 4. Printmaking (Collection/List)
       S.documentTypeListItem('printmaking').title('Printmaking'),
 
