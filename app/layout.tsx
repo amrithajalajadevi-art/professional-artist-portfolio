@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { GlobalLayout } from "@/components/layout/GlobalLayout";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const siteUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -113,6 +114,7 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-[#F7F4F0] text-[#4A2E35] min-h-screen">
         <GlobalLayout>{children}</GlobalLayout>
         <Analytics />
+        <SpeedInsights/>
       </body>
     </html>
   );
