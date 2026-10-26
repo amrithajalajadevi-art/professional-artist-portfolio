@@ -56,6 +56,7 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    dangerouslyAllowLocalIP: process.env.NEXT_PUBLIC_SANITY_DATASET === 'development',
     unoptimized: false,
     qualities: [75, 80, 85, 90, 95],
     remotePatterns: [
