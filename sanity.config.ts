@@ -27,6 +27,8 @@ const singletonTypes = new Set([
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
 
 export default defineConfig({
+  name: 'default',
+  title: `Portfolio Studio (${dataset})`,
   basePath: '/studio',
   projectId,
   dataset,

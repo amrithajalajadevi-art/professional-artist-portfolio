@@ -4,7 +4,7 @@ import { dataset, projectId } from '../env'
 // https://www.sanity.io/docs/image-url
 const builder = createImageUrlBuilder({
   projectId: projectId || '',
-  dataset: dataset || '',
+  dataset: dataset || 'production',
 })
 
 export const urlFor = (source: SanityImageSource) => {
